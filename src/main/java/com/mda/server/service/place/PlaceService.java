@@ -28,7 +28,7 @@ public class PlaceService {
         return placeRepository.save(place.toEntity());
     }
 
-    public PlaceResponseDto findById(String id){
+    public PlaceResponseDto findById(Integer id){
         Place entity = placeRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("이게뭐냐"));
         return new PlaceResponseDto(entity);
     }

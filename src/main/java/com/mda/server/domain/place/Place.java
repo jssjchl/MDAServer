@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class Place {
     @Id
     @Column(name="PLACE_ID", nullable = false)
-    private String placeId;
+    private Integer placeId;
 
     @Column(name="PLACE_TYPE", nullable = false)
     private String placeType;
@@ -37,7 +37,7 @@ public class Place {
 
 
     @Builder
-    public Place(String placeId, String placeType, String placeName, String placeArea, String placeDescription,
+    public Place(Integer placeId, String placeType, String placeName, String placeArea, String placeDescription,
                  String placeImgUrl, String placeCategory ){
         this.placeId=placeId;
         this.placeType=placeType;

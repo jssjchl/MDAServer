@@ -24,7 +24,7 @@ public class PlaceController {
     public List<Place> getAllPlace() {return placeService.getPlaceList(); }
 
     @GetMapping("/place/{id}")
-    public PlaceResponseDto findById (@PathVariable String id){
+    public PlaceResponseDto findById (@PathVariable Integer id){
         return placeService.findById(id);
     }
 

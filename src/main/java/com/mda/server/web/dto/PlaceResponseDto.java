@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 public class PlaceResponseDto {
-    private String placeId;
+    private Integer placeId;
     private String placeType;
     private String placeName;
     private String placeArea;

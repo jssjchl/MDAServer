@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class PlaceDto {
-    private String placeId;
+    private Integer placeId;
     private String placeType;
     private String placeName;
     private String placeArea;
@@ -19,7 +19,7 @@ public class PlaceDto {
     private String placeCategory;
 
     @Builder
-    public PlaceDto(String placeId, String placeType, String placeName, String placeArea, String placeDescription,
+    public PlaceDto(Integer placeId, String placeType, String placeName, String placeArea, String placeDescription,
                     String placeImgUrl, String placeCategory) {
 
         this.placeId = placeId;
