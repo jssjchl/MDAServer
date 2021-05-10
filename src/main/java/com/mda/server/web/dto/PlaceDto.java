@@ -10,32 +10,36 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class PlaceDto {
-    private int placeId;
+    private String placeId;
+    private String placeType;
+    private String placeName;
     private String placeArea;
     private String placeDescription;
-    private String placeImg_Url;
-    private String placeName;
-    private String placeType;
+    private String placeImgUrl;
+    private String placeCategory;
 
     @Builder
-    public PlaceDto(int placeId, String placeArea, String placeDescription,
-                 String placeImg_Url, String placeName, String placeType) {
+    public PlaceDto(String placeId, String placeType, String placeName, String placeArea, String placeDescription,
+                    String placeImgUrl, String placeCategory) {
 
         this.placeId = placeId;
+        this.placeType = placeType;
+        this.placeName = placeName;
         this.placeArea = placeArea;
         this.placeDescription = placeDescription;
-        this.placeImg_Url = placeImg_Url;
-        this.placeName = placeName;
-        this.placeType = placeType;
+        this.placeImgUrl = placeImgUrl;
+        this.placeCategory = placeCategory;
+
     }
         public Place toEntity() {
             return Place.builder()
                     .placeId(placeId)
+                    .placeType(placeType)
+                    .placeName(placeName)
                     .placeArea(placeArea)
                     .placeDescription(placeDescription)
-                    .placeName(placeName)
-                    .placeImg_Url(placeImg_Url)
-                    .placeType(placeType)
+                    .placeImgUrl(placeImgUrl)
+                    .placeCategory(placeCategory)
                     .build();
     }
 }
