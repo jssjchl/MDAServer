@@ -10,10 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class ScheduleDto {
-    private int scheduleId;
-    private String age;
-    private String mood;
-    private String gender;
+    private Integer scheduleId;
     private String scheduleName;
     private String schedulePlaceId;
     private String scheduleUserId;
@@ -22,27 +19,33 @@ public class ScheduleDto {
     private String scheduleTime;
     private String scheduleWithUserId;
     private String scheduleWithUserName;
+    private String schedulePlaceName;
+    private String schedulePeopleNum;
+    private String schedulePlaceArea;
 
     @Builder
-    public ScheduleDto(int scheduleId,String age, String scheduleDate, String scheduleName,
+    public ScheduleDto(Integer scheduleId, String scheduleDate, String scheduleName,
                        String schedulePlaceId, String scheduleUserId,
                        String scheduleUserName, String scheduleTime,
-                       String scheduleWithUserId, String scheduleWithUserName
+                       String scheduleWithUserId, String scheduleWithUserName, String schedulePlaceName,
+                       String schedulePeopleNum, String schedulePlaceArea
                        ){
-        this.age = age;
         this.scheduleDate = scheduleDate;
         this.scheduleId = scheduleId;
+        this.schedulePlaceName = schedulePlaceName;
         this.scheduleName = scheduleName;
         this.schedulePlaceId = schedulePlaceId;
         this.scheduleUserName = scheduleUserName;
+        this.scheduleTime = scheduleTime;
         this.scheduleUserId = scheduleUserId;
         this.scheduleWithUserId = scheduleWithUserId;
         this.scheduleWithUserName = scheduleWithUserName;
+        this.schedulePeopleNum=schedulePeopleNum;
+        this.schedulePlaceArea=schedulePlaceArea;
     }
 
     public Schedule toEntity(){
         return Schedule.builder()
-                .age(age)
                 .scheduleDate(scheduleDate)
                 .scheduleId(scheduleId)
                 .scheduleName(scheduleName)
@@ -51,6 +54,9 @@ public class ScheduleDto {
                 .scheduleWithUserId(scheduleWithUserId)
                 .scheduleWithUserName(scheduleWithUserName)
                 .scheduleUserId(scheduleUserId)
+                .schedulePeopleNum(schedulePeopleNum)
+                .schedulePlaceName(schedulePlaceName)
+                .schedulePlaceArea(schedulePlaceArea)
                 .build();
     }
 }

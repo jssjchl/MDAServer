@@ -31,16 +31,15 @@ public class PlaceDto {
         this.placeCategory = placeCategory;
 
     }
-        public Place toEntity() {
-            return Place.builder()
-                    .placeId(placeId)
-                    .placeType(placeType)
-                    .placeName(placeName)
-                    .placeArea(placeArea)
-                    .placeDescription(placeDescription)
-                    .placeImgUrl(placeImgUrl)
-                    .placeCategory(placeCategory)
-                    .build();
+    public Place toEntity() {
+        return Place.builder()
+                .placeId(placeId)
+                .placeType(placeType)
+                .placeName(placeName)
+                .placeArea(placeArea)
+                .placeDescription(placeDescription)
+                .placeImgUrl(placeImgUrl)
+                .placeCategory(placeCategory)
+                .build();
     }
 }
-

@@ -20,15 +20,17 @@ public class PlaceService {
     @Autowired
     PlaceRepository placeRepository;
 
-    public List<Place> getPlaceList(){ return (List<Place>) placeRepository.findAll(); }
+    public List<Place> getPlaceList() {
+        return (List<Place>) placeRepository.findAll();
+    }
 
     @Transactional
-    public Place save(PlaceDto place){
+    public Place save(PlaceDto place) {
 
         return placeRepository.save(place.toEntity());
     }
 
-    public PlaceResponseDto findById(Integer id){
+    public PlaceResponseDto findById(Integer id) {
         Place entity = placeRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("이게뭐냐"));
         return new PlaceResponseDto(entity);
     }

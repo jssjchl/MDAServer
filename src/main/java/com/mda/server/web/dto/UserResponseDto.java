@@ -12,7 +12,7 @@ public class UserResponseDto {
     private String userPwd;
 
 
-    public UserResponseDto(User entity){
+    public UserResponseDto(User entity) {
         this.userId = entity.getUserId();
         this.userAge = entity.getUserAge();
         this.userGender = entity.getUserGender();

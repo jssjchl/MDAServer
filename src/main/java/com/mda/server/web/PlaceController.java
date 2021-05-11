@@ -23,7 +23,7 @@ public class PlaceController {
     @GetMapping("place/placeList")
     public List<Place> getAllPlace() {return placeService.getPlaceList(); }
 
-    @GetMapping("/place/{id}")
+    @GetMapping("/getplaceDetail/{id}")
     public PlaceResponseDto findById (@PathVariable Integer id){
         return placeService.findById(id);
     }

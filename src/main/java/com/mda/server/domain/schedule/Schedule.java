@@ -1,74 +1,72 @@
 package com.mda.server.domain.schedule;
 
 import lombok.*;
+import net.bytebuddy.asm.Advice;
 
 import javax.persistence.*;
 
 @Entity
+@Table(name = "schedule")
 @Getter
 @NoArgsConstructor
 public class Schedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //Auto Increment
-    @Column(nullable = false)
+    @Column(name = "SCHEDULE_ID", nullable = false)
     private Integer scheduleId;
 
-    //new
-    @Column(nullable = false)
-    private String age;
-
-    @Column
-    private String gender;
-
-    @Column
-    private Integer count;
-
-    @Column
-    private String mood;
-    //
-
-    @Column
+    @Column(name = "SCHEDULE_NAME", nullable = false)
     private String scheduleName;
 
-    @Column
+    @Column(name = "SCHEDULE_PLACE_NAME", nullable = false)
     private String schedulePlaceName;
 
-    @Column
+    @Column(name = "SCHEDULE_PLACE_ID", nullable = false)
     private String schedulePlaceId;
 
-    @Column
+    @Column(name = "SCHEDULE_USER_ID", nullable = false)
     private String scheduleUserId;
 
-    @Column
+    @Column(name = "SCHEDULE_USER_NAME", nullable = false)
     private String scheduleUserName;
 
-    @Column
+    @Column(name = "SCHEDULE_DATE", nullable = false)
     private String scheduleDate;
 
-    @Column
+    @Column(name = "SCHEDULE_TIME", nullable = false)
     private String scheduleTime;
 
-    //여러개인 것들은 한꺼번에 묶어서 데이터화
-    @Column
+    @Column(name = "SCHEDULE_PLACE_AREA", nullable = false)
+    private String schedulePlaceArea;
+
+    @Column(name = "SCHEDULE_PEOPLE_NUM", nullable = false)
+    private String schedulePeopleNum;
+
+    @Column(name = "SCHEDULE_WITH_USER_ID", nullable = false)
     private String scheduleWithUserId;
 
-    @Column
+    @Column(name = "SCHEDULE_WITH_USER_NAME", nullable = false)
     private String scheduleWithUserName;
 
     @Builder
-    public Schedule(int scheduleId, String age, String scheduleDate, String scheduleName,
-                       String schedulePlaceId, String scheduleUserId,
-                       String scheduleUserName, String scheduleTime,
-                       String scheduleWithUserId, String scheduleWithUserName
-    ){
-        this.age = age;
+    public Schedule(Integer scheduleId, String schedulePlaceName, String scheduleDate, String scheduleName,
+                    String schedulePlaceId, String scheduleUserId,
+                    String scheduleUserName, String scheduleTime,
+                    String scheduleWithUserId, String scheduleWithUserName, String schedulePeopleNum,
+                    String schedulePlaceArea
+
+    ) {
         this.scheduleDate = scheduleDate;
         this.scheduleId = scheduleId;
+        this.schedulePlaceName = schedulePlaceName;
         this.scheduleName = scheduleName;
         this.schedulePlaceId = schedulePlaceId;
         this.scheduleUserName = scheduleUserName;
+        this.scheduleTime = scheduleTime;
         this.scheduleUserId = scheduleUserId;
         this.scheduleWithUserId = scheduleWithUserId;
         this.scheduleWithUserName = scheduleWithUserName;
+        this.schedulePeopleNum=schedulePeopleNum;
+        this.schedulePlaceArea=schedulePlaceArea;
     }
 }

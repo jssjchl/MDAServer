@@ -2,9 +2,10 @@ package com.mda.server.service.schedule;
 
 import com.mda.server.domain.schedule.Schedule;
 import com.mda.server.domain.schedule.ScheduleRepository;
-import com.mda.server.domain.user.User;
+import com.mda.server.web.dto.CalendarFragmentDto;
+import com.mda.server.web.dto.ScheduleDetailFragmentDto;
 import com.mda.server.web.dto.ScheduleDto;
-import com.mda.server.web.dto.UserSaveRequestDto;
+import com.mda.server.web.dto.ScheduleFragmentDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,9 +24,18 @@ public class ScheduleService {
         return (List<Schedule>) scheduleRepository.findAll();
     }
 
-    @Transactional
-    public Schedule save(ScheduleDto schedule){
+    public CalendarFragmentDto CalendarFragment(Integer id) {
+        Schedule entity = scheduleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("이게뭐냐"));
+        return new CalendarFragmentDto(entity);
+    }
 
-        return scheduleRepository.save(schedule.toEntity());
+    public ScheduleFragmentDto ScheduleFragment(Integer id) {
+        Schedule entity = scheduleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("이게뭐냐"));
+        return new ScheduleFragmentDto(entity);
+    }
+
+    public ScheduleDetailFragmentDto ScheduleDetailFragment(Integer id) {
+        Schedule entity = scheduleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("이게뭐냐"));
+        return new ScheduleDetailFragmentDto(entity);
     }
 }
