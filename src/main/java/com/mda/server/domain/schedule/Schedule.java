@@ -69,4 +69,5 @@ public class Schedule {
         this.schedulePeopleNum=schedulePeopleNum;
         this.schedulePlaceArea=schedulePlaceArea;
     }
+
 }

@@ -6,11 +6,13 @@ import com.mda.server.service.place.PlaceService;
 import com.mda.server.web.dto.PlaceResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,5 +31,84 @@ public class PlaceController {
     }
 
 
+
+    //location setting 수정중
+    /*
+    @RequestMapping(value="/getMidLocAndPlace", method=RequestMethod.GET) //위도 경도 double값으로 받을수 있는지 체크
+    public Object getMidLocAndPlace(@RequestParam String schName, @RequestParam String schAge, @RequestParam String schGender,
+                                    @RequestParam String schPeople, @RequestParam String schType, @RequestParam String schPlaceCate,
+                                  @RequestParam String latitude1, @RequestParam String latitude2, @RequestParam String latitude3,
+                                  @RequestParam String longitude1, @RequestParam String longitude2, @RequestParam String longitude3,
+                                  @RequestParam String userName1, @RequestParam String userName2, @RequestParam String userName3) {
+
+
+
+        // 미터(Meter) 단위
+        double distanceMeter =
+                distance(37.504198, 127.047967, 37.501025, 127.037701, "meter");
+
+        // 킬로미터(Kilo Meter) 단위
+        double distanceKiloMeter =
+                distance(37.504198, 127.047967, 37.501025, 127.037701, "kilometer");
+        return null;
+    }
+
+   /*
+    @RequestMapping(value="/getMidLocAndPlace2", method=RequestMethod.GET) //파라미터 Map으로 받을경우
+    public List getMidLocAndPlace2(@RequestParam Map<String, Object> paramMap) { //위도 경도 double값으로 받을수 있는지 체크
+
+        double distanceMile =
+                distance(37.504198, 127.047967, 37.501025, 127.037701, "");
+
+        // 미터(Meter) 단위
+        double distanceMeter =
+                distance(37.504198, 127.047967, 37.501025, 127.037701, "meter");
+
+        // 킬로미터(Kilo Meter) 단위
+        double distanceKiloMeter =
+                distance(37.504198, 127.047967, 37.501025, 127.037701, "kilometer");
+
+        return service.getMemberList();
+    }
+    */
+
+    /**
+     *
+     *
+     * @param lat1 지점 1 위도
+     * @param lon1 지점 1 경도
+     * @param lat2 지점 2 위도
+     * @param lon2 지점 2 경도
+     * @param unit 거리 표출단위
+     * @return
+
+    private static double distance(double lat1, double lon1, double lat2, double lon2, String unit) {
+
+        double theta = lon1 - lon2;
+        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515;
+
+        if (unit == "kilometer") {
+            dist = dist * 1.609344;
+        } else if(unit == "meter"){
+            dist = dist * 1609.344;
+        }
+
+        return (dist);
+    }
+
+    // This function converts decimal degrees to radians
+    private static double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+
+    // This function converts radians to decimal degrees
+    private static double rad2deg(double rad) {
+        return (rad * 180 / Math.PI);
+    }
+     */
 
 }

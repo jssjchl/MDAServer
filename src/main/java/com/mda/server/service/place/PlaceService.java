@@ -26,7 +26,6 @@ public class PlaceService {
 
     @Transactional
     public Place save(PlaceDto place) {
-
         return placeRepository.save(place.toEntity());
     }
 

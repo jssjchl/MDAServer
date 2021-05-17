@@ -8,11 +8,12 @@ import com.mda.server.web.dto.ScheduleDto;
 import com.mda.server.web.dto.ScheduleFragmentDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -38,6 +39,24 @@ public class ScheduleController {
     public ScheduleDetailFragmentDto getScheduleDetailFragment(@PathVariable Integer id){
         return scheduleService.ScheduleDetailFragment(id);
     }
+    /*
+    @RequestMapping(value="/saveLocationSetting")
+    public String saveLocationSetting(@RequestParam Map<String, Object> paramMap, HttpServletRequest request) {
+        String result = "";
+        try {
+            scheduleService.saveLocationSetting(paramMap);
+            result = "success";
+        } catch (IndexOutOfBoundsException e) {
+            result = "fail";
+        } catch (Exception e) {
+            result = "fail";
+        }
+
+        return result;
+    }
+
+*/
+
 
 
 
