@@ -16,25 +16,35 @@ import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
-public class PlaceController {
 
+class schTemp {
+    String schName;
+    String schAge;
+    String schGender;
+    String schPeople;
+    String schType;
+    String schPlaceCate;
+}
+
+public class PlaceController {
 
     @Autowired
     PlaceService placeService;
 
+    schTemp st = new schTemp();
 
     @RequestMapping(value = "/test/param", method=RequestMethod.POST)
-    public String myTest(HttpServletRequest request){
+    public schTemp myTest(HttpServletRequest request){
 
-        String schName = request.getParameter("schName");
-        String schAge = request.getParameter("schAge");
-        String schGender = request.getParameter("schGender");
-        String schPeople = request.getParameter("schPeople");
-        String schType = request.getParameter("schType");
-        String schPlaceCate = request.getParameter("schPlaceCate");
+        st.schName = request.getParameter("schName");
+        st.schAge = request.getParameter("schAge");
+        st.schGender = request.getParameter("schGender");
+        st.schPeople = request.getParameter("schPeople");
+        st.schType = request.getParameter("schType");
+        st.schPlaceCate = request.getParameter("schPlaceCate");
 
 
-        return "값제대로 왔나용 : " + schName+schAge+schGender+schPeople+schType+schPlaceCate;
+        return st;
     }
 
 
