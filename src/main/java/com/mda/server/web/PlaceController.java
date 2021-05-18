@@ -23,7 +23,7 @@ public class PlaceController {
     PlaceService placeService;
 
 
-    @RequestMapping(value = "/test/param")
+    @RequestMapping(value = "/test/param", method=RequestMethod.POST)
     public String myTest(HttpServletRequest request){
 
         String schName = request.getParameter("schName");
