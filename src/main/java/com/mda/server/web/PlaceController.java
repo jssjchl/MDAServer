@@ -6,8 +6,8 @@ import com.mda.server.service.place.PlaceService;
 import com.mda.server.web.dto.PlaceResponseDto;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -16,8 +16,11 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+
+
 @Getter
-class schTemp {
+@Setter
+class LocInitSet {
     String schName;
     String schAge;
     String schGender;
@@ -33,25 +36,30 @@ public class PlaceController {
     @Autowired
     PlaceService placeService;
 
-    schTemp st = new schTemp();
+    LocInitSet st = new LocInitSet();
 
-    @RequestMapping(value = "/test/param", method=RequestMethod.POST)
-    public schTemp myTest(HttpServletRequest request){
-
+    @RequestMapping(value = "/locationInitSet", method=RequestMethod.POST)
+    public LocInitSet myTest(HttpServletRequest request){
         st.schName = request.getParameter("schName");
         st.schAge = request.getParameter("schAge");
         st.schGender = request.getParameter("schGender");
         st.schPeople = request.getParameter("schPeople");
         st.schType = request.getParameter("schType");
         st.schPlaceCate = request.getParameter("schPlaceCate");
+        System.out.println(st.getSchName()+"/"+st.schAge+"/"+st.schGender+"/"+st.schPeople+"/"+st.schType+"/"+
+                st.schPlaceCate);
 
+        return st;
+    }
 
+    @GetMapping("/locationInitSet")
+    public LocInitSet showMe(){
         return st;
     }
 
     @RequestMapping(value = "/test/param1", method=RequestMethod.POST)
     public String myTest( @RequestParam String schName, @RequestParam String schAge, @RequestParam String schGender,
-                           @RequestParam String schPeople, @RequestParam String schType, @RequestParam String schPlaceCate){
+                          @RequestParam String schPeople, @RequestParam String schType, @RequestParam String schPlaceCate){
 
         String result = "";
         try {
@@ -72,7 +80,6 @@ public class PlaceController {
 
         return result;
     }
-
 
 
     /*
@@ -152,30 +159,30 @@ public class PlaceController {
 
     private static double distance(double lat1, double lon1, double lat2, double lon2, String unit) {
 
-        double theta = lon1 - lon2;
-        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+    double theta = lon1 - lon2;
+    double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
 
-        dist = Math.acos(dist);
-        dist = rad2deg(dist);
-        dist = dist * 60 * 1.1515;
+    dist = Math.acos(dist);
+    dist = rad2deg(dist);
+    dist = dist * 60 * 1.1515;
 
-        if (unit == "kilometer") {
-            dist = dist * 1.609344;
-        } else if(unit == "meter"){
-            dist = dist * 1609.344;
-        }
+    if (unit == "kilometer") {
+    dist = dist * 1.609344;
+    } else if(unit == "meter"){
+    dist = dist * 1609.344;
+    }
 
-        return (dist);
+    return (dist);
     }
 
     // This function converts decimal degrees to radians
     private static double deg2rad(double deg) {
-        return (deg * Math.PI / 180.0);
+    return (deg * Math.PI / 180.0);
     }
 
     // This function converts radians to decimal degrees
     private static double rad2deg(double rad) {
-        return (rad * 180 / Math.PI);
+    return (rad * 180 / Math.PI);
     }
      */
 
