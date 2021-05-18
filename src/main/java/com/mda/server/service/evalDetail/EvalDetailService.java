@@ -2,7 +2,9 @@ package com.mda.server.service.evalDetail;
 
 import com.mda.server.domain.evalDetail.EvalDetail;
 import com.mda.server.domain.evalDetail.EvalDetailRepository;
+import com.mda.server.domain.place.Place;
 import com.mda.server.web.dto.EvalDetailDto;
+import com.mda.server.web.dto.PlaceDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +23,6 @@ public class EvalDetailService {
 
     @Transactional
     public EvalDetail save(EvalDetailDto evalDetail){
-
         return evalDetailRepository.save(evalDetail.toEntity());
     }
 }

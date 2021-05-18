@@ -10,25 +10,33 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class EvalDetailDto {
-    private int evalDetailId;
+    private Integer evalDetailId;
+    private String evalDetailGender;
     private String evalDetailAge;
     private String evalDetailRating;
-    private String evalDetailGender;
+    private Integer placeId;
+    private Integer evalSubId;
+
 
     @Builder
-    public EvalDetailDto(int evalDetailID, String evalDetailAge, String evalDetailGender, String evalDetailRating){
+    public EvalDetailDto(Integer evalDetailID, String evalDetailGender,  String evalDetailAge, String evalDetailRating
+                        ,Integer placeId, Integer evalSubId){
         this.evalDetailId =evalDetailID;
-        this.evalDetailAge=evalDetailAge;
         this.evalDetailGender=evalDetailGender;
+        this.evalDetailAge=evalDetailAge;
         this.evalDetailRating=evalDetailRating;
+        this.placeId=placeId;
+        this.evalSubId=evalSubId;
     }
 
     public EvalDetail toEntity() {
         return EvalDetail.builder()
                 .evalDetailID(evalDetailId)
+                .evalDetailGender(evalDetailGender)
                 .evalDetailAge(evalDetailAge)
                 .evalDetailRating(evalDetailRating)
-                .evalDetailGender(evalDetailGender)
+                .placeId(placeId)
+                .evalSubId(evalSubId)
                 .build();
     }
 }

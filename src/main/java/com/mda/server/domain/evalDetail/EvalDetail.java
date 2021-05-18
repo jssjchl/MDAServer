@@ -14,23 +14,33 @@ public class EvalDetail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
+    @Column(name="EVAL_DETAIL_ID", nullable = false)
     private Integer evalDetailID;
 
-    @Column(nullable = false)
-    private String evalDetailAge;
-
-    @Column(nullable = false)
-    private String evalDetailRating;
-
-    @Column(nullable = false)
+    @Column(name="EVAL_DETAIL_GENDER",nullable = false)
     private String evalDetailGender;
 
+    @Column(name="EVAL_DETAIL_AGE",nullable = false)
+    private String evalDetailAge;
+
+    @Column(name="EVAL_DETAIL_RATING",nullable = false)
+    private String evalDetailRating;
+
+    @Column(name="PLACE_ID",nullable = false)
+    private Integer placeId;
+
+    @Column(name="EVAL_SUB_ID",nullable = false)
+    private Integer evalSubId;
+
+
+
     @Builder
-    public EvalDetail(int evalDetailID, String evalDetailAge, String evalDetailGender, String evalDetailRating){
+    public EvalDetail(Integer evalDetailID, String evalDetailGender, String evalDetailAge, String evalDetailRating, Integer placeId, Integer evalSubId){
         this.evalDetailID=evalDetailID;
-        this.evalDetailAge=evalDetailAge;
         this.evalDetailGender=evalDetailGender;
+        this.evalDetailAge=evalDetailAge;
         this.evalDetailRating=evalDetailRating;
+        this.placeId=placeId;
+        this.evalSubId=evalSubId;
     }
 }
