@@ -22,6 +22,19 @@ public class PlaceController {
     @Autowired
     PlaceService placeService;
 
+
+
+    @GetMapping("/test/pram")
+    //@RequestParam을 사용하게되면 API에서 넘긴 name이랑 amount 값을 가져와서 String name과 int amount에 넣어주는 과정을 거치게됨
+    public String testDto(@RequestParam("schName") String schName, @RequestParam("schAge") String schAge,
+                                    @RequestParam("schGender") String schGender, @RequestParam("schPeople") String schPeople,
+                                    @RequestParam("schType") String schType, @RequestParam("schPlaceCate") String schPlaceCate){
+
+
+        return "값제대로 왔나용 : " + schName+schAge+schGender+schPeople+schType+schPlaceCate;
+    }
+
+
     @GetMapping("place/placeList")
     public List<Place> getAllPlace() {return placeService.getPlaceList(); }
 
