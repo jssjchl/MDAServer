@@ -4,8 +4,10 @@ package com.mda.server.web;
 import com.mda.server.domain.place.Place;
 import com.mda.server.service.place.PlaceService;
 import com.mda.server.web.dto.PlaceResponseDto;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -14,9 +16,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-@RestController
-@RequiredArgsConstructor
-
+@Getter
 class schTemp {
     String schName;
     String schAge;
@@ -26,6 +26,8 @@ class schTemp {
     String schPlaceCate;
 }
 
+@RestController
+@RequiredArgsConstructor
 public class PlaceController {
 
     @Autowired
@@ -46,6 +48,31 @@ public class PlaceController {
 
         return st;
     }
+
+    @RequestMapping(value = "/test/param1", method=RequestMethod.POST)
+    public String myTest( @RequestParam String schName, @RequestParam String schAge, @RequestParam String schGender,
+                           @RequestParam String schPeople, @RequestParam String schType, @RequestParam String schPlaceCate){
+
+        String result = "";
+        try {
+            st.schName = schName;
+            st.schAge = schAge;
+            st.schGender = schGender;
+            st.schPeople = schPeople;
+            st.schType = schType;
+            st.schPlaceCate = schPlaceCate;
+            result = "success";
+        } catch (NullPointerException e) {
+            result = "fail";
+        } catch (IndexOutOfBoundsException e) {
+            result = "fail";
+        } catch (Exception e) {
+            result = "fail";
+        }
+
+        return result;
+    }
+
 
 
     /*
