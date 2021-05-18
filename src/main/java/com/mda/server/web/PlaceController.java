@@ -23,12 +23,27 @@ public class PlaceController {
     PlaceService placeService;
 
 
+    @PostMapping("/test/param")
+    public String myTest(HttpServletRequest request){
 
-    @GetMapping("/test/pram")
+        String schName = request.getParameter("schName");
+        String schAge = request.getParameter("schAge");
+        String schGender = request.getParameter("schGender");
+        String schPeople = request.getParameter("schPeople");
+        String schType = request.getParameter("schType");
+        String schPlaceCate = request.getParameter("schPlaceCate");
+
+
+        return "값제대로 왔나용 : " + schName+schAge+schGender+schPeople+schType+schPlaceCate;
+    }
+
+
+    /*
+    @GetMapping("/test/param")
     //@RequestParam을 사용하게되면 API에서 넘긴 name이랑 amount 값을 가져와서 String name과 int amount에 넣어주는 과정을 거치게됨
-    public String testDto(@RequestParam("schName") String schName, @RequestParam("schAge") String schAge,
-                                    @RequestParam("schGender") String schGender, @RequestParam("schPeople") String schPeople,
-                                    @RequestParam("schType") String schType, @RequestParam("schPlaceCate") String schPlaceCate){
+    public String test(@RequestParam("schName") String schName, @RequestParam("schAge") String schAge,
+                          @RequestParam("schGender") String schGender, @RequestParam("schPeople") String schPeople,
+                          @RequestParam("schType") String schType, @RequestParam("schPlaceCate") String schPlaceCate){
 
 
         return "값제대로 왔나용 : " + schName+schAge+schGender+schPeople+schType+schPlaceCate;
@@ -42,6 +57,9 @@ public class PlaceController {
     public PlaceResponseDto findById (@PathVariable Integer id){
         return placeService.findById(id);
     }
+
+    */
+
 
 
 
