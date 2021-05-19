@@ -3,7 +3,10 @@ package com.mda.server.web;
 
 import com.mda.server.domain.place.Place;
 import com.mda.server.service.place.PlaceService;
+import com.mda.server.web.dto.LocInitSet;
+import com.mda.server.web.dto.PlaceDto;
 import com.mda.server.web.dto.PlaceResponseDto;
+import com.mda.server.web.dto.userEnter;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -17,70 +20,64 @@ import java.util.List;
 import java.util.Map;
 
 
-
-@Getter
-@Setter
-class LocInitSet {
-    String schName;
-    String schAge;
-    String schGender;
-    String schPeople;
-    String schType;
-    String schPlaceCate;
-}
-
 @RestController
 @RequiredArgsConstructor
 public class PlaceController {
 
     @Autowired
     PlaceService placeService;
-
+    // .../web/dto/LocInitSet.java로 따로 파일로 클래스 뺐습니다.
     LocInitSet st = new LocInitSet();
 
     @RequestMapping(value = "/locationInitSet", method=RequestMethod.POST)
-    public LocInitSet myTest(HttpServletRequest request){
-        st.schName = request.getParameter("schName");
-        st.schAge = request.getParameter("schAge");
-        st.schGender = request.getParameter("schGender");
-        st.schPeople = request.getParameter("schPeople");
-        st.schType = request.getParameter("schType");
-        st.schPlaceCate = request.getParameter("schPlaceCate");
-        System.out.println(st.getSchName()+"/"+st.schAge+"/"+st.schGender+"/"+st.schPeople+"/"+st.schType+"/"+
-                st.schPlaceCate);
+    public LocInitSet locInitSet(HttpServletRequest request) {
+        st.setSchName(request.getParameter("schName"));
+        st.setSchAge(request.getParameter("schAge"));
+        st.setSchGender(request.getParameter("schGender"));
+        st.setSchPeople(request.getParameter("schPeople"));
+        st.setSchType(request.getParameter("schType"));
+        st.setSchPlaceCate(request.getParameter("schPlaceCate"));
+
+        System.out.println(st.getSchName() + "/" + st.getSchAge() + "/" + st.getSchType() + "/" + st.getSchGender() + "/" + st.getSchPeople() + "/" +
+                st.getSchPlaceCate());
 
         return st;
     }
-
+    //바로 위에서 입력받은 값들을 확인하기 위해서 만든 컨트롤러
     @GetMapping("/locationInitSet")
-    public LocInitSet showMe(){
+    public LocInitSet showLocInitSet(){
         return st;
     }
+    
+    //테스트용으로 만들어봤습니다. 나중에 필요하면 고쳐서 사용하세용
+    userEnter u1 = new userEnter();
+    @PostMapping("/client_enter")
+    public userEnter userEnters(HttpServletRequest request){
+        u1.setUserId(request.getParameter("userId"));
+        u1.setUserLatitude(request.getParameter("userLatitude"));
+        u1.setUserLongitude(request.getParameter("userLongitude"));
 
-    @RequestMapping(value = "/test/param1", method=RequestMethod.POST)
-    public String myTest( @RequestParam String schName, @RequestParam String schAge, @RequestParam String schGender,
-                          @RequestParam String schPeople, @RequestParam String schType, @RequestParam String schPlaceCate){
-
-        String result = "";
-        try {
-            st.schName = schName;
-            st.schAge = schAge;
-            st.schGender = schGender;
-            st.schPeople = schPeople;
-            st.schType = schType;
-            st.schPlaceCate = schPlaceCate;
-            result = "success";
-        } catch (NullPointerException e) {
-            result = "fail";
-        } catch (IndexOutOfBoundsException e) {
-            result = "fail";
-        } catch (Exception e) {
-            result = "fail";
-        }
-
-        return result;
+        return u1;
+    }
+    //바로위에서 입력받은 값들을 확인하기 위해서 맏는 컨트롤러
+    @GetMapping("/client_enter")
+    public userEnter showUserEnter(){
+        return u1;
     }
 
+    //장소디테일을 서버에서 보내는 테스트를 위해 만든 컨트롤러
+    @GetMapping("/placeDetail")
+    public PlaceDto placeDetail(){
+        //테스트용으로 만들어서 설정한건데, 실제코드를 사용할때는 db에서 객체로 가져오던가 해서 리턴해줘야할듯?
+        PlaceDto placeDetail = new PlaceDto();
+        placeDetail.setPlaceArea("경기도 고양시 일산서구");
+        placeDetail.setPlaceCategory("카페");
+        placeDetail.setPlaceDescription("이건 대충 테스트를 위한 장소 디테일입니다. 와라라라라라라라라라랄라ㅏ랄");
+        placeDetail.setPlaceImgUrl("대충 사진URL");
+        placeDetail.setPlaceName("스타벅스");
+
+        return placeDetail;
+    }
 
     /*
     @GetMapping("/test/param")
