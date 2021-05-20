@@ -7,12 +7,14 @@ import lombok.Getter;
 public class ScheduleFragmentDto {
     private Integer scheduleId;
     private String scheduleName;
-    private String schedulePlaceName;
+    private String scheduleArea;
+    private String schedulePeopleNum;
 
     public ScheduleFragmentDto(Schedule entity) {
         this.scheduleId=entity.getScheduleId();
-        this.schedulePlaceName=entity.getSchedulePlaceName();
+        this.scheduleArea=entity.getSchedulePlaceArea();
         this.scheduleName=entity.getScheduleName();
+        this.schedulePeopleNum=entity.getSchedulePeopleNum();
     }
 
 }

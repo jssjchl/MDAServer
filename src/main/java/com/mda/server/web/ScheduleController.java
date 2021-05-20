@@ -2,10 +2,7 @@ package com.mda.server.web;
 
 import com.mda.server.domain.schedule.Schedule;
 import com.mda.server.service.schedule.ScheduleService;
-import com.mda.server.web.dto.CalendarFragmentDto;
-import com.mda.server.web.dto.ScheduleDetailFragmentDto;
-import com.mda.server.web.dto.ScheduleDto;
-import com.mda.server.web.dto.ScheduleFragmentDto;
+import com.mda.server.web.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,23 +19,33 @@ public class ScheduleController {
     @Autowired
     ScheduleService scheduleService;
 
-    @GetMapping("schedule/selectList")
-    public List<Schedule> getAllSchedules(){
+    @GetMapping("schedule")
+    public List<Schedule> getAllSchedules() {
         return scheduleService.getScheduleList();
     }
 
-    @GetMapping("/getCalendarFragment/{id}")
-    public CalendarFragmentDto getCalendarFragment(@PathVariable Integer id){
-        return scheduleService.CalendarFragment(id);
+    //ScheduleFragment
+    @GetMapping(value= "/getScheduleFragment")
+    public ScheduleFragmentDto getScheduleFragment (HttpServletRequest request){
+        return scheduleService.ScheduleFragment(Integer.valueOf(request.getParameter("scheduleId")));
     }
-    @GetMapping("/getScheduleFragment/{id}")
-    public ScheduleFragmentDto getScheduleFragment(@PathVariable Integer id){
-        return scheduleService.ScheduleFragment(id);
+    //ScheduleDetailFragment
+    @GetMapping(value= "/getScheduleDetailFragment")
+    public ScheduleDetailFragmentDto getScheduleDetailFragment (HttpServletRequest request){
+        return scheduleService.ScheduleDetailFragment(Integer.valueOf(request.getParameter("scheduleId")));
     }
-    @GetMapping("/getScheduleDetailFragment/{id}")
-    public ScheduleDetailFragmentDto getScheduleDetailFragment(@PathVariable Integer id){
-        return scheduleService.ScheduleDetailFragment(id);
+    //LocationFinishFragment
+    @GetMapping(value= "/getLocationFinishFragment")
+    public LocationFinishFragment getLocationFinishFragment (HttpServletRequest request){
+        return scheduleService.LocationFinishFragment(Integer.valueOf(request.getParameter("scheduleId")));
     }
+    //CalendarFragment
+    @GetMapping(value= "/getCalendarFragment")
+    public CalendarFragmentDto getCalendarFragment (HttpServletRequest request){
+        return scheduleService.CalendarFragment(Integer.valueOf(request.getParameter("scheduleId")));
+    }
+
+
     /*
     @RequestMapping(value="/saveLocationSetting")
     public String saveLocationSetting(@RequestParam Map<String, Object> paramMap, HttpServletRequest request) {
@@ -56,8 +63,6 @@ public class ScheduleController {
     }
 
 */
-
-
 
 
 }

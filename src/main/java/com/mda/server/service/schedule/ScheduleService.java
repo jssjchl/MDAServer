@@ -38,6 +38,11 @@ public class ScheduleService {
         return new ScheduleDetailFragmentDto(entity);
     }
 
+    public LocationFinishFragment LocationFinishFragment(Integer id) {
+        Schedule entity = scheduleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("이게뭐냐"));
+        return new LocationFinishFragment(entity);
+    }
+
     @Transactional
     public Schedule saveLocationSetting(ScheduleDto schedule) {
         return scheduleRepository.save(schedule.toEntity());

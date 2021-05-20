@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -29,6 +30,7 @@ public class PlaceController {
     // .../web/dto/LocInitSet.java로 따로 파일로 클래스 뺐습니다.
     LocInitSet st = new LocInitSet();
 
+
     @RequestMapping(value = "/locationInitSet", method=RequestMethod.POST)
     public LocInitSet locInitSet(HttpServletRequest request) {
         st.setSchName(request.getParameter("schName"));
@@ -40,15 +42,20 @@ public class PlaceController {
 
         System.out.println(st.getSchName() + "/" + st.getSchAge() + "/" + st.getSchType() + "/" + st.getSchGender() + "/" + st.getSchPeople() + "/" +
                 st.getSchPlaceCate());
-
         return st;
     }
+    //PlACEDETAIL
+    @GetMapping(value= "/getPlaceDetail")
+    public PlaceResponseDto findById (HttpServletRequest request){
+        return placeService.findById(Integer.valueOf(request.getParameter("placeId")));
+    }
+
     //바로 위에서 입력받은 값들을 확인하기 위해서 만든 컨트롤러
     @GetMapping("/locationInitSet")
     public LocInitSet showLocInitSet(){
         return st;
     }
-    
+
     //테스트용으로 만들어봤습니다. 나중에 필요하면 고쳐서 사용하세용
     userEnter u1 = new userEnter();
     @PostMapping("/client_enter")
@@ -56,7 +63,6 @@ public class PlaceController {
         u1.setUserId(request.getParameter("userId"));
         u1.setUserLatitude(request.getParameter("userLatitude"));
         u1.setUserLongitude(request.getParameter("userLongitude"));
-
         return u1;
     }
     //바로위에서 입력받은 값들을 확인하기 위해서 맏는 컨트롤러

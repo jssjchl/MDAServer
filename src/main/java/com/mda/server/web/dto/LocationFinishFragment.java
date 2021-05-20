@@ -9,13 +9,15 @@ public class LocationFinishFragment {
     private Integer scheduleId;
     private String scheduleName;
     private String schedulePlaceName;
+    private String schedulePlaceArea;
     private String scheduleWithUserName;
 
     public LocationFinishFragment(Schedule entity){
-        this.scheduleId=getScheduleId();
-        this.scheduleName=getScheduleName();
-        this.schedulePlaceName=getSchedulePlaceName();
-        this.scheduleWithUserName=getScheduleWithUserName();
+        this.scheduleId=entity.getScheduleId();
+        this.scheduleName=entity.getScheduleName();
+        this.schedulePlaceArea=entity.getSchedulePlaceArea();
+        this.schedulePlaceName=entity.getSchedulePlaceName();
+        this.scheduleWithUserName=entity.getScheduleWithUserName();
     }
 
 }
