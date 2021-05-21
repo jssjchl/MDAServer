@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -45,6 +43,33 @@ public class ScheduleController {
         return scheduleService.CalendarFragment(Integer.valueOf(request.getParameter("scheduleId")));
     }
 
+    //locationFinalSelectFragment
+    LocationFinalSelectFragmentDto lfs =new LocationFinalSelectFragmentDto();
+    @PostMapping(value = "/locationFinalSelectFragment")
+    public LocationFinalSelectFragmentDto getlocationFinalSelectFragment(HttpServletRequest request){
+        lfs.setScheduleDate(request.getParameter("scheduleDate"));
+        lfs.setScheduleTime(request.getParameter("scheduleTime"));
+        lfs.setSchedulePlaceName(request.getParameter("schedulePlaceName"));
+
+        return lfs;
+    }
+    @GetMapping(value = "/showLocationFinalSelectFragment")
+    public LocationFinalSelectFragmentDto ShowLocationFinalSelectFragment(){
+        return lfs;
+    }
+
+    //ScheduleTimeDate
+    SchDto td=new SchDto();
+    @PostMapping(value = "/schDT")
+    public SchDto getschDT(HttpServletRequest request){
+        td.setScheduleDate(request.getParameter("scheduleDate"));
+        td.setScheduleTime(request.getParameter("scheduleTime"));
+        return td;
+    }
+    @GetMapping(value = "/showSchDT")
+    public SchDto ShowSchDT(){
+        return td;
+    }
 
     /*
     @RequestMapping(value="/saveLocationSetting")

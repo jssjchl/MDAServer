@@ -56,20 +56,6 @@ public class PlaceController {
         return st;
     }
 
-    //테스트용으로 만들어봤습니다. 나중에 필요하면 고쳐서 사용하세용
-    userEnter u1 = new userEnter();
-    @PostMapping("/client_enter")
-    public userEnter userEnters(HttpServletRequest request){
-        u1.setUserId(request.getParameter("userId"));
-        u1.setUserLatitude(request.getParameter("userLatitude"));
-        u1.setUserLongitude(request.getParameter("userLongitude"));
-        return u1;
-    }
-    //바로위에서 입력받은 값들을 확인하기 위해서 맏는 컨트롤러
-    @GetMapping("/client_enter")
-    public userEnter showUserEnter(){
-        return u1;
-    }
 
     //장소디테일을 서버에서 보내는 테스트를 위해 만든 컨트롤러
     @GetMapping("/placeDetail")
