@@ -3,10 +3,7 @@ package com.mda.server.web;
 
 import com.mda.server.domain.place.Place;
 import com.mda.server.service.place.PlaceService;
-import com.mda.server.web.dto.LocInitSet;
-import com.mda.server.web.dto.PlaceDto;
-import com.mda.server.web.dto.PlaceResponseDto;
-import com.mda.server.web.dto.userEnter;
+import com.mda.server.web.dto.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -17,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -69,6 +67,21 @@ public class PlaceController {
         placeDetail.setPlaceName("스타벅스");
 
         return placeDetail;
+    }
+
+
+    @GetMapping("getSchedules")
+    public ScheduleList getSchedules(){
+        ScheduleList s = new ScheduleList();
+        s.setUserid(0);
+        ArrayList<ScheduleDto> arr = new ArrayList<>();
+        ScheduleDto dto = new ScheduleDto();
+        dto.setScheduleName("테스트용1");
+        ScheduleDto dto2 = new ScheduleDto();
+        dto2.setScheduleName("테스트용2");
+        arr.add(dto);arr.add(dto2);
+        s.setList(arr);
+        return s;
     }
 
     /*
