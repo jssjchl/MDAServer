@@ -29,7 +29,7 @@ public class PlaceController {
     LocInitSet st = new LocInitSet();
 
 
-    @RequestMapping(value = "/locationInitSet", method=RequestMethod.POST)
+    @RequestMapping(value = "/locationInitSet2", method=RequestMethod.POST)
     public LocInitSet locInitSet(HttpServletRequest request) {
         st.setSchName(request.getParameter("schName"));
         st.setSchAge(request.getParameter("schAge"));
