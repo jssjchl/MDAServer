@@ -1,13 +1,9 @@
 package com.mda.server.web;
-import com.mda.server.service.LocationService;
+import com.mda.server.service.Location.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.mda.server.domain.evalDetail.QEvalDetail;
 import com.mda.server.domain.place.Place;
-import com.mda.server.domain.place.QPlace;
 import com.mda.server.web.dto.LocInitSet;
 import com.mda.server.web.dto.midAndPlace;
-import com.querydsl.core.types.Projections;
-import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;

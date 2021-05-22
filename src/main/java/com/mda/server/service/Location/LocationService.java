@@ -1,4 +1,4 @@
-package com.mda.server.service;
+package com.mda.server.service.Location;
 
 import com.mda.server.domain.evalDetail.QEvalDetail;
 import com.mda.server.domain.place.Place;
