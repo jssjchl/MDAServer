@@ -12,6 +12,7 @@ buildscript{
 }
 plugins {
     id 'java'
+    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 }
 
 apply plugin: 'java'
@@ -38,8 +39,35 @@ dependencies {
     //compile('org.mariadb.jdbc:mariadb-java-client')
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    /* JSONParser, JSONObject설정 */
+    compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+    implementation 'com.querydsl:querydsl-jpa'
+
 }
 
 test {
     useJUnitPlatform()
 }
+
+
+// queryDSL이 생성하는 QClass 경로 설정
+def querydslDir = "$buildDir/generated/querydsl"
+
+
+querydsl {
+    jpa = true
+    querydslSourcesDir = querydslDir
+}
+
+sourceSets {
+    main.java.srcDir querydslDir
+}
+
+compileQuerydsl {
+    options.annotationProcessorPath = configurations.querydsl
+}
+
+configurations {
+    querydsl.extendsFrom compileClasspath
+}
+
