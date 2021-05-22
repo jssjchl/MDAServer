@@ -49,8 +49,8 @@ public class PlaceController {
     }
 
     //바로 위에서 입력받은 값들을 확인하기 위해서 만든 컨트롤러
-    @GetMapping("/locationInitSet")
-    public LocInitSet showLocInitSet(){
+    //@GetMapping("/locationInitSet")
+   // public LocInitSet showLocInitSet(){
         return st;
     }
 
