@@ -1,5 +1,6 @@
 package com.mda.server.web;
 import com.mda.server.service.Location.LocationService;
+import com.mda.server.web.dto.UserEnter;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.mda.server.domain.place.Place;
 import com.mda.server.web.dto.LocInitSet;
@@ -24,6 +25,38 @@ public class LocationController{
     private @Autowired
     LocationService locationService;
     LocInitSet locSet = new LocInitSet();
+    int cnt = 0;
+    //ArrayList<UserEnter> user =new ArrayList();
+    UserEnter u1 = new UserEnter();
+
+    @PostMapping(value = "/userEnter")
+    public UserEnter userEnter(HttpServletRequest request){
+        cnt ++;
+        if(cnt > 3 ) cnt = 1;
+
+        if(cnt ==1 ){
+            u1.setUserId1(request.getParameter("userId"));
+            u1.setUserLongitude1(request.getParameter("userLongitude"));
+            u1.setUserLatitude1(request.getParameter("userLatitude"));
+        }else if(cnt ==2){
+            u1.setUserId2(request.getParameter("userId"));
+            u1.setUserLongitude2(request.getParameter("userLongitude"));
+            u1.setUserLatitude2(request.getParameter("userLatitude"));
+        }else if(cnt == 3){
+            u1.setUserId3(request.getParameter("userId"));
+            u1.setUserLongitude3(request.getParameter("userLongitude"));
+            u1.setUserLatitude3(request.getParameter("userLatitude"));
+        }
+
+        return u1;
+
+    }
+/*
+    @GetMapping(value = "getUserEnter")
+    public ArrayList<UserEnter> getUserEnter(){
+
+        return user;
+    }*/
 
     @RequestMapping(value = "/locationInitSet", method= RequestMethod.POST) //place 뽑을때 참고할 Data
     public LocInitSet locInitSet(HttpServletRequest request) {

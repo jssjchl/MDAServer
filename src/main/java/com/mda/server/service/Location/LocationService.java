@@ -29,7 +29,7 @@ public class LocationService{
                 .fetch());
         return placeList; */
         return null;
-
     }
+
 
 }

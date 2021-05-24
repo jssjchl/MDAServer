@@ -4,6 +4,7 @@ import com.mda.server.domain.user.User;
 import com.mda.server.domain.user.UserRepository;
 import com.mda.server.web.dto.UserResponseDto;
 import com.mda.server.web.dto.UserSaveRequestDto;
+import com.mda.server.web.dto.UserEnter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,5 +37,10 @@ public class UserService {
     public UserResponseDto findById(String id){
         User entity = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("이게뭐냐"));
         return new UserResponseDto(entity);
+    }
+
+    public UserEnter findId(String id){
+        userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("오류"));
+        return new UserEnter();
     }
 }
