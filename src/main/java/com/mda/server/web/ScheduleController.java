@@ -16,7 +16,7 @@ public class ScheduleController {
     private ScheduleDto scheduleDto = new ScheduleDto();
     @Autowired
     ScheduleService scheduleService;
-
+    LocInitSet locSet = new LocInitSet();
     @GetMapping("schedule")
     public List<Schedule> getAllSchedules() {
         return scheduleService.getScheduleList();
