@@ -59,6 +59,7 @@ public class ScheduleController {
     }
 
     //ScheduleTimeDate
+    /*
     SchDto td=new SchDto();
     @PostMapping(value = "/schDT")
     public SchDto getschDT(HttpServletRequest request){
@@ -67,11 +68,13 @@ public class ScheduleController {
         return td;
     }
 
+
+
     @GetMapping(value = "/showSchDT")
     public SchDto ShowSchDT(){
         return td;
     }
-
+    */
     /*
     @RequestMapping(value="/saveLocationSetting")
     public String saveLocationSetting(@RequestParam Map<String, Object> paramMap, HttpServletRequest request) {

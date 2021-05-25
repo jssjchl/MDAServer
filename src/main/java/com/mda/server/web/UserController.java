@@ -1,5 +1,6 @@
 package com.mda.server.web;
 
+import com.mda.server.domain.schedule.ScheduleRepository;
 import com.mda.server.domain.user.User;
 import com.mda.server.service.user.UserService;
 import com.mda.server.web.dto.UserResponseDto;

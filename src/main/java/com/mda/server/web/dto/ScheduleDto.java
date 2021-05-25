@@ -54,6 +54,7 @@ public class ScheduleDto {
                 .scheduleWithUserId(scheduleWithUserId)
                 .scheduleWithUserName(scheduleWithUserName)
                 .scheduleUserId(scheduleUserId)
+                .scheduleUserName(scheduleUserName)
                 .schedulePeopleNum(schedulePeopleNum)
                 .schedulePlaceName(schedulePlaceName)
                 .schedulePlaceArea(schedulePlaceArea)

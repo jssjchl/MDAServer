@@ -1,6 +1,10 @@
 package com.mda.server.web;
+import com.mda.server.domain.schedule.Schedule;
+import com.mda.server.domain.schedule.ScheduleRepository;
 import com.mda.server.service.Location.LocationService;
+import com.mda.server.web.dto.ScheduleDto;
 import com.mda.server.web.dto.UserEnter;
+import org.hibernate.annotations.SQLInsert;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.mda.server.domain.place.Place;
 import com.mda.server.web.dto.LocInitSet;
@@ -24,6 +28,7 @@ import java.util.List;
 public class LocationController{
     private @Autowired
     LocationService locationService;
+    ScheduleRepository scheduleRepository;
     LocInitSet locSet = new LocInitSet();
     int userEnterCnt = 0;
     UserEnter u1 = new UserEnter();
@@ -44,12 +49,7 @@ public class LocationController{
         return userEnterList;
 
     }
-/*
-    @GetMapping(value = "getUserEnter")
-    public ArrayList<UserEnter> getUserEnter(){
 
-        return user;
-    }*/
 
     @RequestMapping(value = "/locationInitSet", method= RequestMethod.POST) //place 뽑을때 참고할 Data
     public LocInitSet locInitSet(HttpServletRequest request) {
@@ -64,50 +64,26 @@ public class LocationController{
                 locSet.getSchPlaceCate());
         return locSet;
     }
-    //바로 위에서 입력받은 값들을 확인하기 위해서 만든 컨트롤러
-    @GetMapping("/locationInitSet")
-    public LocInitSet showLocInitSet(){
-        return locSet;
-    }
+
 
     @GetMapping(value = "/getMidAndPlace")
     public midAndPlace getMidAndPlace(HttpServletRequest request) throws IOException {
         midAndPlace map = new midAndPlace();
-        /*QUser user = QUser.user;
-        query.select(user.userName)
-                .from(user)
-                .fetch()
-                .stream()
-                .forEach(name -> log.info("name is : " + name));
-    }*/
-
-        //보낼 데이터
-
-       // double midLat = 0.0;
-        //double midLong = 0.0;
-        Integer placeId1 = 0;
-        Integer placeId2 = 0;
-        Integer placeId3 = 0;
-        String placeName1 = "";
-        String placeName2 = "";
-        String placeName3 = "";
-        String placeArea1 = "";
-        String placeArea2 = "";
-        String placeArea3 = "";
-        String placeType1 = "";
-        String placeType2 = "";
-        String placeType3 = "";
-
-        // 참고용 데이터
-        //String stnNm = ""; //최종 중간위치 역 이름
-
+/*
         //test용
         double latitude1 = 37.504198; //user1위도
         double latitude2 = 37.501025; //user2위도
       //  double la titude3 = Double.parseDouble(request.getParameter("latitude3")); //user3위도
         double longitude1 = 127.047967; //user1경도
         double longitude2 = 127.037701; //user2경도
-       // double longitude3 = Double.parseDouble(request.getParameter("longitude3")); //user3경도
+       // double longitude3 = Double.parseDouble(request.getParameter("longitude3")); //user3경도*/
+
+
+        double latitude1 = Double.parseDouble(request.getParameter("latitude1"));
+        double latitude2 = Double.parseDouble(request.getParameter("latitude2"));
+        double longitude1 = Double.parseDouble(request.getParameter("longitude1"));
+        double longitude2 = Double.parseDouble(request.getParameter("longitude2"));
+
         String UserName1 = "koo"; //user1이름 (HOST)
         String UserName2 = "lee"; //user2이름
         String UserName3 = "kim"; //user2이름
@@ -232,37 +208,6 @@ public class LocationController{
 
     }
 
-/*
-    @GetMapping(value = "/testApi")
-    public String getMidAndPlace(HttpServletRequest request) throws IOException {
-        String apiKey = "9if76bfpjJjxcws6twPhkPfKHbQecu3JLLgD23UpjpQ";
-        StringBuilder urlBuilder = new StringBuilder("https://api.odsay.com/v1/api/searchBusLane?busNo=10&CID=1000&apiKey="+apiKey);
-        URL url = new URL(urlBuilder.toString());
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("GET");
-        conn.setRequestProperty("Content-type", "application/json");
-        System.out.println("Response code: " + conn.getResponseCode());
-        BufferedReader rd;
-        if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
-            rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-        } else {
-            rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
-        }
-        StringBuilder sb = new StringBuilder();
-        String line;
-        while ((line = rd.readLine()) != null) {
-            sb.append(line);
-        }
-        rd.close();
-        conn.disconnect();
-        System.out.println(sb.toString());
-
-        return
-    }
-*/
-
-
-
     private static double distance(double lat1, double lon1, double lat2, double lon2, String unit) {
 
         double theta = lon1 - lon2;
@@ -286,7 +231,32 @@ public class LocationController{
         return (rad * 180 / Math.PI);
     }
 
+    //최종스케쥴 저장
+    @RequestMapping(value = "/schDT", method= RequestMethod.POST) //place 뽑을때 참고할 Data
+    public String saveSchDT(HttpServletRequest request) {
+        String result = "";
+        Schedule sd = new Schedule();
 
 
+            for(int i=0; i<userEnterList.size(); i++){
+                sd.setScheduleDate(request.getParameter("schDate"));
+                sd.setScheduleName(locSet.getSchName());
+                sd.setScheduleTime(request.getParameter("schTime"));
+                sd.setSchedulePlaceId("1"); //임시값
+                //sd.setSchedulePlaceId(request.getParameter("schPlaceId")); //이걸달라고하자
+                sd.setScheduleWithUserId("1#2"); //임시값
+                sd.setScheduleWithUserName("kim#koo"); //임시값
+                sd.setScheduleUserId(userEnterList.get(i).getUserId());
+                sd.setScheduleUserName("kim");
+                sd.setSchedulePeopleNum(locSet.getSchPeople());
+                sd.setSchedulePlaceName("tempPlace"); //placeID 참조해서 넣기 아니면 차라리 name만 달라하고 name만넣자
+                sd.setSchedulePlaceArea("서울역");
+            }
+            this.scheduleRepository.save(sd);
+            result = "success!!";
+            result = "fail!!";
+
+        return result;
+    }
 
 }
