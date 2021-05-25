@@ -1,9 +1,6 @@
 package com.mda.server.web;
-import com.mda.server.domain.user.QUser;
 import com.mda.server.service.Location.LocationService;
-import com.mda.server.service.user.UserService;
 import com.mda.server.web.dto.UserEnter;
-import com.mda.server.service.place.PlaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.mda.server.domain.place.Place;
 import com.mda.server.web.dto.LocInitSet;
@@ -27,33 +24,24 @@ import java.util.List;
 public class LocationController{
     private @Autowired
     LocationService locationService;
-    PlaceService placeService;
-    UserService userService;
     LocInitSet locSet = new LocInitSet();
-    int cnt = 0;
-    //ArrayList<UserEnter> user =new ArrayList();
+    int userEnterCnt = 0;
     UserEnter u1 = new UserEnter();
+    ArrayList<UserEnter> userEnterList = new ArrayList<>();
 
     @PostMapping(value = "/userEnter")
-    public UserEnter userEnter(HttpServletRequest request){
-        cnt ++;
-        if(cnt > 3 ) cnt = 1;
-
-        if(cnt ==1 ){
-            u1.setUserId1(request.getParameter("userId"));
-            u1.setUserLongitude1(request.getParameter("userLongitude"));
-            u1.setUserLatitude1(request.getParameter("userLatitude"));
-        }else if(cnt ==2){
-            u1.setUserId2(request.getParameter("userId"));
-            u1.setUserLongitude2(request.getParameter("userLongitude"));
-            u1.setUserLatitude2(request.getParameter("userLatitude"));
-        }else if(cnt == 3){
-            u1.setUserId3(request.getParameter("userId"));
-            u1.setUserLongitude3(request.getParameter("userLongitude"));
-            u1.setUserLatitude3(request.getParameter("userLatitude"));
+    public ArrayList<UserEnter> userEnter(HttpServletRequest request){
+        UserEnter ue  = new UserEnter();
+        ue.setUserId(request.getParameter("userId"));
+        ue.setUserLatitude(request.getParameter("userLatitude"));
+        ue.setUserLongtitude(request.getParameter("userLongtitude"));
+        userEnterCnt ++;
+        if(userEnterCnt > 3){
+            userEnterList.clear();
+            userEnterCnt = 1;
         }
-
-        return u1;
+        userEnterList.add(ue);
+        return userEnterList;
 
     }
 /*
@@ -82,17 +70,6 @@ public class LocationController{
         return locSet;
     }
 
-    //querydsl 테스트
-    @GetMapping("/querydslTest")
-    public List<Place> querydslTest(){
-        List<Place> placeList = new ArrayList<Place>();
-        placeList = locationService.testGetPlaceDetailInfo(locSet);
-        System.out.println("5 : " + placeList);
-        return placeList;
-    }
-
-
-
     @GetMapping(value = "/getMidAndPlace")
     public midAndPlace getMidAndPlace(HttpServletRequest request) throws IOException {
         midAndPlace map = new midAndPlace();
@@ -105,17 +82,9 @@ public class LocationController{
     }*/
 
         //보낼 데이터
-       /* map.setLatitude1(u1.getUserLatitude1());
-        map.setLatitude2(u1.getUserLatitude2());
-        map.setLatitude3(u1.getUserLatitude3());
-        map.setLongitude1(u1.getUserLongitude1());
-        map.setLongitude2(u1.getUserLongitude2());
-        map.setLongitude3(u1.getUserLongitude3());
-        map.setUserId1(u1.getUserId1());
-        map.setUserId2(u1.getUserId2());
-        map.setUserId3(u1.getUserId3());
-        double midLat = 0.0;
-        double midLong = 0.0;
+
+       // double midLat = 0.0;
+        //double midLong = 0.0;
         Integer placeId1 = 0;
         Integer placeId2 = 0;
         Integer placeId3 = 0;
@@ -130,10 +99,7 @@ public class LocationController{
         String placeType3 = "";
 
         // 참고용 데이터
-        String stnNm = ""; //최종 중간위치 역 이름
-
-*/
-
+        //String stnNm = ""; //최종 중간위치 역 이름
 
         //test용
         double latitude1 = 37.504198; //user1위도
@@ -145,9 +111,11 @@ public class LocationController{
         String UserName1 = "koo"; //user1이름 (HOST)
         String UserName2 = "lee"; //user2이름
         String UserName3 = "kim"; //user2이름
+
         String midLat = "";
         String midLong = "";
         String stnNm = ""; //최종 중간위치 역 이름
+
 
         //1. 중간 위도경도 구하기
 
@@ -162,8 +130,8 @@ public class LocationController{
         double By = Math.cos(latitude2) * Math.sin(dLon);
         double tempMidLat = Math.atan2(Math.sin(latitude1) + Math.sin(latitude2), Math.sqrt((Math.cos(latitude1) + Bx) * (Math.cos(latitude1) + Bx) + By * By));
         double tempMidLong = longitude1 + Math.atan2(By, Math.cos(latitude1) + Bx);
-
-
+        tempMidLat = Math.toDegrees(tempMidLat);
+        tempMidLong = Math.toDegrees(tempMidLong);
 
         //2. API사용해서 가까운역으로 위치 셋팅
 
@@ -198,10 +166,12 @@ public class LocationController{
             System.out.println("2 : " + stationSz);
 
             double[] distance = new double[stationSz]; //중간위치에서 역까지의 거리계산후 배열에 넣어줌
-            for(int i=1; i<stationSz; i++){
+            for(int i=0; i<stationSz; i++){
                 stationInfo = (JSONObject)station.get(i);
                 double x = (double) stationInfo.get("x"); //역의 경도
                 double y = (double) stationInfo.get("y"); // 역의 위도
+                System.out.println("tempMidLat2 " + tempMidLat);
+                System.out.println("tempMidLong2" + tempMidLong);
                 distance[i] = distance(tempMidLat, tempMidLong, x, y, "meter");
                 System.out.println("3 - " + i + distance[i]);
             }
@@ -213,9 +183,9 @@ public class LocationController{
                 System.out.println("4 : " + stationInfo);
             }
 
-            midLat = (String) stationInfo.get("x"); //최종역의 경도
-            midLong = (String)stationInfo.get("y"); //최종역의 위도
-            stnNm = (String)stationInfo.get("stationName"); //최종역의 이름
+            midLat = stationInfo.get("x").toString(); //최종역의 경도
+            midLong = stationInfo.get("y").toString(); //최종역의 위도
+            stnNm = stationInfo.get("stationName").toString(); //최종역의 이름
             System.out.println("5 : " + midLat +"||"+ midLong);
 
             //최종위치 위도경도 리턴할 객체에 셋팅
@@ -230,36 +200,33 @@ public class LocationController{
         List<Place> placeList = new ArrayList<Place>();
         placeList = locationService.getPlaceDetailInfo(locSet, stnNm);
         System.out.println("5 : " + placeList);
+        placeList.get(0).getPlaceId();
         //4. 값 셋팅해서 보내주기
 
         double latitude3 = Double.parseDouble(request.getParameter("latitude3")); //user3위도
         // placeList.get()
 
-
-        map.setLatitude1(request.getParameter("latitude1"));
-        map.setLatitude2(request.getParameter("latitude2"));
-        map.setLatitude3(request.getParameter("latitude3"));
-        map.setLongitude1(request.getParameter("longitude1"));
-        map.setLongitude2(request.getParameter("longitude2"));
-        map.setLongitude3(request.getParameter("longitude3"));
-        map.setUserName1(request.getParameter("userName1"));
-        map.setUserName1(request.getParameter("userName2"));
-        map.setUserName1(request.getParameter("userName3"));
-        map.setPlaceId1(1);
-        map.setPlaceId2(2);
-        map.setPlaceId3(5);
-        map.setPlaceName1("BBANG");
-        map.setPlaceName2("COOK");
-        map.setPlaceName3("DDUCK");
-        map.setPlaceArea1("서울");
-        map.setPlaceArea2("서울");
-        map.setPlaceArea3("서울");
-        map.setPlaceType1("01");
-        map.setPlaceType2("02");
-        map.setPlaceType3("05");
-
-
-
+        map.setLatitude1(userEnterList.get(0).getUserLatitude());
+        map.setLatitude2(userEnterList.get(1).getUserLatitude());
+        map.setLatitude3(userEnterList.get(2).getUserLatitude());
+        map.setLongitude1(userEnterList.get(0).getUserLongtitude());
+        map.setLongitude2(userEnterList.get(1).getUserLongtitude());
+        map.setLongitude3(userEnterList.get(2).getUserLongtitude());
+        map.setUserId1(userEnterList.get(0).getUserId());
+        map.setUserId2(userEnterList.get(1).getUserId());
+        map.setUserId3(userEnterList.get(2).getUserId());
+        map.setPlaceId1(placeList.get(0).getPlaceId());
+        map.setPlaceId2(placeList.get(1).getPlaceId());
+        map.setPlaceId3(placeList.get(2).getPlaceId());
+        map.setPlaceName1(placeList.get(0).getPlaceName());
+        map.setPlaceName2(placeList.get(1).getPlaceName());
+        map.setPlaceName3(placeList.get(2).getPlaceName());
+        map.setPlaceArea1(placeList.get(0).getPlaceArea());
+        map.setPlaceArea2(placeList.get(1).getPlaceArea());
+        map.setPlaceArea3(placeList.get(2).getPlaceArea());
+        map.setPlaceType1(placeList.get(0).getPlaceType());
+        map.setPlaceType2(placeList.get(1).getPlaceType());
+        map.setPlaceType3(placeList.get(2).getPlaceType());
 
         return map;
 
@@ -304,12 +271,7 @@ public class LocationController{
         dist = Math.acos(dist);
         dist = rad2deg(dist);
         dist = dist * 60 * 1.1515;
-
-        if (unit == "kilometer") {
-            dist = dist * 1.609344;
-        } else if(unit == "meter"){
-            dist = dist * 1609.344;
-        }
+        dist = dist * 1609.344;
 
         return (dist);
     }

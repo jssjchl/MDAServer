@@ -32,53 +32,27 @@ public class LocationService extends QuerydslRepositorySupport{
 
         QPlace place = QPlace.place;
         QEvalDetail evalDt = QEvalDetail.evalDetail;
-        List<String> schType = new ArrayList<>();
         List<Place> placeList = new ArrayList<>();
-        String[]schTypeArray = locset.getSchType().split("#");
+        String[]tempSchTypeArray = locset.getSchType().split("#");
+        Integer[]schTypeArray = new Integer[tempSchTypeArray.length];
+        for (int i=0; i<tempSchTypeArray.length; i++){
+            schTypeArray[i] = Integer.parseInt(tempSchTypeArray[i]);
+        }
 
 
-         //수정중
-        placeList.addAll( from(place).where(place.placeArea.eq(stnNm).and(place.placeCategory.eq(locset.getSchPlaceCate())
-                .and(evalDt.evalDetailGender.eq(locset.getSchGender()).and(evalDt.evalDetailAge.eq(locset.getSchAge()).and(evalDt.evalSubId.in((CollectionExpression<?, ? extends Integer>) schType))))))
+
+         /*
+        placeList.addAll( from(place).join(evalDt).on(place.placeId.eq(evalDt.placeId)).where(place.placeArea.eq(stnNm).and(place.placeCategory.eq(locset.getSchPlaceCate())
+                .and(evalDt.evalDetailGender.eq(locset.getSchGender()).and(evalDt.evalDetailAge.eq(locset.getSchAge()).and(evalDt.evalSubId.in(schTypeArray))))))
                 .groupBy(place.placeId)
                 .select(Projections.bean(Place.class, place.placeId, place.placeName, place.placeArea, place.placeType))
                 .fetch());
         return placeList;
+        */
 
+        placeList.addAll( from(place).fetch());
+        return placeList;
 
     }
-
-    public List<Place>testGetPlaceDetailInfo(LocInitSet locset){
-
-        QPlace place = QPlace.place;
-        QEvalDetail evalDt = QEvalDetail.evalDetail;
-        String[]schTypeArray = locset.getSchType().split("#");
-        List<Place> placeList = new ArrayList<>();
-        //수정중
-        /*
-        placeList.addAll( from(place).where(place.placeArea.eq("서울").and(place.placeCategory.eq(locset.getSchPlaceCate())
-                .and(evalDt.evalDetailGender.eq(locset.getSchGender()).and(evalDt.evalDetailAge.eq(locset.getSchAge()).and(evalDt.evalSubId.in((CollectionExpression<?, ? extends Integer>) schTypeArray))))))
-                .groupBy(place.placeId)
-                .select(Projections.bean(Place.class, place.placeId, place.placeName, place.placeArea, place.placeType))
-                .fetch());
-        return placeList;
-
-*/
-
-
-
-        /* //수정중
-        placeList.addAll( from(place).where(place.placeArea.eq(stnNm).and(place.placeCategory.eq(locset.getSchPlaceCate())
-                .and(evalDt.evalDetailGender.eq(locset.getSchGender()).and(evalDt.evalDetailAge.eq(locset.getSchAge()).and(evalDt.evalSubId.in((CollectionExpression<?, ? extends Integer>) schType))))))
-                .groupBy(place.placeId)
-                .select(Projections.bean(Place.class, place.placeId, place.placeName, place.placeArea, place.placeType))
-                .fetch());
-        return placeList; */
-
-        return placeList;
-
-
-    }
-
 
 }

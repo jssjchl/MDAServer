@@ -49,13 +49,13 @@ public class UserController {
         uv.setPVotedUser(request.getParameter("voteUserId"));
         uv.setPlacePname(request.getParameter("votePlaceId"));
         userVoteCnt ++;
-        if (userVoteCnt > 3) voteStatus.clear();
+        if (userVoteCnt > 3){
+            voteStatus.clear();
+            userVoteCnt = 1;
+        }
         voteStatus.add(uv);
         return voteStatus;
     }
-
-
-
 
     //테스트용으로 만들어봤습니다. 나중에 필요하면 고쳐서 사용하세용
     /*UserEnter u1 = new UserEnter();
