@@ -237,7 +237,6 @@ public class LocationController{
         String result = "";
         Schedule sd = new Schedule();
 
-
             for(int i=0; i<userEnterList.size(); i++){
                 sd.setScheduleDate(request.getParameter("schDate"));
                 sd.setScheduleName(locSet.getSchName());

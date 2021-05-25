@@ -19,10 +19,13 @@ public class EvalSubject {
     @Column(nullable = false)
     private String eval_Sub_Type;
 
+    @Column(nullable = false)
+    private String eval_Sub_Category;
+
     @Builder
-    public EvalSubject(int evalSubId, String eval_Sub_Type){
+    public EvalSubject(int evalSubId, String eval_Sub_Type, String eval_Sub_Category){
         this.evalSubId=evalSubId;
         this.eval_Sub_Type=eval_Sub_Type;
+        this.eval_Sub_Category=eval_Sub_Category;
     }
-
 }
