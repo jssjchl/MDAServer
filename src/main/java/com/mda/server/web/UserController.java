@@ -4,7 +4,6 @@ import com.mda.server.domain.user.User;
 import com.mda.server.service.user.UserService;
 import com.mda.server.web.dto.UserResponseDto;
 import com.mda.server.web.dto.UserSaveRequestDto;
-import com.mda.server.web.dto.UserEnter;
 import com.mda.server.web.dto.UserVote;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,6 +21,8 @@ public class UserController {
     @Autowired
     UserService userService;
     UserSaveRequestDto user = new UserSaveRequestDto();
+    ArrayList<UserVote> voteStatus = new ArrayList<>();
+    int userVoteCnt = 0;
 
     @PostMapping("/test1")
     public User getUser(HttpServletRequest request){
@@ -39,20 +41,17 @@ public class UserController {
         return userService.findById(id);
     }
 
-    UserVote pVotedUser = new UserVote();
+
 
     @PostMapping("/voteUser")
-    public UserVote userVote(HttpServletRequest request){
-        pVotedUser.setUsername1("koo");
-        pVotedUser.setUsername2("sim");
-        pVotedUser.setUsername3("choi");
-
-        pVotedUser.setPlacename1("일산");
-        pVotedUser.setPlacename2("도농");
-        pVotedUser.setPlacename3("구리");
-
-        return pVotedUser;
-
+    public ArrayList<UserVote> userVote(HttpServletRequest request){
+        UserVote uv = new UserVote();
+        uv.setPVotedUser(request.getParameter("voteUserId"));
+        uv.setPlacePname(request.getParameter("votePlaceId"));
+        userVoteCnt ++;
+        if (userVoteCnt > 3) voteStatus.clear();
+        voteStatus.add(uv);
+        return voteStatus;
     }
 
 

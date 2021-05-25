@@ -19,6 +19,7 @@ public class UserResponseDto {
         this.userName = entity.getUserName();
         this.userPwd = entity.getUserPwd();
     }
+
 }
 
 

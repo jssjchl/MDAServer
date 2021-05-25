@@ -74,12 +74,10 @@ public class LocationService extends QuerydslRepositorySupport{
                 .select(Projections.bean(Place.class, place.placeId, place.placeName, place.placeArea, place.placeType))
                 .fetch());
         return placeList; */
-<<<<<<< HEAD
-        return null;
-=======
+
         return placeList;
 
->>>>>>> 3586add3c73e19d60dbad6daa480f4d5a026707f
+
     }
 
 

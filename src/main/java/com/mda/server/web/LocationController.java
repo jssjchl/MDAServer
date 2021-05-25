@@ -1,10 +1,9 @@
 package com.mda.server.web;
+import com.mda.server.domain.user.QUser;
 import com.mda.server.service.Location.LocationService;
-<<<<<<< HEAD
+import com.mda.server.service.user.UserService;
 import com.mda.server.web.dto.UserEnter;
-=======
 import com.mda.server.service.place.PlaceService;
->>>>>>> 3586add3c73e19d60dbad6daa480f4d5a026707f
 import org.springframework.beans.factory.annotation.Autowired;
 import com.mda.server.domain.place.Place;
 import com.mda.server.web.dto.LocInitSet;
@@ -29,6 +28,7 @@ public class LocationController{
     private @Autowired
     LocationService locationService;
     PlaceService placeService;
+    UserService userService;
     LocInitSet locSet = new LocInitSet();
     int cnt = 0;
     //ArrayList<UserEnter> user =new ArrayList();
@@ -96,18 +96,24 @@ public class LocationController{
     @GetMapping(value = "/getMidAndPlace")
     public midAndPlace getMidAndPlace(HttpServletRequest request) throws IOException {
         midAndPlace map = new midAndPlace();
+        /*QUser user = QUser.user;
+        query.select(user.userName)
+                .from(user)
+                .fetch()
+                .stream()
+                .forEach(name -> log.info("name is : " + name));
+    }*/
 
-/*
         //보낼 데이터
-        map.setLatitude1(request.getParameter("latitude1"));
-        map.setLatitude2(request.getParameter("latitude2"));
-        map.setLatitude3(request.getParameter("latitude3"));
-        map.setLongitude1(request.getParameter("longitude1"));
-        map.setLongitude2(request.getParameter("longitude2"));
-        map.setLongitude3(request.getParameter("longitude3"));
-        map.setUserName1(request.getParameter("userName1"));
-        map.setUserName1(request.getParameter("userName2"));
-        map.setUserName1(request.getParameter("userName3"));
+       /* map.setLatitude1(u1.getUserLatitude1());
+        map.setLatitude2(u1.getUserLatitude2());
+        map.setLatitude3(u1.getUserLatitude3());
+        map.setLongitude1(u1.getUserLongitude1());
+        map.setLongitude2(u1.getUserLongitude2());
+        map.setLongitude3(u1.getUserLongitude3());
+        map.setUserId1(u1.getUserId1());
+        map.setUserId2(u1.getUserId2());
+        map.setUserId3(u1.getUserId3());
         double midLat = 0.0;
         double midLong = 0.0;
         Integer placeId1 = 0;
@@ -132,7 +138,7 @@ public class LocationController{
         //test용
         double latitude1 = 37.504198; //user1위도
         double latitude2 = 37.501025; //user2위도
-      //  double latitude3 = Double.parseDouble(request.getParameter("latitude3")); //user3위도
+      //  double la titude3 = Double.parseDouble(request.getParameter("latitude3")); //user3위도
         double longitude1 = 127.047967; //user1경도
         double longitude2 = 127.037701; //user2경도
        // double longitude3 = Double.parseDouble(request.getParameter("longitude3")); //user3경도
