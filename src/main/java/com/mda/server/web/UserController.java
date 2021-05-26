@@ -27,7 +27,7 @@ public class UserController {
 
     @PostMapping("/test1")
     public User getUser(HttpServletRequest request){
-        user.setUserId(request.getParameter("id"));
+        user.setUserId(Integer.valueOf(request.getParameter("id")));
         user.setUserPwd(request.getParameter("pwd"));
         return userService.save(user);
     }
@@ -38,7 +38,7 @@ public class UserController {
     }
 
     @GetMapping("/test5/{id}")
-    public UserResponseDto findById (@PathVariable String id){
+    public UserResponseDto findById (@PathVariable Integer id){
         return userService.findById(id);
     }
 

@@ -24,7 +24,7 @@ public class UserService {
     }
 
     @Transactional
-    public User getUser(String id){
+    public User getUser(Integer id){
         return userRepository.getOne(id);
     }
 
@@ -34,12 +34,12 @@ public class UserService {
         return userRepository.save(user.toEntity());
     }
 
-    public UserResponseDto findById(String id){
+    public UserResponseDto findById(Integer id){
         User entity = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("이게뭐냐"));
         return new UserResponseDto(entity);
     }
 
-    public UserEnter findId(String id){
+    public UserEnter findId(Integer id){
         userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("오류"));
         return new UserEnter();
     }

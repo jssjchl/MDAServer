@@ -10,8 +10,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class UserSaveRequestDto {
-    private String userId;
-    private int userAge;
+    private Integer userId;
+    private Integer userAge;
     private String userGender;
     private String userName;
     private String userPwd;
@@ -19,7 +19,7 @@ public class UserSaveRequestDto {
 
 
     @Builder
-    public UserSaveRequestDto(String userId, int userAge, String userGender, String userName, String userPwd){
+    public UserSaveRequestDto(Integer userId, int userAge, String userGender, String userName, String userPwd){
         this.userId = userId;
         this.userAge = userAge;
         this.userName = userName;
