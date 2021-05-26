@@ -56,16 +56,13 @@ public class PlaceController {
     }
 
 
-    @GetMapping("getSchedules")
-    public ScheduleList getSchedules(){
+    @GetMapping("/getSchedule/{userId}")
+    public ScheduleList getSchedules(HttpServletRequest request){
         ScheduleList s = new ScheduleList();
-        s.setUserid(0);
         ArrayList<ScheduleDto> arr = new ArrayList<>();
         ScheduleDto dto = new ScheduleDto();
-        dto.setScheduleName("테스트용1");
-        ScheduleDto dto2 = new ScheduleDto();
-        dto2.setScheduleName("테스트용2");
-        arr.add(dto);arr.add(dto2);
+        dto.getScheduleId();
+        arr.add(dto);;
         s.setList(arr);
         return s;
     }

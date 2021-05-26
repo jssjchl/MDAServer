@@ -4,7 +4,7 @@ import com.mda.server.domain.schedule.Schedule;
 import lombok.Getter;
 
 @Getter
-public class LocationFinishFragment {
+public class locFin {
 
     private Integer scheduleId;
     private String scheduleName;
@@ -12,7 +12,7 @@ public class LocationFinishFragment {
     private String schedulePlaceArea;
     private String scheduleWithUserName;
 
-    public LocationFinishFragment(Schedule entity){
+    public locFin(Schedule entity){
         this.scheduleId=entity.getScheduleId();
         this.scheduleName=entity.getScheduleName();
         this.schedulePlaceArea=entity.getSchedulePlaceArea();

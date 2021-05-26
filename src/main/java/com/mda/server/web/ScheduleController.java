@@ -17,6 +17,8 @@ public class ScheduleController {
     @Autowired
     ScheduleService scheduleService;
     LocInitSet locSet = new LocInitSet();
+
+
     @GetMapping("schedule")
     public List<Schedule> getAllSchedules() {
         return scheduleService.getScheduleList();
@@ -32,30 +34,15 @@ public class ScheduleController {
     public ScheduleDetailFragmentDto getScheduleDetailFragment (HttpServletRequest request){
         return scheduleService.ScheduleDetailFragment(Integer.valueOf(request.getParameter("scheduleId")));
     }
-    //LocationFinishFragment
-    @GetMapping(value= "/getLocationFinishFragment")
-    public LocationFinishFragment getLocationFinishFragment (HttpServletRequest request){
-        return scheduleService.LocationFinishFragment(Integer.valueOf(request.getParameter("scheduleId")));
+    //locFin
+    @GetMapping(value= "/locationFin")
+    public locFin locFin(HttpServletRequest request){
+        return scheduleService.locFin(Integer.valueOf(request.getParameter("scheduleId")));
     }
     //CalendarFragment
     @GetMapping(value= "/getCalendarFragment")
     public CalendarFragmentDto getCalendarFragment (HttpServletRequest request){
         return scheduleService.CalendarFragment(Integer.valueOf(request.getParameter("scheduleId")));
-    }
-
-    //locationFinalSelectFragment
-    LocationFinalSelectFragmentDto lfs =new LocationFinalSelectFragmentDto();
-    @PostMapping(value = "/locationFinalSelectFragment")
-    public LocationFinalSelectFragmentDto getlocationFinalSelectFragment(HttpServletRequest request){
-        lfs.setScheduleDate(request.getParameter("scheduleDate"));
-        lfs.setScheduleTime(request.getParameter("scheduleTime"));
-        lfs.setSchedulePlaceName(request.getParameter("schedulePlaceName"));
-
-        return lfs;
-    }
-    @GetMapping(value = "/showLocationFinalSelectFragment")
-    public LocationFinalSelectFragmentDto ShowLocationFinalSelectFragment(){
-        return lfs;
     }
 
     //ScheduleTimeDate

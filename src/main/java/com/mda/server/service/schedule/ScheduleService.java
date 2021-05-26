@@ -1,6 +1,5 @@
 package com.mda.server.service.schedule;
 
-import com.mda.server.domain.place.Place;
 import com.mda.server.domain.schedule.Schedule;
 import com.mda.server.domain.schedule.ScheduleRepository;
 import com.mda.server.web.dto.*;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Map;
 
 @RequiredArgsConstructor
 @Service
@@ -38,9 +36,9 @@ public class ScheduleService {
         return new ScheduleDetailFragmentDto(entity);
     }
 
-    public LocationFinishFragment LocationFinishFragment(Integer id) {
+    public locFin locFin(Integer id) {
         Schedule entity = scheduleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("이게뭐냐"));
-        return new LocationFinishFragment(entity);
+        return new locFin(entity);
     }
 
     @Transactional
