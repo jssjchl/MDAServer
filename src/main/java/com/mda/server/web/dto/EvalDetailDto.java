@@ -19,9 +19,9 @@ public class EvalDetailDto {
 
 
     @Builder
-    public EvalDetailDto(Integer evalDetailID, String evalDetailGender,  String evalDetailAge, String evalDetailRating
+    public EvalDetailDto(Integer evalDetailId, String evalDetailGender,  String evalDetailAge, String evalDetailRating
                         ,Integer placeId, Integer evalSubId){
-        this.evalDetailId =evalDetailID;
+        this.evalDetailId =evalDetailId;
         this.evalDetailGender=evalDetailGender;
         this.evalDetailAge=evalDetailAge;
         this.evalDetailRating=evalDetailRating;
@@ -31,7 +31,7 @@ public class EvalDetailDto {
 
     public EvalDetail toEntity() {
         return EvalDetail.builder()
-                .evalDetailID(evalDetailId)
+                .evalDetailId(evalDetailId)
                 .evalDetailGender(evalDetailGender)
                 .evalDetailAge(evalDetailAge)
                 .evalDetailRating(evalDetailRating)

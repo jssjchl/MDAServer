@@ -28,20 +28,6 @@ public class PlaceController {
     // .../web/dto/LocInitSet.java로 따로 파일로 클래스 뺐습니다.
     LocInitSet st = new LocInitSet();
 
-
-    @RequestMapping(value = "/locationInitSet", method=RequestMethod.POST)
-    public LocInitSet locInitSet(HttpServletRequest request) {
-        st.setSchName(request.getParameter("schName"));
-        st.setSchAge(request.getParameter("schAge"));
-        st.setSchGender(request.getParameter("schGender"));
-        st.setSchPeople(request.getParameter("schPeople"));
-        st.setSchType(request.getParameter("schType"));
-        st.setSchPlaceCate(request.getParameter("schPlaceCate"));
-
-        System.out.println(st.getSchName() + "/" + st.getSchAge() + "/" + st.getSchType() + "/" + st.getSchGender() + "/" + st.getSchPeople() + "/" +
-                st.getSchPlaceCate());
-        return st;
-    }
     //PlACEDETAIL
     @GetMapping(value= "/getPlaceDetail")
     public PlaceResponseDto findById (HttpServletRequest request){

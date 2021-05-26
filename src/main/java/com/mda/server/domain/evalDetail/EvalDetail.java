@@ -1,9 +1,9 @@
 package com.mda.server.domain.evalDetail;
 
+import com.mda.server.web.dto.EvalDetailDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CollectionId;
 
 import javax.persistence.*;
 
@@ -15,7 +15,7 @@ public class EvalDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="EVAL_DETAIL_ID", nullable = false)
-    private Integer evalDetailID;
+    private Integer evalDetailId;
 
     @Column(name="EVAL_DETAIL_GENDER",nullable = false)
     private String evalDetailGender;
@@ -35,8 +35,8 @@ public class EvalDetail {
 
 
     @Builder
-    public EvalDetail(Integer evalDetailID, String evalDetailGender, String evalDetailAge, String evalDetailRating, Integer placeId, Integer evalSubId){
-        this.evalDetailID=evalDetailID;
+    public EvalDetail(Integer evalDetailId, String evalDetailGender, String evalDetailAge, String evalDetailRating, Integer placeId, Integer evalSubId){
+        this.evalDetailId=evalDetailId;
         this.evalDetailGender=evalDetailGender;
         this.evalDetailAge=evalDetailAge;
         this.evalDetailRating=evalDetailRating;
