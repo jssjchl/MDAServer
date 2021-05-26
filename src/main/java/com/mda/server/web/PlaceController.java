@@ -57,12 +57,12 @@ public class PlaceController {
 
 
     @GetMapping("/getSchedule/{userId}")
-    public ScheduleList getSchedules(HttpServletRequest request){
+    public ScheduleList getSchedules(@PathVariable int userId){
         ScheduleList s = new ScheduleList();
+        s.setUserid(userId);
         ArrayList<ScheduleDto> arr = new ArrayList<>();
         ScheduleDto dto = new ScheduleDto();
-        dto.getScheduleId();
-        arr.add(dto);;
+        arr.add(dto);
         s.setList(arr);
         return s;
     }
