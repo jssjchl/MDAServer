@@ -20,17 +20,6 @@ public class midAndPlace {
     String userName3;
     String midLat;
     String midLong;
-    Integer placeId1;
-    Integer placeId2;
-    Integer placeId3;
-    String placeName1;
-    String placeName2;
-    String placeName3;
-    String placeArea1;
-    String placeArea2;
-    String placeArea3;
-    String placeType1;
-    String placeType2;
-    String placeType3;
+
 
 }

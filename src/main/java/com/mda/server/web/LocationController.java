@@ -2,13 +2,10 @@ package com.mda.server.web;
 import com.mda.server.domain.schedule.Schedule;
 import com.mda.server.domain.schedule.ScheduleRepository;
 import com.mda.server.service.Location.LocationService;
-import com.mda.server.web.dto.ScheduleDto;
-import com.mda.server.web.dto.UserEnter;
+import com.mda.server.web.dto.*;
 import org.hibernate.annotations.SQLInsert;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.mda.server.domain.place.Place;
-import com.mda.server.web.dto.LocInitSet;
-import com.mda.server.web.dto.midAndPlace;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -32,6 +29,7 @@ public class LocationController{
     int userEnterCnt = 0;
     UserEnter u1 = new UserEnter();
     ArrayList<UserEnter> userEnterList = new ArrayList<>();
+    infoList infoList = new infoList();
 
     @PostMapping(value = "/userEnter")
     public UserEnter userEnter(HttpServletRequest request){
@@ -71,7 +69,7 @@ public class LocationController{
     }
 
 
-    @GetMapping(value = "/getMidAndPlace")
+    @GetMapping(value = "/midAndPlace")
     public midAndPlace getMidAndPlace(HttpServletRequest request) throws IOException {
         midAndPlace map = new midAndPlace();
 /*
@@ -196,22 +194,30 @@ public class LocationController{
         map.setUserId1(userEnterList.get(0).getUserId());
         map.setUserId2(userEnterList.get(1).getUserId());
         map.setUserId3(userEnterList.get(2).getUserId());
-        map.setPlaceId1(placeList.get(0).getPlaceId());
-        map.setPlaceId2(placeList.get(1).getPlaceId());
-        map.setPlaceId3(placeList.get(2).getPlaceId());
-        map.setPlaceName1(placeList.get(0).getPlaceName());
-        map.setPlaceName2(placeList.get(1).getPlaceName());
-        map.setPlaceName3(placeList.get(2).getPlaceName());
-        map.setPlaceArea1(placeList.get(0).getPlaceArea());
-        map.setPlaceArea2(placeList.get(1).getPlaceArea());
-        map.setPlaceArea3(placeList.get(2).getPlaceArea());
-        map.setPlaceType1(placeList.get(0).getPlaceType());
-        map.setPlaceType2(placeList.get(1).getPlaceType());
-        map.setPlaceType3(placeList.get(2).getPlaceType());
+        infoList.setPlaceId1(placeList.get(0).getPlaceId());
+        infoList.setPlaceId2(placeList.get(1).getPlaceId());
+        infoList.setPlaceId3(placeList.get(2).getPlaceId());
+        infoList.setPlaceName1(placeList.get(0).getPlaceName());
+        infoList.setPlaceName2(placeList.get(1).getPlaceName());
+        infoList.setPlaceName3(placeList.get(2).getPlaceName());
+        infoList.setPlaceArea1(placeList.get(0).getPlaceArea());
+        infoList.setPlaceArea2(placeList.get(1).getPlaceArea());
+        infoList.setPlaceArea3(placeList.get(2).getPlaceArea());
+        infoList.setPlaceType1(placeList.get(0).getPlaceType());
+        infoList.setPlaceType2(placeList.get(1).getPlaceType());
+        infoList.setPlaceType3(placeList.get(2).getPlaceType());
 
         return map;
 
     }
+
+    @GetMapping(value = "/infoList")
+    public infoList infoList(HttpServletRequest request) throws IOException {
+        return infoList;
+    }
+
+
+
 
     private static double distance(double lat1, double lon1, double lat2, double lon2, String unit) {
 
