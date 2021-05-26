@@ -57,14 +57,14 @@ public class Schedule {
                     String schedulePlaceArea
 
     ) {
-        this.scheduleDate = scheduleDate;
         this.scheduleId = scheduleId;
         this.schedulePlaceName = schedulePlaceName;
+        this.scheduleDate = scheduleDate;
         this.scheduleName = scheduleName;
         this.schedulePlaceId = schedulePlaceId;
+        this.scheduleUserId = scheduleUserId;
         this.scheduleUserName = scheduleUserName;
         this.scheduleTime = scheduleTime;
-        this.scheduleUserId = scheduleUserId;
         this.scheduleWithUserId = scheduleWithUserId;
         this.scheduleWithUserName = scheduleWithUserName;
         this.schedulePeopleNum=schedulePeopleNum;

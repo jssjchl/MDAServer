@@ -28,14 +28,13 @@ import java.util.List;
 public class LocationController{
     private @Autowired
     LocationService locationService;
-    ScheduleRepository scheduleRepository;
     LocInitSet locSet = new LocInitSet();
     int userEnterCnt = 0;
     UserEnter u1 = new UserEnter();
     ArrayList<UserEnter> userEnterList = new ArrayList<>();
 
     @PostMapping(value = "/userEnter")
-    public ArrayList<UserEnter> userEnter(HttpServletRequest request){
+    public UserEnter userEnter(HttpServletRequest request){
         UserEnter ue  = new UserEnter();
         ue.setUserId(request.getParameter("userId"));
         ue.setUserLatitude(request.getParameter("userLatitude"));
@@ -46,6 +45,12 @@ public class LocationController{
             userEnterCnt = 1;
         }
         userEnterList.add(ue);
+        return ue;
+
+    }
+
+    @GetMapping(value = "/userEnterList")
+    public ArrayList<UserEnter> userEnterList(HttpServletRequest request){
         return userEnterList;
 
     }
@@ -233,29 +238,30 @@ public class LocationController{
 
     //최종스케쥴 저장
     @RequestMapping(value = "/schDT", method= RequestMethod.POST) //place 뽑을때 참고할 Data
-    public String saveSchDT(HttpServletRequest request) {
+    public int saveSchDT(HttpServletRequest request) {
         String result = "";
         Schedule sd = new Schedule();
+        int schId = 0;
+        // placeid 가지고 place정보(name,Area) 조회해서 넣어줘야됨
+        //userId로 name값 가져와야함
+        //
 
             for(int i=0; i<userEnterList.size(); i++){
+                sd.setSchedulePlaceName("tempPlace"); //임시값
                 sd.setScheduleDate(request.getParameter("schDate"));
                 sd.setScheduleName(locSet.getSchName());
+                sd.setSchedulePlaceId(request.getParameter("schPlaceId"));
+                sd.setScheduleUserId(userEnterList.get(i).getUserId());
+                sd.setScheduleUserName("kim"); //임시값
                 sd.setScheduleTime(request.getParameter("schTime"));
-                sd.setSchedulePlaceId("1"); //임시값
-                //sd.setSchedulePlaceId(request.getParameter("schPlaceId")); //이걸달라고하자
                 sd.setScheduleWithUserId("1#2"); //임시값
                 sd.setScheduleWithUserName("kim#koo"); //임시값
-                sd.setScheduleUserId(userEnterList.get(i).getUserId());
-                sd.setScheduleUserName("kim");
                 sd.setSchedulePeopleNum(locSet.getSchPeople());
-                sd.setSchedulePlaceName("tempPlace"); //placeID 참조해서 넣기 아니면 차라리 name만 달라하고 name만넣자
-                sd.setSchedulePlaceArea("서울역");
+                sd.setSchedulePlaceArea("서울역"); //임시값
+                schId = locationService.saveSchedule(sd);
             }
-            this.scheduleRepository.save(sd);
-            result = "success!!";
-            result = "fail!!";
 
-        return result;
+        return schId;
     }
 
 }

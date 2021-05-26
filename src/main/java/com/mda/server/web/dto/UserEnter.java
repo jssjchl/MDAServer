@@ -9,17 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class UserEnter {
-    /*
-    private String userId1;
-    private String userId2;
-    private String userId3;
-    private String userLatitude1;
-    private String userLatitude2;
-    private String userLatitude3;
-    private String userLongitude1;
-    private String userLongitude2;
-    private String userLongitude3;
-    */
+
 
     private String userId;
     private String userLatitude;

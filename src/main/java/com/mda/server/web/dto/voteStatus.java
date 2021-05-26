@@ -12,21 +12,24 @@ import java.util.ArrayList;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserVote {
+public class voteStatus {
 
     private String pVotedUser;
     private String placePname;
+    private int pId;
 
     @Builder
-    public UserVote(String pVotedUser, String placePname) {
+    public voteStatus(String pVotedUser, String placePname, int pId) {
         this.pVotedUser = pVotedUser;
         this.placePname = placePname;
+        this.pId = pId;
     }
 
-    public UserVote toEntity(){
-        return UserVote.builder()
+    public voteStatus toEntity(){
+        return voteStatus.builder()
                 .pVotedUser(pVotedUser)
                 .placePname(placePname)
+                .pId(pId)
                 .build();
     }
 
