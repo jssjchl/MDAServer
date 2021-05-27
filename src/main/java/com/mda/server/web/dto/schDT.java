@@ -5,13 +5,14 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SchDt {
-
+public class schDT {
+    private int placeId;
     private String scheduleTime;
     private String scheduleDate;
 
-    public SchDt(){
+    public schDT(){
         this.scheduleDate=getScheduleTime();
         this.scheduleTime=getScheduleTime();
+        this.placeId=getPlaceId();
     }
 }

@@ -244,9 +244,10 @@ public class LocationController{
 
     //최종스케쥴 저장
     @RequestMapping(value = "/schDT", method= RequestMethod.POST) //place 뽑을때 참고할 Data
-    public int saveSchDT(HttpServletRequest request) {
+    public schDT saveSchDT(HttpServletRequest request) {
         String result = "";
         Schedule sd = new Schedule();
+        schDT cs = new schDT();
         int schId = 0;
         // placeid 가지고 place정보(name,Area) 조회해서 넣어줘야됨
         //userId로 name값 가져와야함
@@ -266,8 +267,9 @@ public class LocationController{
                 sd.setSchedulePlaceArea("서울역"); //임시값
                 schId = locationService.saveSchedule(sd);
             }
+            cs.setPlaceId(schId);
 
-        return schId;
+        return cs;
     }
 
 }
