@@ -6,19 +6,13 @@ import com.mda.server.domain.place.QPlace;
 import com.mda.server.domain.schedule.Schedule;
 import com.mda.server.domain.schedule.ScheduleRepository;
 import com.mda.server.web.dto.LocInitSet;
-import com.mda.server.web.dto.PlaceResponseDto;
 import com.mda.server.web.dto.midAndPlace;
-import com.querydsl.core.types.CollectionExpression;
-import com.querydsl.core.types.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
-import org.springframework.web.bind.annotation.GetMapping;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Transactional(value = "transactionManager")

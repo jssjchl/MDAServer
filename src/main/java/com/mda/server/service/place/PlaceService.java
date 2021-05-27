@@ -2,10 +2,7 @@ package com.mda.server.service.place;
 
 import com.mda.server.domain.place.Place;
 import com.mda.server.domain.place.PlaceRepository;
-import com.mda.server.domain.user.User;
 import com.mda.server.web.dto.PlaceDto;
-import com.mda.server.web.dto.PlaceResponseDto;
-import com.mda.server.web.dto.UserResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,9 +26,9 @@ public class PlaceService {
         return placeRepository.save(place.toEntity());
     }
 
-    public PlaceResponseDto findById(Integer id) {
+    public PlaceDto findById(Integer id) {
         Place entity = placeRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("이게뭐냐"));
-        return new PlaceResponseDto(entity);
+        return new PlaceDto(entity);
     }
 
 }

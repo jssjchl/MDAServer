@@ -30,7 +30,7 @@ public class PlaceController {
 
     //PlACEDETAIL
     @GetMapping(value= "/placeDetail/{placeId}")
-    public PlaceResponseDto findById (@PathVariable int placeId){
+    public PlaceDto findById (@PathVariable int placeId){
         return placeService.findById(placeId);
     }
 

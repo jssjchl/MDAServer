@@ -19,16 +19,15 @@ public class PlaceDto {
     private String placeCategory;
 
     @Builder
-    public PlaceDto(Integer placeId, String placeType, String placeName, String placeArea, String placeDescription,
-                    String placeImgUrl, String placeCategory) {
+    public PlaceDto(Place entity) {
 
-        this.placeId = placeId;
-        this.placeType = placeType;
-        this.placeName = placeName;
-        this.placeArea = placeArea;
-        this.placeDescription = placeDescription;
-        this.placeImgUrl = placeImgUrl;
-        this.placeCategory = placeCategory;
+        this.placeId = entity.getPlaceId();
+        this.placeType = entity.getPlaceType();
+        this.placeName = entity.getPlaceName();
+        this.placeArea = entity.getPlaceArea();
+        this.placeDescription = entity.getPlaceDescription();
+        this.placeImgUrl = entity.getPlaceImgUrl();
+        this.placeCategory = entity.getPlaceCategory();
 
     }
     public Place toEntity() {

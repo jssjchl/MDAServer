@@ -1,5 +1,6 @@
 package com.mda.server.web.dto;
 
+import com.mda.server.domain.schedule.Schedule;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,5 +15,10 @@ public class schDT {
         this.scheduleDate=getScheduleTime();
         this.scheduleTime=getScheduleTime();
         this.placeId=getPlaceId();
+    }
+
+    public schDT(Schedule entity){
+        this.scheduleDate=entity.getScheduleTime();
+        this.scheduleTime=entity.getScheduleTime();
     }
 }

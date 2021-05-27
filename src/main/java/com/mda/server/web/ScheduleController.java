@@ -68,8 +68,8 @@ public class ScheduleController {
 
     //CalendarFragment
     @GetMapping(value= "/getCalendarFragment")
-    public CalendarFragmentDto getCalendarFragment (HttpServletRequest request){
-        return scheduleService.CalendarFragment(Integer.valueOf(request.getParameter("schID")));
+    public schDT getCalendarFragment (HttpServletRequest request){
+        return scheduleService.schDT(Integer.valueOf(request.getParameter("schID")));
     }
 
     //ScheduleTimeDate

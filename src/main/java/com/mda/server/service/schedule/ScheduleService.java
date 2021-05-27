@@ -28,9 +28,9 @@ public class ScheduleService extends QuerydslRepositorySupport {
         return (List<Schedule>) scheduleRepository.findAll();
     }
 
-    public CalendarFragmentDto CalendarFragment(Integer id) {
+    public schDT schDT(Integer id) {
         Schedule entity = scheduleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("이게뭐냐"));
-        return new CalendarFragmentDto(entity);
+        return new schDT(entity);
     }
 
     public ScheduleFragmentDto ScheduleFragment(Integer id) {
