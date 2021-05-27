@@ -5,13 +5,13 @@ import lombok.Getter;
 
 @Getter
 public class CalendarFragmentDto {
-    private Integer scheduleId;
-    private String scheduleDate;
-    private String scheduleTime;
+    private Integer schID;
+    private String schDate;
+    private String schTime;
 
     public CalendarFragmentDto(Schedule entity) {
-        this.scheduleId=entity.getScheduleId();
-        this.scheduleDate=entity.getScheduleDate();
-        this.scheduleTime=entity.getScheduleTime();
+        this.schID=entity.getScheduleId();
+        this.schDate=entity.getScheduleDate();
+        this.schTime=entity.getScheduleTime();
     }
 }

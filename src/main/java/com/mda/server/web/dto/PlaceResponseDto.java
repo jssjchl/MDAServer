@@ -11,18 +11,16 @@ public class PlaceResponseDto {
     private String placeType;
     private String placeName;
     private String placeArea;
-    private String placeDescription;
     private String placeImgUrl;
-    private String placeCategory;
+    private String placeCate;
 
-    public PlaceResponseDto(Place entity ){
+    public PlaceResponseDto(Place entity){
         this.placeId = entity.getPlaceId();
         this.placeType =entity.getPlaceType();
         this.placeName =entity.getPlaceName();
         this.placeArea =entity.getPlaceArea();
-        this.placeDescription =entity.getPlaceDescription();
         this.placeImgUrl = entity.getPlaceImgUrl();
-        this.placeCategory =entity.getPlaceCategory();
+        this.placeCate =entity.getPlaceCategory();
     }
 
 

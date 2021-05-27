@@ -29,31 +29,24 @@ public class PlaceController {
     LocInitSet st = new LocInitSet();
 
     //PlACEDETAIL
-    @GetMapping(value= "/getPlaceDetail")
+    @GetMapping(value= "/placeDetail")
     public PlaceResponseDto findById (HttpServletRequest request){
         return placeService.findById(Integer.valueOf(request.getParameter("placeId")));
     }
 
-    //바로 위에서 입력받은 값들을 확인하기 위해서 만든 컨트롤러
-    //@GetMapping("/locationInitSet")
-   // public LocInitSet showLocInitSet(){
-     //   return st;
-   // }
-
-
-    //장소디테일을 서버에서 보내는 테스트를 위해 만든 컨트롤러
-    @GetMapping("/placeDetail")
-    public PlaceDto placeDetail(){
-        //테스트용으로 만들어서 설정한건데, 실제코드를 사용할때는 db에서 객체로 가져오던가 해서 리턴해줘야할듯?
-        PlaceDto placeDetail = new PlaceDto();
-        placeDetail.setPlaceArea("경기도 고양시 일산서구");
-        placeDetail.setPlaceCategory("카페");
-        placeDetail.setPlaceDescription("이건 대충 테스트를 위한 장소 디테일입니다. 와라라라라라라라라라랄라ㅏ랄");
-        placeDetail.setPlaceImgUrl("대충 사진URL");
-        placeDetail.setPlaceName("스타벅스");
-
-        return placeDetail;
-    }
+//    //장소디테일을 서버에서 보내는 테스트를 위해 만든 컨트롤러
+//    @GetMapping("/placeDetail")
+//    public PlaceDto placeDetail(){
+//        //테스트용으로 만들어서 설정한건데, 실제코드를 사용할때는 db에서 객체로 가져오던가 해서 리턴해줘야할듯?
+//        PlaceDto placeDetail = new PlaceDto();
+//        placeDetail.setPlaceArea("경기도 고양시 일산서구");
+//        placeDetail.setPlaceCategory("카페");
+//        placeDetail.setPlaceDescription("이건 대충 테스트를 위한 장소 디테일입니다. 와라라라라라라라라라랄라ㅏ랄");
+//        placeDetail.setPlaceImgUrl("대충 사진URL");
+//        placeDetail.setPlaceName("스타벅스");
+//
+//        return placeDetail;
+//    }
 
 
     /*
