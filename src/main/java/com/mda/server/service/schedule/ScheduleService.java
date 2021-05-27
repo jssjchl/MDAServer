@@ -4,7 +4,7 @@ import com.mda.server.domain.schedule.QSchedule;
 import com.mda.server.domain.schedule.Schedule;
 import com.mda.server.domain.schedule.ScheduleRepository;
 import com.mda.server.web.dto.*;
-import lombok.RequiredArgsConstructor;
+import com.querydsl.jpa.JPQLQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Service;
@@ -48,13 +48,12 @@ public class ScheduleService extends QuerydslRepositorySupport {
         return new locFin(entity);
     }
 
-    public ArrayList<Schedule>getSchedules(int userId){
+    public List<Schedule> getSchedules(String userId){
         QSchedule schedule = QSchedule.schedule;
-        ArrayList<Schedule> arr = new ArrayList<>();
-        ScheduleDto dto = new ScheduleDto();
-        arr.addAll(from(schedule).where(schedule.scheduleUserId.eq(String.valueOf(userId))).fetch());
-
-        return arr;
+        List<Schedule> schList = new ArrayList<>();
+        //schList.addAll(from(schedule).where(schedule.scheduleUserId.eq(userId)).fetch()); //이거..조건을 넣으면 조회가안된다 알아보기
+        schList.addAll(from(schedule).fetch());
+        return schList;
     }
 
     @Transactional

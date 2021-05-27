@@ -37,10 +37,10 @@ public class ScheduleController {
     }
 
     @GetMapping("/getSchedule/{userId}")
-    public ScheduleList getSchedules(@PathVariable int userId){
+    public ScheduleList getSchedules(@PathVariable String userId){
         ScheduleList s = new ScheduleList();
         ArrayList<ScheduleDto> schArr = new ArrayList<>();
-        ArrayList<Schedule> tempSchArr = new ArrayList<>();
+        List<Schedule> tempSchArr = new ArrayList<>();
         tempSchArr = scheduleService.getSchedules(userId);
         for(int i=0; i<tempSchArr.size(); i++){
             ScheduleDto sDto = new ScheduleDto();

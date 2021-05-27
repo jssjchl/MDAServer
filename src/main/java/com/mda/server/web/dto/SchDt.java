@@ -5,12 +5,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SchDto {
+public class SchDt {
 
     private String scheduleTime;
     private String scheduleDate;
 
-    public SchDto(){
+    public SchDt(){
         this.scheduleDate=getScheduleTime();
         this.scheduleTime=getScheduleTime();
     }
