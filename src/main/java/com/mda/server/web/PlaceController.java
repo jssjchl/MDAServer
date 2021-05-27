@@ -29,9 +29,9 @@ public class PlaceController {
     LocInitSet st = new LocInitSet();
 
     //PlACEDETAIL
-    @GetMapping(value= "/placeDetail")
-    public PlaceResponseDto findById (HttpServletRequest request){
-        return placeService.findById(Integer.valueOf(request.getParameter("placeId")));
+    @GetMapping(value= "/placeDetail/{placeId}")
+    public PlaceResponseDto findById (@PathVariable int placeId){
+        return placeService.findById(placeId);
     }
 
 //    //장소디테일을 서버에서 보내는 테스트를 위해 만든 컨트롤러
