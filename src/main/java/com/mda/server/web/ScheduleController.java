@@ -46,7 +46,19 @@ public class ScheduleController {
             ScheduleDto sDto = new ScheduleDto();
             sDto.setScheduleId(tempSchArr.get(i).getScheduleId());
             sDto.setScheduleName(tempSchArr.get(i).getScheduleName());
+            sDto.setSchedulePlaceId(tempSchArr.get(i).getSchedulePlaceId());
+            sDto.setScheduleUserId(tempSchArr.get(i).getScheduleUserId());
+            sDto.setScheduleUserName(tempSchArr.get(i).getScheduleUserName());
+            sDto.setScheduleDate(tempSchArr.get(i).getScheduleDate());
+            sDto.setScheduleTime(tempSchArr.get(i).getScheduleTime());
+            sDto.setScheduleWithUserId(tempSchArr.get(i).getScheduleWithUserId());
+            sDto.setScheduleWithUserName(tempSchArr.get(i).getScheduleWithUserName());
+            sDto.setSchedulePlaceName(tempSchArr.get(i).getSchedulePlaceName());
+            sDto.setSchedulePeopleNum(tempSchArr.get(i).getSchedulePeopleNum());
+            sDto.setSchedulePlaceArea(tempSchArr.get(i).getSchedulePlaceArea());
+            System.out.println("sDto : "+ sDto);
             schArr.add(sDto);
+            System.out.println("schArr : "+ schArr);
         }
         s.setUserid(userId);
         s.setList(schArr);
