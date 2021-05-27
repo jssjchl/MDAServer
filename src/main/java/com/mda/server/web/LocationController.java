@@ -268,7 +268,6 @@ public class LocationController{
                 schId = locationService.saveSchedule(sd);
             }
             cs.setPlaceId(schId);
-
         return cs;
     }
 
