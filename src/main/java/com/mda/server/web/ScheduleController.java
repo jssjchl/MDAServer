@@ -25,11 +25,6 @@ public class ScheduleController {
         return scheduleService.getScheduleList();
     }
 
-    //ScheduleFragment
-    @GetMapping(value= "/getScheduleFragment")
-    public ScheduleFragmentDto getScheduleFragment (HttpServletRequest request){
-        return scheduleService.ScheduleFragment(Integer.valueOf(request.getParameter("scheduleId")));
-    }
     //ScheduleDetailFragment
     @GetMapping(value= "/getScheduleDetailFragment")
     public ScheduleDetailFragmentDto getScheduleDetailFragment (HttpServletRequest request){
@@ -39,6 +34,24 @@ public class ScheduleController {
     @GetMapping(value= "/locationFin/{schId}")
     public locFin locFin(@PathVariable int schId){
             return scheduleService.locFin(schId);
+    }
+
+    @GetMapping("/getSchedule/{userId}")
+    public ScheduleList getSchedules(@PathVariable int userId){
+        ScheduleList s = new ScheduleList();
+        ArrayList<ScheduleDto> schArr = new ArrayList<>();
+        ArrayList<Schedule> tempSchArr = new ArrayList<>();
+        tempSchArr = scheduleService.getSchedules(userId);
+        for(int i=0; i<tempSchArr.size(); i++){
+            ScheduleDto sDto = new ScheduleDto();
+            sDto.setScheduleId(tempSchArr.get(i).getScheduleId());
+            sDto.setScheduleName(tempSchArr.get(i).getScheduleName());
+            schArr.add(sDto);
+        }
+        s.setUserid(userId);
+        s.setList(schArr);
+
+        return s;
     }
 
     //CalendarFragment

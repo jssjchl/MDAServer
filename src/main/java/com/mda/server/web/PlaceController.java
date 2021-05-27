@@ -56,17 +56,6 @@ public class PlaceController {
     }
 
 
-    @GetMapping("/getSchedule/{userId}")
-    public ScheduleList getSchedules(@PathVariable int userId){
-        ScheduleList s = new ScheduleList();
-        s.setUserid(userId);
-        ArrayList<ScheduleDto> arr = new ArrayList<>();
-        ScheduleDto dto = new ScheduleDto();
-        arr.add(dto);
-        s.setList(arr);
-        return s;
-    }
-
     /*
     @GetMapping("/test/param")
     //@RequestParam을 사용하게되면 API에서 넘긴 name이랑 amount 값을 가져와서 String name과 int amount에 넣어주는 과정을 거치게됨
