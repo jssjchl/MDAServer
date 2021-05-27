@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -35,10 +36,11 @@ public class ScheduleController {
         return scheduleService.ScheduleDetailFragment(Integer.valueOf(request.getParameter("scheduleId")));
     }
     //locFin
-    @GetMapping(value= "/locationFin")
-    public locFin locFin(HttpServletRequest request){
-        return scheduleService.locFin(Integer.valueOf(request.getParameter("scheduleId")));
+    @GetMapping(value= "/locationFin/{schId}")
+    public locFin locFin(@PathVariable int schId){
+            return scheduleService.locFin(schId);
     }
+
     //CalendarFragment
     @GetMapping(value= "/getCalendarFragment")
     public CalendarFragmentDto getCalendarFragment (HttpServletRequest request){

@@ -6,18 +6,18 @@ import lombok.Getter;
 @Getter
 public class locFin {
 
-    private Integer scheduleId;
-    private String scheduleName;
-    private String schedulePlaceName;
-    private String schedulePlaceArea;
-    private String scheduleWithUserName;
+    private Integer schId;
+    private String schName;
+    private String schPlaceName;
+    private String schPlaceArea;
+    private String schWIthUserName;
 
     public locFin(Schedule entity){
-        this.scheduleId=entity.getScheduleId();
-        this.scheduleName=entity.getScheduleName();
-        this.schedulePlaceArea=entity.getSchedulePlaceArea();
-        this.schedulePlaceName=entity.getSchedulePlaceName();
-        this.scheduleWithUserName=entity.getScheduleWithUserName();
+        this.schId=entity.getScheduleId();
+        this.schName=entity.getScheduleName();
+        this.schPlaceName=entity.getSchedulePlaceArea();
+        this.schPlaceArea=entity.getSchedulePlaceName();
+        this.schWIthUserName=entity.getScheduleWithUserName();
     }
 
 }
