@@ -38,9 +38,9 @@ public class ScheduleService extends QuerydslRepositorySupport {
         return new ScheduleFragmentDto(entity);
     }
 
-    public ScheduleDetailFragmentDto ScheduleDetailFragment(Integer id) {
+    public ScheduleDto schDetail(Integer id) {
         Schedule entity = scheduleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("이게뭐냐"));
-        return new ScheduleDetailFragmentDto(entity);
+        return new ScheduleDto(entity);
     }
 
     public locFin locFin(Integer id) {
