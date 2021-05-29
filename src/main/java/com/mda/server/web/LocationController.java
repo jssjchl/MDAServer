@@ -31,6 +31,9 @@ public class LocationController{
     ArrayList<UserEnter> userEnterList = new ArrayList<>();
     infoList infoList = new infoList();
 
+
+
+    //사용자의 위도경도 받아 즉시 객체로 리턴
     @PostMapping(value = "/userEnter")
     public UserEnter userEnter(HttpServletRequest request){
         UserEnter ue  = new UserEnter();
@@ -46,15 +49,15 @@ public class LocationController{
         return ue;
 
     }
-
+    //UserEnter객체타입의 ArrayList
     @GetMapping(value = "/userEnterList")
     public ArrayList<UserEnter> userEnterList(HttpServletRequest request){
         return userEnterList;
 
     }
 
-
-    @RequestMapping(value = "/locationInitSet", method= RequestMethod.POST) //place 뽑을때 참고할 Data
+    //최초 약속 설정시 약속정보, locSet객체에 저장한다.
+    @RequestMapping(value = "/locationInitSet", method= RequestMethod.POST)
     public LocInitSet locInitSet(HttpServletRequest request) {
         locSet.setSchName(request.getParameter("schName"));
         locSet.setSchAge(request.getParameter("schAge"));
@@ -63,12 +66,14 @@ public class LocationController{
         locSet.setSchType(request.getParameter("schType"));
         locSet.setSchPlaceCate(request.getParameter("schPlaceCate"));
 
-        System.out.println(locSet.getSchName() + "/" + locSet.getSchAge() + "/" + locSet.getSchType() + "/" + locSet.getSchGender() + "/" + locSet.getSchPeople() + "/" +
-                locSet.getSchPlaceCate());
         return locSet;
     }
 
 
+    /*
+    * 각 User들의 위도,경도 받아서 중간위도,경도 구한후 API사용해 반경내에서 가장 가까운역으로 으로 최종 중간위치 설정
+    *   locSet에서 받은 정보기반으로 중간위치에 있는 Place정보 return
+    * */
     @GetMapping(value = "/midAndPlace")
     public midAndPlace getMidAndPlace(HttpServletRequest request) throws IOException {
         midAndPlace map = new midAndPlace();
@@ -168,8 +173,8 @@ public class LocationController{
             System.out.println("5 : " + midLat +"||"+ midLong);
 
             //최종위치 위도경도 리턴할 객체에 셋팅
-            map.setMidLat(midLat);
-            map.setMidLong(midLong);
+            map.setMidLat(Double.parseDouble(midLat));
+            map.setMidLong(Double.parseDouble(midLong));
         }catch(Exception e) {
             e.printStackTrace();
         }
@@ -185,12 +190,13 @@ public class LocationController{
         double latitude3 = Double.parseDouble(request.getParameter("latitude3")); //user3위도
         // placeList.get()
 
-        map.setLatitude1(userEnterList.get(0).getUserLatitude());
-        map.setLatitude2(userEnterList.get(1).getUserLatitude());
-        map.setLatitude3(userEnterList.get(2).getUserLatitude());
-        map.setLongitude1(userEnterList.get(0).getUserLongtitude());
-        map.setLongitude2(userEnterList.get(1).getUserLongtitude());
-        map.setLongitude3(userEnterList.get(2).getUserLongtitude());
+
+        map.setLatitude1(Double.parseDouble(userEnterList.get(0).getUserLatitude()));
+        map.setLatitude2(Double.parseDouble(userEnterList.get(1).getUserLatitude()));
+        map.setLatitude3(Double.parseDouble(userEnterList.get(2).getUserLatitude()));
+        map.setLongitude1(Double.parseDouble(userEnterList.get(0).getUserLongtitude()));
+        map.setLongitude2(Double.parseDouble(userEnterList.get(1).getUserLongtitude()));
+        map.setLongitude3(Double.parseDouble(userEnterList.get(2).getUserLongtitude()));
         map.setUserId1(userEnterList.get(0).getUserId());
         map.setUserId2(userEnterList.get(1).getUserId());
         map.setUserId3(userEnterList.get(2).getUserId());
@@ -243,7 +249,7 @@ public class LocationController{
     }
 
     //최종스케쥴 저장
-    @RequestMapping(value = "/schDT", method= RequestMethod.POST) //place 뽑을때 참고할 Data
+    @RequestMapping(value = "/schDT", method= RequestMethod.POST)
     public schDT saveSchDT(HttpServletRequest request) {
         String result = "";
         Schedule sd = new Schedule();

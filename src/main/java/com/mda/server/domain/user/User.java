@@ -12,7 +12,7 @@ import javax.persistence.Id;
 public class User {
     @Id
     @Column(nullable = false)
-    private Integer userId;
+    private int userId;
 
     @Column(nullable = false)
     private Integer userAge;
@@ -27,7 +27,7 @@ public class User {
     private String userPwd;
 
     @Builder
-    public User(Integer userId, Integer userAge, String userGender, String userName, String userPwd){
+    public User(int userId, Integer userAge, String userGender, String userName, String userPwd){
         this.userId = userId;
         this.userAge = userAge;
         this.userName = userName;

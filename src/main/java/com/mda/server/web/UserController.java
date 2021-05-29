@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -42,13 +43,16 @@ public class UserController {
         return userService.findById(id);
     }
 
-    @PostMapping("/voteUser")
+    @PostMapping("/voteUser") //여기수정해야함
     public voteStatus userVote(HttpServletRequest request){
         voteStatus voteStatus = new voteStatus();
+        List<User> userList = new ArrayList<>();
+        Integer userId = Integer.parseInt(request.getParameter("voteUserId"));
+        userList = userService.getUserInfo(userId);
         voteStatus.setPVotedUser(request.getParameter("voteUserId"));
         voteStatus.setPlacePname(request.getParameter("votePlaceId"));
-        voteStatus.setPlacePname(request.getParameter("votePlaceId"));
-        userVoteCnt ++;
+        voteStatus.setPId(Integer.parseInt(request.getParameter("votePlaceId")));
+
         if (userVoteCnt > 3){
             voteStatusList.clear();
             userVoteCnt = 1;

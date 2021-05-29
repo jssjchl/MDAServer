@@ -23,28 +23,15 @@ public class EvalDetailController {
     UserRepository userRepository;
     ScheduleRepository scheduleRepository;
     EvalDetailService evalDetailService;
-
     ArrayList<EvalDetailDto> evalDetailDtoArrayList = new ArrayList<>();
 
-    /*
-    @PostMapping(value = "/rating")
-    public EvalDetail saveRating(HttpServletRequest request) {
-        EvalDetailDto rt = new EvalDetailDto();
-        rt.setEvalDetailId(Integer.valueOf(request.getParameter("evalDetailId")));
-        rt.setEvalDetailAge(request.getParameter("evalDetailAge"));
-        rt.setEvalDetailGender(request.getParameter("evalDetailGender"));
-        rt.setEvalDetailRating(request.getParameter("evalDetailRating"));
-        rt.setEvalSubId(Integer.valueOf(request.getParameter("evalSubId")));
-        rt.setPlaceId(Integer.valueOf(request.getParameter("placeId")));
 
-        return evalDetailService.save(rt);
-    }
+    /*평가점수 저장
+    * schId값으로 해당스케쥴의 type찾은후 conditionEval 값으로 모두 셋팅해줌
     */
 
-
-
-    //최종스케쥴 저장
-    @RequestMapping(value = "/rating", method= RequestMethod.POST) //place 뽑을때 참고할 Data
+    /*
+    @RequestMapping(value = "/rating", method= RequestMethod.POST)
     public int saveRating(HttpServletRequest request) {
         int userId = Integer.parseInt(request.getParameter("userId"));
         int schId = Integer.parseInt(request.getParameter("schId"));
@@ -62,4 +49,6 @@ public class EvalDetailController {
         evalDto.setEvalSubId();
         return 1;
     }
+    */
+
 }

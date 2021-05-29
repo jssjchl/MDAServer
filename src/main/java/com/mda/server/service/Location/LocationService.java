@@ -17,7 +17,7 @@ import java.util.List;
 
 @Transactional(value = "transactionManager")
 @Service("locationService2")
-//extends QueryDslRepositorySupport
+
 
 public class LocationService extends QuerydslRepositorySupport{
 

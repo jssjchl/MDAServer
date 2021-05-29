@@ -72,40 +72,7 @@ public class ScheduleController {
         return scheduleService.schDT(Integer.valueOf(request.getParameter("schID")));
     }
 
-    //ScheduleTimeDate
-    /*
-    SchDto td=new SchDto();
-    @PostMapping(value = "/schDT")
-    public SchDto getschDT(HttpServletRequest request){
-        td.setScheduleDate(request.getParameter("scheduleDate"));
-        td.setScheduleTime(request.getParameter("scheduleTime"));
-        return td;
-    }
 
-
-
-    @GetMapping(value = "/showSchDT")
-    public SchDto ShowSchDT(){
-        return td;
-    }
-    */
-    /*
-    @RequestMapping(value="/saveLocationSetting")
-    public String saveLocationSetting(@RequestParam Map<String, Object> paramMap, HttpServletRequest request) {
-        String result = "";
-        try {
-            scheduleService.saveLocationSetting(paramMap);
-            result = "success";
-        } catch (IndexOutOfBoundsException e) {
-            result = "fail";
-        } catch (Exception e) {
-            result = "fail";
-        }
-
-        return result;
-    }
-
-*/
 
 
 }
