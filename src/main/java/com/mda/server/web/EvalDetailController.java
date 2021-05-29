@@ -30,7 +30,7 @@ public class EvalDetailController {
     * schId값으로 해당스케쥴의 type찾은후 conditionEval 값으로 모두 셋팅해줌
     */
 
-<<<<<<< HEAD
+
     /*
     @RequestMapping(value = "/rating", method= RequestMethod.POST)
     public int saveRating(HttpServletRequest request) {
@@ -52,7 +52,7 @@ public class EvalDetailController {
     }
     */
 
-=======
+
 
 
 //    //최종스케쥴 저장
@@ -74,5 +74,5 @@ public class EvalDetailController {
 //        evalDto.setEvalSubId();
 //        return 1;
 //    }
->>>>>>> a25744698c0ce4acf3dfd1743e64901f1d074f3d
+
 }
