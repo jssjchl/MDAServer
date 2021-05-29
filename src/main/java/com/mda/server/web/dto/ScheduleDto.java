@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class ScheduleDto {
-    private Integer scheduleId;
+    private Integer schid;
     private String scheduleName;
     private String schedulePlaceId;
     private String scheduleUserId;
@@ -23,15 +23,24 @@ public class ScheduleDto {
     private String schedulePeopleNum;
     private String schedulePlaceArea;
 
+    public ScheduleDto(Schedule entity) {
+        this.scheduleDate = entity.getScheduleDate();
+        this.schedulePlaceName = entity.getSchedulePlaceName();
+        this.scheduleName = entity.getScheduleName();
+        this.scheduleTime = entity.getScheduleTime();
+        this.scheduleWithUserName = entity.getScheduleWithUserName();
+        this.schedulePlaceArea=entity.getSchedulePlaceArea();
+    }
+
     @Builder
-    public ScheduleDto(Integer scheduleId, String scheduleDate, String scheduleName,
+    public ScheduleDto(Integer schid, String scheduleDate, String scheduleName,
                        String schedulePlaceId, String scheduleUserId,
                        String scheduleUserName, String scheduleTime,
                        String scheduleWithUserId, String scheduleWithUserName, String schedulePlaceName,
                        String schedulePeopleNum, String schedulePlaceArea
                        ){
         this.scheduleDate = scheduleDate;
-        this.scheduleId = scheduleId;
+        this.schid = schid;
         this.schedulePlaceName = schedulePlaceName;
         this.scheduleName = scheduleName;
         this.schedulePlaceId = schedulePlaceId;
@@ -47,7 +56,7 @@ public class ScheduleDto {
     public Schedule toEntity(){
         return Schedule.builder()
                 .scheduleDate(scheduleDate)
-                .scheduleId(scheduleId)
+                .scheduleId(schid)
                 .scheduleName(scheduleName)
                 .scheduleTime(scheduleTime)
                 .schedulePlaceId(schedulePlaceId)

@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class PlaceDto {
-    private Integer placeId;
+    private int placeId;
     private String placeType;
     private String placeName;
     private String placeArea;
@@ -18,16 +18,17 @@ public class PlaceDto {
     private String placeImgUrl;
     private String placeCategory;
 
-    @Builder
-    public PlaceDto(Place entity) {
+      @Builder
+    public PlaceDto(int placeId, String placeType, String placeCategory, String placeArea,
+                    String placeDescription, String placeName, String placeImgUrl) {
 
-        this.placeId = entity.getPlaceId();
-        this.placeType = entity.getPlaceType();
-        this.placeName = entity.getPlaceName();
-        this.placeArea = entity.getPlaceArea();
-        this.placeDescription = entity.getPlaceDescription();
-        this.placeImgUrl = entity.getPlaceImgUrl();
-        this.placeCategory = entity.getPlaceCategory();
+        this.placeId = placeId;
+        this.placeType = placeType;
+        this.placeName = placeName;
+        this.placeArea = placeArea;
+        this.placeDescription = placeDescription;
+        this.placeImgUrl = placeImgUrl;
+        this.placeCategory = placeCategory;
 
     }
     public Place toEntity() {
@@ -40,5 +41,16 @@ public class PlaceDto {
                 .placeImgUrl(placeImgUrl)
                 .placeCategory(placeCategory)
                 .build();
+    }
+
+    public PlaceDto(Place entity) {
+        this.placeId = entity.getPlaceId();
+        this.placeType = entity.getPlaceType();
+        this.placeName = entity.getPlaceName();
+        this.placeArea = entity.getPlaceArea();
+        this.placeDescription = entity.getPlaceDescription();
+        this.placeImgUrl = entity.getPlaceImgUrl();
+        this.placeCategory = entity.getPlaceCategory();
+
     }
 }
