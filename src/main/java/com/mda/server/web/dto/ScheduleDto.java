@@ -11,62 +11,62 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ScheduleDto {
     private Integer schid;
-    private String scheduleName;
-    private String schedulePlaceId;
-    private String scheduleUserId;
-    private String scheduleUserName;
-    private String scheduleDate;
-    private String scheduleTime;
-    private String scheduleWithUserId;
-    private String scheduleWithUserName;
-    private String schedulePlaceName;
-    private String schedulePeopleNum;
-    private String schedulePlaceArea;
+    private String schName;
+    private String schPlaceId;
+    private String schUserId;
+    private String schUserName;
+    private String schDate;
+    private String schTime;
+    private String schWithUserId;
+    private String schWithUserName;
+    private String schPlaceName;
+    private String schPeopleNum;
+    private String schPlaceArea;
 
     public ScheduleDto(Schedule entity) {
-        this.scheduleDate = entity.getScheduleDate();
-        this.schedulePlaceName = entity.getSchedulePlaceName();
-        this.scheduleName = entity.getScheduleName();
-        this.scheduleTime = entity.getScheduleTime();
-        this.scheduleWithUserName = entity.getScheduleWithUserName();
-        this.schedulePlaceArea=entity.getSchedulePlaceArea();
+        this.schDate = entity.getScheduleDate();
+        this.schPlaceName = entity.getSchedulePlaceName();
+        this.schName = entity.getScheduleName();
+        this.schTime = entity.getScheduleTime();
+        this.schWithUserName = entity.getScheduleWithUserName();
+        this.schPlaceArea=entity.getSchedulePlaceArea();
     }
 
     @Builder
-    public ScheduleDto(Integer schid, String scheduleDate, String scheduleName,
-                       String schedulePlaceId, String scheduleUserId,
-                       String scheduleUserName, String scheduleTime,
-                       String scheduleWithUserId, String scheduleWithUserName, String schedulePlaceName,
-                       String schedulePeopleNum, String schedulePlaceArea
-                       ){
-        this.scheduleDate = scheduleDate;
+    public ScheduleDto(Integer schid, String schDate, String schName,
+                       String schPlaceId, String schUserId,
+                       String schUserName, String schTime,
+                       String schWithUserId, String schWithUserName, String schPlaceName,
+                       String schPeopleNum, String schPlaceArea
+    ){
+        this.schDate = schDate;
         this.schid = schid;
-        this.schedulePlaceName = schedulePlaceName;
-        this.scheduleName = scheduleName;
-        this.schedulePlaceId = schedulePlaceId;
-        this.scheduleUserName = scheduleUserName;
-        this.scheduleTime = scheduleTime;
-        this.scheduleUserId = scheduleUserId;
-        this.scheduleWithUserId = scheduleWithUserId;
-        this.scheduleWithUserName = scheduleWithUserName;
-        this.schedulePeopleNum=schedulePeopleNum;
-        this.schedulePlaceArea=schedulePlaceArea;
+        this.schPlaceName = schPlaceName;
+        this.schName = schName;
+        this.schPlaceId = schPlaceId;
+        this.schUserName = schUserName;
+        this.schTime = schTime;
+        this.schUserId = schUserId;
+        this.schWithUserId = schWithUserId;
+        this.schWithUserName = schWithUserName;
+        this.schPeopleNum=schPeopleNum;
+        this.schPlaceArea=schPlaceArea;
     }
 
     public Schedule toEntity(){
         return Schedule.builder()
-                .scheduleDate(scheduleDate)
+                .scheduleDate(schDate)
                 .scheduleId(schid)
-                .scheduleName(scheduleName)
-                .scheduleTime(scheduleTime)
-                .schedulePlaceId(schedulePlaceId)
-                .scheduleWithUserId(scheduleWithUserId)
-                .scheduleWithUserName(scheduleWithUserName)
-                .scheduleUserId(scheduleUserId)
-                .scheduleUserName(scheduleUserName)
-                .schedulePeopleNum(schedulePeopleNum)
-                .schedulePlaceName(schedulePlaceName)
-                .schedulePlaceArea(schedulePlaceArea)
+                .scheduleName(schName)
+                .scheduleTime(schTime)
+                .schedulePlaceId(schPlaceId)
+                .scheduleWithUserId(schWithUserId)
+                .scheduleWithUserName(schWithUserName)
+                .scheduleUserId(schUserId)
+                .scheduleUserName(schUserName)
+                .schedulePeopleNum(schPeopleNum)
+                .schedulePlaceName(schPlaceName)
+                .schedulePlaceArea(schPlaceArea)
                 .build();
     }
 }

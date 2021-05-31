@@ -8,17 +8,17 @@ import lombok.Setter;
 @Setter
 public class schDT {
     private int placeId;
-    private String scheduleTime;
-    private String scheduleDate;
+    private String schTime;
+    private String schDate;
 
     public schDT(){
-        this.scheduleDate=getScheduleTime();
-        this.scheduleTime=getScheduleTime();
+        this.schDate=getSchDate();
+        this.schTime=getSchTime();
         this.placeId=getPlaceId();
     }
 
     public schDT(Schedule entity){
-        this.scheduleDate=entity.getScheduleTime();
-        this.scheduleTime=entity.getScheduleTime();
+        this.schDate=entity.getScheduleTime();
+        this.schTime=entity.getScheduleTime();
     }
 }

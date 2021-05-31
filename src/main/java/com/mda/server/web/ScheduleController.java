@@ -45,17 +45,17 @@ public class ScheduleController {
         for(int i=0; i<tempSchArr.size(); i++){
             ScheduleDto sDto = new ScheduleDto();
             sDto.setSchid(tempSchArr.get(i).getScheduleId());
-            sDto.setScheduleName(tempSchArr.get(i).getScheduleName());
-            sDto.setSchedulePlaceId(tempSchArr.get(i).getSchedulePlaceId());
-            sDto.setScheduleUserId(tempSchArr.get(i).getScheduleUserId());
-            sDto.setScheduleUserName(tempSchArr.get(i).getScheduleUserName());
-            sDto.setScheduleDate(tempSchArr.get(i).getScheduleDate());
-            sDto.setScheduleTime(tempSchArr.get(i).getScheduleTime());
-            sDto.setScheduleWithUserId(tempSchArr.get(i).getScheduleWithUserId());
-            sDto.setScheduleWithUserName(tempSchArr.get(i).getScheduleWithUserName());
-            sDto.setSchedulePlaceName(tempSchArr.get(i).getSchedulePlaceName());
-            sDto.setSchedulePeopleNum(tempSchArr.get(i).getSchedulePeopleNum());
-            sDto.setSchedulePlaceArea(tempSchArr.get(i).getSchedulePlaceArea());
+            sDto.setSchName(tempSchArr.get(i).getScheduleName());
+            sDto.setSchPlaceId(tempSchArr.get(i).getSchedulePlaceId());
+            sDto.setSchUserId(tempSchArr.get(i).getScheduleUserId());
+            sDto.setSchUserName(tempSchArr.get(i).getScheduleUserName());
+            sDto.setSchDate(tempSchArr.get(i).getScheduleDate());
+            sDto.setSchTime(tempSchArr.get(i).getScheduleTime());
+            sDto.setSchWithUserId(tempSchArr.get(i).getScheduleWithUserId());
+            sDto.setSchWithUserName(tempSchArr.get(i).getScheduleWithUserName());
+            sDto.setSchPlaceName(tempSchArr.get(i).getSchedulePlaceName());
+            sDto.setSchPeopleNum(tempSchArr.get(i).getSchedulePeopleNum());
+            sDto.setSchPlaceArea(tempSchArr.get(i).getSchedulePlaceArea());
             System.out.println("sDto : "+ sDto);
             schArr.add(sDto);
             System.out.println("schArr : "+ schArr);
