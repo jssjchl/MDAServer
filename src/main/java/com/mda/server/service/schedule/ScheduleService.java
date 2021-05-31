@@ -28,32 +28,30 @@ public class ScheduleService extends QuerydslRepositorySupport {
         return (List<Schedule>) scheduleRepository.findAll();
     }
 
+    //CalenderFragment
     public schDT schDT(Integer id) {
         Schedule entity = scheduleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("이게뭐냐"));
         return new schDT(entity);
     }
 
-    public ScheduleFragmentDto ScheduleFragment(Integer id) {
-        Schedule entity = scheduleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("이게뭐냐"));
-        return new ScheduleFragmentDto(entity);
-    }
-
-    public ScheduleDto schDetail(Integer id) {
-        Schedule entity = scheduleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("이게뭐냐"));
-        return new ScheduleDto(entity);
-    }
-
+    //locFin
     public locFin locFin(Integer id) {
         Schedule entity = scheduleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("이게뭐냐"));
         return new locFin(entity);
     }
 
+    //ScheduleFragment
     public List<Schedule> getSchedules(String userId){
         QSchedule schedule = QSchedule.schedule;
         List<Schedule> schList = new ArrayList<>();
         //schList.addAll(from(schedule).where(schedule.scheduleUserId.eq(userId)).fetch()); //이거..조건을 넣으면 조회가안된다 알아보기
         schList.addAll(from(schedule).fetch());
         return schList;
+    }
+    //ScheduleDetailFragment
+    public ScheduleDto schDetail(Integer id) {
+        Schedule entity = scheduleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("이게뭐냐"));
+        return new ScheduleDto(entity);
     }
 
     @Transactional

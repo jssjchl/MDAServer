@@ -14,35 +14,36 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class ScheduleController {
-    private ScheduleDto scheduleDto = new ScheduleDto();
     @Autowired
     ScheduleService scheduleService;
     LocInitSet locSet = new LocInitSet();
 
-
-    @GetMapping("schedule")
-    public List<Schedule> getAllSchedules() {
-        return scheduleService.getScheduleList();
+    //locFin
+    @GetMapping(value = "/locationFin/{schId}")
+    public locFin locFin(@PathVariable int schId) {
+        return scheduleService.locFin(schId);
     }
 
-    //ScheduleDetailFragment
-    @GetMapping(value= "/schDetail/{schId}")
-    public ScheduleDto schDetail (@PathVariable int schId){
+    //ScheduleDetailFragment schid 값 받아서 스케줄 이름, 장소위치, 장소이름, withUser,날짜, 시간 리턴
+    @GetMapping(value = "/schDetail/{schId}")
+    public ScheduleDto schDetail(@PathVariable int schId) {
         return scheduleService.schDetail(schId);
     }
-    //locFin
-    @GetMapping(value= "/locationFin/{schId}")
-    public locFin locFin(@PathVariable int schId){
-            return scheduleService.locFin(schId);
+
+    //CalendarFragment schId 값 받아서 스케줄날짜, 시간 리턴
+    @GetMapping(value = "/getCalendarFragment/{schId}")
+    public schDT getCalendarFragment(@PathVariable int schId) {
+        return scheduleService.schDT(schId);
     }
 
+    //ScheduleFragment userId 값 받아서 user가 포함된 scheduleList리턴
     @GetMapping("/getSchedule/{userId}")
-    public ScheduleList getSchedules(@PathVariable String userId){
+    public ScheduleList getSchedules(@PathVariable String userId) {
         ScheduleList s = new ScheduleList();
         ArrayList<ScheduleDto> schArr = new ArrayList<>();
         List<Schedule> tempSchArr = new ArrayList<>();
         tempSchArr = scheduleService.getSchedules(userId);
-        for(int i=0; i<tempSchArr.size(); i++){
+        for (int i = 0; i < tempSchArr.size(); i++) {
             ScheduleDto sDto = new ScheduleDto();
             sDto.setSchid(tempSchArr.get(i).getScheduleId());
             sDto.setSchName(tempSchArr.get(i).getScheduleName());
@@ -56,23 +57,15 @@ public class ScheduleController {
             sDto.setSchPlaceName(tempSchArr.get(i).getSchedulePlaceName());
             sDto.setSchPeopleNum(tempSchArr.get(i).getSchedulePeopleNum());
             sDto.setSchPlaceArea(tempSchArr.get(i).getSchedulePlaceArea());
-            System.out.println("sDto : "+ sDto);
+            System.out.println("sDto : " + sDto);
             schArr.add(sDto);
-            System.out.println("schArr : "+ schArr);
+            System.out.println("schArr : " + schArr);
         }
         s.setUserid(userId);
         s.setList(schArr);
 
         return s;
     }
-
-    //CalendarFragment
-    @GetMapping(value= "/getCalendarFragment")
-    public schDT getCalendarFragment (HttpServletRequest request){
-        return scheduleService.schDT(Integer.valueOf(request.getParameter("schID")));
-    }
-
-
 
 
 }
