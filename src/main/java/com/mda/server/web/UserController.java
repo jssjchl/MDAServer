@@ -43,7 +43,7 @@ public class UserController {
         return userService.findById(id);
     }
 
-    @PostMapping("/voteUser") //여기수정해야함
+    @PostMapping("/voteUser")
     public voteStatus userVote(HttpServletRequest request){
         voteStatus voteStatus = new voteStatus();
         List<User> userList = new ArrayList<>();

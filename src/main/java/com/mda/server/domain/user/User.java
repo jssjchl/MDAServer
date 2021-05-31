@@ -1,30 +1,71 @@
 package com.mda.server.domain.user;
 
 import lombok.*;
+import javax.persistence.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
 
 @Entity
-@Getter
+@Table(name="user")
+
 @NoArgsConstructor
 public class User {
     @Id
-    @Column(nullable = false)
+    @Column(name="USER_ID",nullable = false)
     private int userId;
 
-    @Column(nullable = false)
+    @Column(name="USER_AGE",nullable = false)
     private Integer userAge;
 
-    @Column(nullable = false)
+    @Column(name="USER_GENDER",nullable = false)
     private String userGender;
 
-    @Column(nullable = false)
+    @Column(name="USER_NAME",nullable = false)
     private String userName;
 
-    @Column(nullable = false)
+    @Column(name="USER_PWD",nullable = false)
     private String userPwd;
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public Integer getUserAge() {
+        return userAge;
+    }
+
+    public void setUserAge(Integer userAge) {
+        this.userAge = userAge;
+    }
+
+    public String getUserGender() {
+        return userGender;
+    }
+
+    public void setUserGender(String userGender) {
+        this.userGender = userGender;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserPwd() {
+        return userPwd;
+    }
+
+    public void setUserPwd(String userPwd) {
+        this.userPwd = userPwd;
+    }
+
+
 
     @Builder
     public User(int userId, Integer userAge, String userGender, String userName, String userPwd){
