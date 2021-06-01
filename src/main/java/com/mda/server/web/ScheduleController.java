@@ -14,7 +14,6 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class ScheduleController {
-    private ScheduleDto scheduleDto = new ScheduleDto();
     @Autowired
     ScheduleService scheduleService;
 
@@ -55,6 +54,7 @@ public class ScheduleController {
      * 2021. 06. 01                 테스트완료
      */
 
+
     @GetMapping(value= "/locationFin/{schId}")
     public locFin locFin(@PathVariable int schId){
             return scheduleService.locFin(schId);
@@ -77,12 +77,12 @@ public class ScheduleController {
      */
 
     @GetMapping("/getSchedule/{userId}")
-    public ScheduleList getSchedules(@PathVariable String userId){
+    public ScheduleList getSchedules(@PathVariable String userId) {
         ScheduleList s = new ScheduleList();
         ArrayList<ScheduleDto> schArr = new ArrayList<>();
         List<Schedule> tempSchArr = new ArrayList<>();
         tempSchArr = scheduleService.getSchedules(userId);
-        for(int i=0; i<tempSchArr.size(); i++){
+        for (int i = 0; i < tempSchArr.size(); i++) {
             ScheduleDto sDto = new ScheduleDto();
             sDto.setSchid(tempSchArr.get(i).getScheduleId());
             sDto.setSchName(tempSchArr.get(i).getScheduleName());
@@ -96,6 +96,7 @@ public class ScheduleController {
             sDto.setSchPlaceName(tempSchArr.get(i).getSchedulePlaceName());
             sDto.setSchPeopleNum(tempSchArr.get(i).getSchedulePeopleNum());
             sDto.setSchPlaceArea(tempSchArr.get(i).getSchedulePlaceArea());
+            schArr.add(sDto);
             schArr.add(sDto);
         }
         s.setUserid(userId);
@@ -124,8 +125,5 @@ public class ScheduleController {
     public schDT getCalendarFragment (@PathVariable int schId){
         return scheduleService.schDT(schId);
     }
-
-
-
 
 }

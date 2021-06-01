@@ -1,22 +1,12 @@
 package com.mda.server.web;
 
 
-import com.mda.server.domain.place.Place;
 import com.mda.server.service.place.PlaceService;
 import com.mda.server.web.dto.*;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 
 @RestController
