@@ -25,9 +25,22 @@ public class PlaceController {
 
     @Autowired
     PlaceService placeService;
-    LocInitSet st = new LocInitSet();
 
-    //placeId 값 받아서 place상세정보 return
+    /**
+     * @Class Name : PlaceController.java
+     * @title
+     * @param : placeId, @PathVariable
+     * @returnType : placeDto
+     * @since 2021.  05
+     * @dscription : placeId값 받아서 place상세정보 return
+     *
+     * << 개정이력(Modification Information) >>
+     *  수정일           수정자        수정내용
+     * ---------------------------------------------------
+     * 2021. 05.                    최초생성
+     * 2021. 06. 01                 테스트완료
+     */
+
     @GetMapping(value= "/placeDetail/{placeId}")
     public PlaceDto findById (@PathVariable int placeId){
         return placeService.findById(placeId);

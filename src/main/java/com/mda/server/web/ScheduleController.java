@@ -17,24 +17,64 @@ public class ScheduleController {
     private ScheduleDto scheduleDto = new ScheduleDto();
     @Autowired
     ScheduleService scheduleService;
-    LocInitSet locSet = new LocInitSet();
 
 
-    @GetMapping("schedule")
-    public List<Schedule> getAllSchedules() {
-        return scheduleService.getScheduleList();
-    }
+    /**
+     * @Class Name : ScheduleController.java
+     * @title : schDetail
+     * @param : schId : @PathVariable
+     * @returnType : ScheduleDto
+     * @since 2021.  05
+     * @dscription : schId 참조하여 Schedule 상세데이터를 리턴한다
+     *
+     * << 개정이력(Modification Information) >>
+     *  수정일           수정자        수정내용
+     * ---------------------------------------------------
+     * 2021. 05.                    최초생성
+     * 2021. 06. 01                 테스트완료
+     */
 
-    //ScheduleDetailFragment
     @GetMapping(value= "/schDetail/{schId}")
     public ScheduleDto schDetail (@PathVariable int schId){
         return scheduleService.schDetail(schId);
     }
-    //locFin
+
+
+    /**
+     * @Class Name : ScheduleController.java
+     * @title : locFin
+     * @param : schId : @PathVariable
+     * @returnType : locFin
+     * @since 2021.  05
+     * @dscription : schId 참조하여 Schedule 상세데이터를 리턴한다
+     *
+     * << 개정이력(Modification Information) >>
+     *  수정일           수정자        수정내용
+     * ---------------------------------------------------
+     * 2021. 05.                    최초생성
+     * 2021. 06. 01                 테스트완료
+     */
+
     @GetMapping(value= "/locationFin/{schId}")
     public locFin locFin(@PathVariable int schId){
             return scheduleService.locFin(schId);
     }
+
+
+    /**
+     * @Class Name : ScheduleController.java
+     * @title : getSchedules
+     * @param : userId : @PathVariable
+     * @returnType : ScheduleList
+     * @since 2021.  05
+     * @dscription : userId 참조하여 해당 user의 Schedule목록을 return한다
+     *
+     * << 개정이력(Modification Information) >>
+     *  수정일           수정자        수정내용
+     * ---------------------------------------------------
+     * 2021. 05.                    최초생성
+     * 2021. 06. 01                 테스트완료
+     */
 
     @GetMapping("/getSchedule/{userId}")
     public ScheduleList getSchedules(@PathVariable String userId){
@@ -56,9 +96,7 @@ public class ScheduleController {
             sDto.setSchPlaceName(tempSchArr.get(i).getSchedulePlaceName());
             sDto.setSchPeopleNum(tempSchArr.get(i).getSchedulePeopleNum());
             sDto.setSchPlaceArea(tempSchArr.get(i).getSchedulePlaceArea());
-            System.out.println("sDto : "+ sDto);
             schArr.add(sDto);
-            System.out.println("schArr : "+ schArr);
         }
         s.setUserid(userId);
         s.setList(schArr);
@@ -66,10 +104,25 @@ public class ScheduleController {
         return s;
     }
 
-    //CalendarFragment
-    @GetMapping(value= "/getCalendarFragment")
-    public schDT getCalendarFragment (HttpServletRequest request){
-        return scheduleService.schDT(Integer.valueOf(request.getParameter("schID")));
+
+    /**
+     * @Class Name : ScheduleController.java
+     * @title : getCalendarFragment
+     * @param : schId : @PathVariable
+     * @returnType : schDT
+     * @since 2021.  05
+     * @dscription : schId 참조하여 데이터 조회후 schDT타입으로 return한다.
+     *
+     * << 개정이력(Modification Information) >>
+     *  수정일           수정자        수정내용
+     * ---------------------------------------------------
+     * 2021. 05.                    최초생성
+     * 2021. 06. 01                 테스트완료
+     */
+
+    @GetMapping(value= "/CalendarFragment/{schId}")
+    public schDT getCalendarFragment (@PathVariable int schId){
+        return scheduleService.schDT(schId);
     }
 
 

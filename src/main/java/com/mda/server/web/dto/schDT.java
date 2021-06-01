@@ -17,8 +17,6 @@ public class schDT {
         this.placeId=getPlaceId();
     }
 
-    public schDT(Schedule entity){
-        this.schDate=entity.getScheduleTime();
-        this.schTime=entity.getScheduleTime();
+    public schDT(Schedule entity) {
     }
 }

@@ -1,9 +1,7 @@
 package com.mda.server.web;
 import com.mda.server.domain.schedule.Schedule;
-import com.mda.server.domain.schedule.ScheduleRepository;
 import com.mda.server.service.Location.LocationService;
 import com.mda.server.web.dto.*;
-import org.hibernate.annotations.SQLInsert;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.mda.server.domain.place.Place;
 import lombok.RequiredArgsConstructor;
@@ -23,23 +21,38 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class LocationController{
-    private @Autowired
-    LocationService locationService;
+    private @Autowired LocationService locationService;
+
     LocInitSet locSet = new LocInitSet();
+    infoList infoList = new infoList();
     int userEnterCnt = 0;
     UserEnter u1 = new UserEnter();
     ArrayList<UserEnter> userEnterList = new ArrayList<>();
-    infoList infoList = new infoList();
 
 
+    /**
+     * @Class Name : LocationController.java
+     * @title : userEnter
+     * @param : userId, userLatitude, userLongtitude : Http
+     * @returnType : UserEnter
+     * @since 2021.  05
+     * @dscription : 사용자의 위도경도 받아 userEnterList에 add후 UserEnter객체로 return, userEnterCnt가 3이상일경우 userEnterList를 초기화한다.
+     *
+     * << 개정이력(Modification Information) >>
+     *  수정일           수정자        수정내용
+     * ---------------------------------------------------
+     * 2021. 05.                    최초생성
+     * 2021. 06. 01                 테스트완료
+     */
 
-    //사용자의 위도경도 받아 즉시 객체로 리턴
+
     @PostMapping(value = "/userEnter")
     public UserEnter userEnter(HttpServletRequest request){
         UserEnter ue  = new UserEnter();
         ue.setUserId(request.getParameter("userId"));
-        ue.setUserLatitude(request.getParameter("userLatitude"));
-        ue.setUserLongtitude(request.getParameter("userLongtitude"));
+        ue.setUserLatitude(Double.parseDouble(request.getParameter("userLatitude")));
+        ue.setUserLongtitude(Double.parseDouble(request.getParameter("userLongtitude")));
+
         userEnterCnt ++;
         if(userEnterCnt > 3){
             userEnterList.clear();
@@ -47,16 +60,45 @@ public class LocationController{
         }
         userEnterList.add(ue);
         return ue;
-
     }
-    //UserEnter객체타입의 ArrayList
+
+
+    /**
+     * @Class Name : LocationController.java
+     * @title : userEnterList
+     * @param :
+     * @returnType : ArrayList<UserEnter>
+     * @since 2021.  05
+     * @dscription : url호출시 userEnterList를 return한다.
+     *
+     * << 개정이력(Modification Information) >>
+     *  수정일           수정자        수정내용
+     * ---------------------------------------------------
+     * 2021. 05.                    최초생성
+     * 2021. 06. 01                 테스트완료
+     */
+
     @GetMapping(value = "/userEnterList")
     public ArrayList<UserEnter> userEnterList(HttpServletRequest request){
         return userEnterList;
-
     }
 
-    //최초 약속 설정시 약속정보, locSet객체에 저장한다.
+
+    /**
+     * @Class Name : LocationController.java
+     * @title : locInitSet
+     * @param : schName, schAge, schGender, schpeople, schType, schPlaceCate : http
+     * @returnType : LocInitSet
+     * @since 2021.  05
+     * @dscription : 최초 약속 설정시 약속정보를 받아 LocInitSet객체에 저장한다.
+     *
+     * << 개정이력(Modification Information) >>
+     *  수정일           수정자        수정내용
+     * ---------------------------------------------------
+     * 2021. 05.                    최초생성
+     * 2021. 06. 01                 테스트완료
+     */
+
     @RequestMapping(value = "/locationInitSet", method= RequestMethod.POST)
     public LocInitSet locInitSet(HttpServletRequest request) {
         locSet.setSchName(request.getParameter("schName"));
@@ -70,75 +112,62 @@ public class LocationController{
     }
 
 
-    /*
-    * 각 User들의 위도,경도 받아서 중간위도,경도 구한후 API사용해 반경내에서 가장 가까운역으로 으로 최종 중간위치 설정
-    *   locSet에서 받은 정보기반으로 중간위치에 있는 Place정보 return
-    * */
+    /**
+     * @Class Name : LocationController.java
+     * @title : getMidAndPlace
+     * @param : latitude123, longitude123, userName123, userId123 : http
+     * @returnType : midAndPlace
+     * @since 2021.  05
+     * @dscription :  1. 각 User들의 위도,경도 받아서 중간위도,경도를 구한다
+     *                2. 중간위치 값으로 반경(1000m)내에있는 역 3개중 가장 거리가(미터기준)가까운 역의 위,경도로 중간위치 재셋팅한다
+     *                3. locSet객체값 참조하여 place정보를 가져온다
+     *                4. 각user들의 위도경도, 최종 중간위도경도를 midAndPlace에셋팅, place정보를 infoList에셋팅 후,  midAndPlace를 return한다
+     *                 
+     *
+     * << 개정이력(Modification Information) >>
+     *  수정일           수정자        수정내용
+     * ---------------------------------------------------
+     * 2021. 05.                    최초생성
+     * 2021. 06. 01                 테스트완료
+     */
+
     @GetMapping(value = "/midAndPlace")
     public midAndPlace getMidAndPlace(HttpServletRequest request) throws IOException {
         midAndPlace map = new midAndPlace();
-/*
-        //test용
-        double latitude1 = 37.504198; //user1위도
-        double latitude2 = 37.501025; //user2위도
-      //  double la titude3 = Double.parseDouble(request.getParameter("latitude3")); //user3위도
-        double longitude1 = 127.047967; //user1경도
-        double longitude2 = 127.037701; //user2경도
-       // double longitude3 = Double.parseDouble(request.getParameter("longitude3")); //user3경도*/
-
-
+        double midLat = 0; //중간위치 위도
+        double midLong = 0; //중간위치 경도
+        String stnNm = ""; //최종 중간위치 역 이름
+        
         double latitude1 = Double.parseDouble(request.getParameter("latitude1"));
         double latitude2 = Double.parseDouble(request.getParameter("latitude2"));
+        double latitude3 = Double.parseDouble(request.getParameter("latitude3"));
         double longitude1 = Double.parseDouble(request.getParameter("longitude1"));
         double longitude2 = Double.parseDouble(request.getParameter("longitude2"));
+        double longitude3 = Double.parseDouble(request.getParameter("longitude3"));
+        int userId1 = Integer.parseInt(request.getParameter("userId1"));
+        int userId2 = Integer.parseInt(request.getParameter("userId2"));
+        int userId3 = Integer.parseInt(request.getParameter("userId3"));
+        String userName1 = request.getParameter("userName1");
+        String userName2 = request.getParameter("userName2");
+        String userName3 = request.getParameter("userName3");
 
-        String UserName1 = "koo"; //user1이름 (HOST)
-        String UserName2 = "lee"; //user2이름
-        String UserName3 = "kim"; //user2이름
+        //1. 유저들 간의 중간 위도경도 구하기
+        midLat = (latitude1+latitude2+latitude3) /3;
+        midLong = (longitude1+longitude2+longitude3)/3;
 
-        String midLat = "";
-        String midLong = "";
-        String stnNm = ""; //최종 중간위치 역 이름
-
-
-        //1. 중간 위도경도 구하기
-
-        double dLon = Math.toRadians(longitude2 - longitude1);
-
-        //convert to radians
-        latitude1 = Math.toRadians(latitude1);
-        latitude2 = Math.toRadians(latitude2);
-        longitude1 = Math.toRadians(longitude1);
-
-        double Bx = Math.cos(latitude2) * Math.cos(dLon);
-        double By = Math.cos(latitude2) * Math.sin(dLon);
-        double tempMidLat = Math.atan2(Math.sin(latitude1) + Math.sin(latitude2), Math.sqrt((Math.cos(latitude1) + Bx) * (Math.cos(latitude1) + Bx) + By * By));
-        double tempMidLong = longitude1 + Math.atan2(By, Math.cos(latitude1) + Bx);
-        tempMidLat = Math.toDegrees(tempMidLat);
-        tempMidLong = Math.toDegrees(tempMidLong);
-
-        //2. API사용해서 가까운역으로 위치 셋팅
-
-        // ODsay 인증키
-        String apiKey = "9if76bfpjJjxcws6twPhkPfKHbQecu3JLLgD23UpjpQ";
-
-        // 파싱해온 데이터
-        String rst = "";
-
+        //2. API사용해서 반경내의 역중 가장 가까운역으로 중간위치 재셋팅
+        String apiKey = "9if76bfpjJjxcws6twPhkPfKHbQecu3JLLgD23UpjpQ";// ODsay 인증키
+        String rst = "";// 파싱해온 데이터
         try {
-
             URL url = new URL("https://api.odsay.com/v1/api/pointSearch?lang=0&x=126.987179&y=37.568217&radius=500&stationClass=2&apiKey="+apiKey);
             BufferedReader bf;
             bf = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
             rst = bf.readLine();
-
             JSONParser jsonParser = new JSONParser();
             JSONObject jsonObject = (JSONObject)jsonParser.parse(rst);
-            JSONObject result = (JSONObject)jsonObject.get("result"); //resut Data
-            JSONArray station = (JSONArray)result.get("station"); //반경 내 station정보
-            JSONObject stationInfo = null; //최종 선정된 역 정보
-            System.out.println("1 : " + station);
-
+            JSONObject result = (JSONObject)jsonObject.get("result");
+            JSONArray station = (JSONArray)result.get("station"); //반경내 역정보
+            JSONObject stationInfo = null; //최종 선정된 역정보가 들어갈 변수
 
             int stationSz = 0; //근처 역 3개로 제한
             if(station.size() > 3){
@@ -147,59 +176,54 @@ public class LocationController{
                 stationSz = station.size();
             }
 
-            System.out.println("2 : " + stationSz);
 
-            double[] distance = new double[stationSz]; //중간위치에서 역까지의 거리계산후 배열에 넣어줌
+            double[] distance = new double[stationSz]; 
             for(int i=0; i<stationSz; i++){
                 stationInfo = (JSONObject)station.get(i);
-                double x = (double) stationInfo.get("x"); //역의 경도
-                double y = (double) stationInfo.get("y"); // 역의 위도
-                System.out.println("tempMidLat2 " + tempMidLat);
-                System.out.println("tempMidLong2" + tempMidLong);
-                distance[i] = distance(tempMidLat, tempMidLong, x, y, "meter");
+                double tempStnLat = (double) stationInfo.get("y"); //반경내역의 위도
+                double tempStnLong = (double) stationInfo.get("x"); // 반경내역의 경도
+                System.out.println("tempStnLat " + tempStnLat);
+                System.out.println("tempStnLong" + tempStnLong);
+                distance[i] = distance(midLat, midLong, tempStnLat, tempStnLong); //중간위치와 반경내역까지의 거리계산후 배열에 넣어줌
                 System.out.println("3 - " + i + distance[i]);
             }
 
-
-            double min = 1000;
+            double min = 500;
             for(int i=0; i<stationSz; i++) { //중간위치에서 가장 가까운역 찾기 (배열사이즈가 1일경우 대비해 min값 반경거리로 설정)
-                if(distance[i] < min) stationInfo = (JSONObject)station.get(i);
-                System.out.println("4 : " + stationInfo);
+                if(distance[i] < min) {
+                    min = distance[i];
+                    stationInfo = (JSONObject)station.get(i);
+                }
             }
 
-            midLat = stationInfo.get("x").toString(); //최종역의 경도
-            midLong = stationInfo.get("y").toString(); //최종역의 위도
-            stnNm = stationInfo.get("stationName").toString(); //최종역의 이름
-            System.out.println("5 : " + midLat +"||"+ midLong);
-
-            //최종위치 위도경도 리턴할 객체에 셋팅
-            map.setMidLat(Double.parseDouble(midLat));
-            map.setMidLong(Double.parseDouble(midLong));
+            midLat = (double) stationInfo.get("y"); //최종 중간위치로 결정된 역의 위도
+            midLong = (double) stationInfo.get("x"); //최종 중간위치로 결정된 역의 경도
+            stnNm = stationInfo.get("stationName").toString(); //최종 중간위치로 결정된 역의 이름
         }catch(Exception e) {
             e.printStackTrace();
         }
 
         //3. locInitSet 정보 기반으로 place 찾기
-
         List<Place> placeList = new ArrayList<Place>();
         placeList = locationService.getPlaceDetailInfo(locSet, stnNm);
-        System.out.println("5 : " + placeList);
         placeList.get(0).getPlaceId();
-        //4. 값 셋팅해서 보내주기
 
-        double latitude3 = Double.parseDouble(request.getParameter("latitude3")); //user3위도
-        // placeList.get()
-
-
-        map.setLatitude1(Double.parseDouble(userEnterList.get(0).getUserLatitude()));
-        map.setLatitude2(Double.parseDouble(userEnterList.get(1).getUserLatitude()));
-        map.setLatitude3(Double.parseDouble(userEnterList.get(2).getUserLatitude()));
-        map.setLongitude1(Double.parseDouble(userEnterList.get(0).getUserLongtitude()));
-        map.setLongitude2(Double.parseDouble(userEnterList.get(1).getUserLongtitude()));
-        map.setLongitude3(Double.parseDouble(userEnterList.get(2).getUserLongtitude()));
+        //4. midAndplace, infolist 객체셋팅후 midAndplace return
+        map.setMidLat(midLat);
+        map.setMidLong(midLong);
+        map.setLatitude1(userEnterList.get(0).getUserLatitude());
+        map.setLatitude2(userEnterList.get(1).getUserLatitude());
+        map.setLatitude3(userEnterList.get(2).getUserLatitude());
+        map.setLongitude1(userEnterList.get(0).getUserLongtitude());
+        map.setLongitude2(userEnterList.get(1).getUserLongtitude());
+        map.setLongitude3(userEnterList.get(2).getUserLongtitude());
         map.setUserId1(userEnterList.get(0).getUserId());
         map.setUserId2(userEnterList.get(1).getUserId());
         map.setUserId3(userEnterList.get(2).getUserId());
+        map.setUserName1(request.getParameter("userName1"));
+        map.setUserName2(request.getParameter("userName2"));
+        map.setUserName3(request.getParameter("userName3"));
+
         infoList.setPlaceId1(placeList.get(0).getPlaceId());
         infoList.setPlaceId2(placeList.get(1).getPlaceId());
         infoList.setPlaceId3(placeList.get(2).getPlaceId());
@@ -214,18 +238,90 @@ public class LocationController{
         infoList.setPlaceType3(placeList.get(2).getPlaceType());
 
         return map;
-
     }
 
+
+    /**
+     * @Class Name : LocationController.java
+     * @title : infoList
+     * @param :
+     * @returnType : infoList
+     * @since 2021.  05
+     * @dscription : url호출시 /midAndPlace에서 셋팅된 infoList(place정보)를 return한다.
+     *
+     * << 개정이력(Modification Information) >>
+     *  수정일           수정자        수정내용
+     * ---------------------------------------------------
+     * 2021. 05.                    최초생성
+     * 2021. 06. 01                 테스트완료
+     */
+    
     @GetMapping(value = "/infoList")
     public infoList infoList(HttpServletRequest request) throws IOException {
         return infoList;
     }
 
 
+    /**
+     * @Class Name : LocationController.java
+     * @title : saveSchDT
+     * @param : schDate, schTime, placeId : http
+     * @returnType : schDT
+     * @since 2021.  05
+     * @dscription : locaSet, userEnterList 객체값과 파라미터 참조하여 Schedule테이블에 각각 user의 최종 스케쥴을 insert한다
+     *
+     * << 개정이력(Modification Information) >>
+     *  수정일           수정자        수정내용
+     * ---------------------------------------------------
+     * 2021. 05.                    최초생성
+     * 2021. 06. 01                 테스트완료
+     */
 
 
-    private static double distance(double lat1, double lon1, double lat2, double lon2, String unit) {
+    @RequestMapping(value = "/schDT", method= RequestMethod.POST)
+    public schDT saveSchDT(HttpServletRequest request) {
+        Schedule sd = new Schedule();
+        schDT cs = new schDT();
+        int schId = 0;
+
+
+            for(int i=0; i<userEnterList.size(); i++){ //userEnterList에 있는 길이만큼 돌려서 각각 userId로 인서트
+                sd.setSchedulePlaceName("tempPlace"); // placeId로 가져오기
+                sd.setScheduleDate(request.getParameter("schDate")); //parameter값 셋팅
+                sd.setScheduleName(locSet.getSchName()); //locSet에서 가져오기
+                sd.setSchedulePlaceId(request.getParameter("placeId")); //parameter값 셋팅
+                sd.setScheduleUserId(userEnterList.get(i).getUserId()); //userEnterList에 있는 애들 각각 저장
+                sd.setScheduleUserName("kim"); //userId로 가져오기 이것도 for문으로 해야됨
+                sd.setScheduleTime(request.getParameter("schTime")); //parameter값 참조
+                sd.setScheduleWithUserId("1#2"); //어떻게할지생각해보자
+                sd.setScheduleWithUserName("kim#koo"); //임시값
+                sd.setSchedulePeopleNum(locSet.getSchPeople()); //locSet값 참조
+                sd.setSchedulePlaceArea("서울역"); //placeId로 가져오기
+                schId = locationService.saveSchedule(sd); //저장하고 id값 반환
+            }
+            cs.setPlaceId(Integer.parseInt(request.getParameter("placeId")));
+            cs.setSchDate(request.getParameter("schDate"));
+            cs.setSchTime(request.getParameter("schTime"));
+        return cs;
+    }
+
+
+    /**
+     * @Class Name : LocationController.java
+     * @title : distance
+     * @param : lat1, lon1, lat2, lon2
+     * @returnType : double
+     * @since 2021.  05
+     * @dscription : parameter로 위도경도값을 받아 두 지점사이의 거리를계산하여 반환한다(미터기준)
+     *
+     * << 개정이력(Modification Information) >>
+     *  수정일           수정자        수정내용
+     * ---------------------------------------------------
+     * 2021. 05.                    최초생성
+     * 2021. 06. 01                 테스트완료
+     */
+
+    private static double distance(double lat1, double lon1, double lat2, double lon2) {
 
         double theta = lon1 - lon2;
         double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
@@ -246,35 +342,6 @@ public class LocationController{
     // This function converts radians to decimal degrees
     private static double rad2deg(double rad) {
         return (rad * 180 / Math.PI);
-    }
-
-    //최종스케쥴 저장
-    @RequestMapping(value = "/schDT", method= RequestMethod.POST)
-    public schDT saveSchDT(HttpServletRequest request) {
-        String result = "";
-        Schedule sd = new Schedule();
-        schDT cs = new schDT();
-        int schId = 0;
-        // placeid 가지고 place정보(name,Area) 조회해서 넣어줘야됨
-        //userId로 name값 가져와야함
-        //
-
-            for(int i=0; i<userEnterList.size(); i++){
-                sd.setSchedulePlaceName("tempPlace"); //임시값
-                sd.setScheduleDate(request.getParameter("schDate"));
-                sd.setScheduleName(locSet.getSchName());
-                sd.setSchedulePlaceId(request.getParameter("schPlaceId"));
-                sd.setScheduleUserId(userEnterList.get(i).getUserId());
-                sd.setScheduleUserName("kim"); //임시값
-                sd.setScheduleTime(request.getParameter("schTime"));
-                sd.setScheduleWithUserId("1#2"); //임시값
-                sd.setScheduleWithUserName("kim#koo"); //임시값
-                sd.setSchedulePeopleNum(locSet.getSchPeople());
-                sd.setSchedulePlaceArea("서울역"); //임시값
-                schId = locationService.saveSchedule(sd);
-            }
-            cs.setPlaceId(schId);
-        return cs;
     }
 
 }

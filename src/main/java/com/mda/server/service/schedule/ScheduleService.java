@@ -24,27 +24,23 @@ public class ScheduleService extends QuerydslRepositorySupport {
     @Autowired
     ScheduleRepository scheduleRepository;
 
-    public List<Schedule> getScheduleList(){
-        return (List<Schedule>) scheduleRepository.findAll();
-    }
-
     public schDT schDT(Integer id) {
-        Schedule entity = scheduleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("이게뭐냐"));
+        Schedule entity = scheduleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("오류"));
         return new schDT(entity);
     }
 
     public ScheduleFragmentDto ScheduleFragment(Integer id) {
-        Schedule entity = scheduleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("이게뭐냐"));
+        Schedule entity = scheduleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("오류"));
         return new ScheduleFragmentDto(entity);
     }
 
     public ScheduleDto schDetail(Integer id) {
-        Schedule entity = scheduleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("이게뭐냐"));
+        Schedule entity = scheduleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("오류"));
         return new ScheduleDto(entity);
     }
 
     public locFin locFin(Integer id) {
-        Schedule entity = scheduleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("이게뭐냐"));
+        Schedule entity = scheduleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("오류"));
         return new locFin(entity);
     }
 

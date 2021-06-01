@@ -12,11 +12,11 @@ public class UserEnter {
 
 
     private String userId;
-    private String userLatitude;
-    private String userLongtitude;
+    private double userLatitude;
+    private double userLongtitude;
 
     @Builder
-    public UserEnter(String userId, String userLatitude, String userLongtitude) {
+    public UserEnter(String userId, double userLatitude, double userLongtitude) {
         this.userId = userId;
         this.userLatitude = userLatitude;
         this.userLongtitude = userLongtitude;
