@@ -13,20 +13,20 @@ public class UserEnter {
 
     private String userId;
     private double userLatitude;
-    private double userLongtitude;
+    private double userLongitude;
 
     @Builder
-    public UserEnter(String userId, double userLatitude, double userLongtitude) {
+    public UserEnter(String userId, double userLatitude, double userLongitude) {
         this.userId = userId;
         this.userLatitude = userLatitude;
-        this.userLongtitude = userLongtitude;
+        this.userLongitude = userLongitude;
     }
 
     public UserEnter toEntity(){
         return UserEnter.builder()
                 .userId(userId)
                 .userLatitude(userLatitude)
-                .userLongtitude(userLongtitude)
+                .userLongitude(userLongitude)
                 .build();
     }
 

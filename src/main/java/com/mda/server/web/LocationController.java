@@ -51,14 +51,14 @@ public class LocationController{
         UserEnter ue  = new UserEnter();
         ue.setUserId(request.getParameter("userId"));
         ue.setUserLatitude(Double.parseDouble(request.getParameter("userLatitude")));
-        ue.setUserLongtitude(Double.parseDouble(request.getParameter("userLongtitude")));
+        ue.setUserLongitude(Double.parseDouble(request.getParameter("userLongitude")));
 
-        userEnterCnt ++;
-        if(userEnterCnt > 3){
-            userEnterList.clear();
-            userEnterCnt = 1;
-        }
-        userEnterList.add(ue);
+//        userEnterCnt ++;
+//        if(userEnterCnt > 3){
+//            userEnterList.clear();
+//            userEnterCnt = 1;
+//        }
+//        userEnterList.add(ue);
         return ue;
     }
 
@@ -158,6 +158,12 @@ public class LocationController{
         double latitude3 = 37.671873;
         double longitude3 = 126.785645;
 
+        //가라코드...
+        UserEnter ue1 = new UserEnter("0",latitude1, longitude1);
+        UserEnter ue2 = new UserEnter("1",latitude2, longitude2);
+        UserEnter ue3 = new UserEnter("2",latitude3, longitude3);
+        userEnterList.add(ue1);userEnterList.add(ue2);userEnterList.add(ue3);
+
 
         //1. 유저들 간의 중간 위도경도 구하기
 //        midLat = (latitude1+latitude2+latitude3) /3;
@@ -221,15 +227,18 @@ public class LocationController{
         //4. midAndplace, infolist 객체셋팅후 midAndplace return
         map.setMidLat(midLat);
         map.setMidLong(midLong);
-        map.setLatitude1(userEnterList.get(0).getUserLatitude());
-        map.setLatitude2(userEnterList.get(1).getUserLatitude());
-        map.setLatitude3(userEnterList.get(2).getUserLatitude());
-        map.setLongitude1(userEnterList.get(0).getUserLongtitude());
-        map.setLongitude2(userEnterList.get(1).getUserLongtitude());
-        map.setLongitude3(userEnterList.get(2).getUserLongtitude());
-        map.setUserId1(userEnterList.get(0).getUserId());
-        map.setUserId2(userEnterList.get(1).getUserId());
-        map.setUserId3(userEnterList.get(2).getUserId());
+//        map.setLatitude1(userEnterList.get(0).getUserLatitude());
+//        map.setLatitude2(userEnterList.get(1).getUserLatitude());
+//        map.setLatitude3(userEnterList.get(2).getUserLatitude());
+//        map.setLongitude1(userEnterList.get(0).getUserLongitude());
+//        map.setLongitude2(userEnterList.get(1).getUserLongitude());
+//        map.setLongitude3(userEnterList.get(2).getUserLongitude());
+//        map.setUserId1(userEnterList.get(0).getUserId());
+//        map.setUserId2(userEnterList.get(1).getUserId());
+//        map.setUserId3(userEnterList.get(2).getUserId());
+        map.setLatitude1(latitude1);map.setLatitude2(latitude2);map.setLatitude3(latitude3);
+        map.setLongitude1(longitude1);map.setLongitude2(longitude2);map.setLongitude3(longitude3);
+        map.setUserId1("0");map.setUserId2("1");map.setUserId3("2");
         map.setUserName1("Alice");
         map.setUserName2("Bob");
         map.setUserName3("Charlie");
@@ -237,31 +246,31 @@ public class LocationController{
 //        map.setUserName2(request.getParameter("userName2"));
 //        map.setUserName3(request.getParameter("userName3"));
 
-//        infoList.setPlaceId1(placeList.get(0).getPlaceId());
-//        infoList.setPlaceId2(placeList.get(1).getPlaceId());
-//        infoList.setPlaceId3(placeList.get(2).getPlaceId());
-//        infoList.setPlaceName1(placeList.get(0).getPlaceName());
-//        infoList.setPlaceName2(placeList.get(1).getPlaceName());
-//        infoList.setPlaceName3(placeList.get(2).getPlaceName());
-//        infoList.setPlaceArea1(placeList.get(0).getPlaceArea());
-//        infoList.setPlaceArea2(placeList.get(1).getPlaceArea());
-//        infoList.setPlaceArea3(placeList.get(2).getPlaceArea());
-//        infoList.setPlaceType1(placeList.get(0).getPlaceType());
-//        infoList.setPlaceType2(placeList.get(1).getPlaceType());
-//        infoList.setPlaceType3(placeList.get(2).getPlaceType());
+        infoList.setPlaceId1(placeList.get(0).getPlaceId());
+        infoList.setPlaceId2(placeList.get(1).getPlaceId());
+        infoList.setPlaceId3(placeList.get(2).getPlaceId());
+        infoList.setPlaceName1(placeList.get(0).getPlaceName());
+        infoList.setPlaceName2(placeList.get(1).getPlaceName());
+        infoList.setPlaceName3(placeList.get(2).getPlaceName());
+        infoList.setPlaceArea1(placeList.get(0).getPlaceArea());
+        infoList.setPlaceArea2(placeList.get(1).getPlaceArea());
+        infoList.setPlaceArea3(placeList.get(2).getPlaceArea());
+        infoList.setPlaceType1(placeList.get(0).getPlaceType());
+        infoList.setPlaceType2(placeList.get(1).getPlaceType());
+        infoList.setPlaceType3(placeList.get(2).getPlaceType());
 
-        infoList.setPlaceId1(1);
-        infoList.setPlaceId2(2);
-        infoList.setPlaceId3(3);
-        infoList.setPlaceName1("TEST1");
-        infoList.setPlaceName2("TEST2");
-        infoList.setPlaceName3("TEST3");
-        infoList.setPlaceArea1("TTTTTTTTTTTTTTTTTT");
-        infoList.setPlaceArea2("LLLLLLLLLLLLLLLLLL");
-        infoList.setPlaceArea3("MMMMMMMMMMMMMMMMMM");
-        infoList.setPlaceType1("Cafe1");
-        infoList.setPlaceType2("Cafe2");
-        infoList.setPlaceType3("Cafe3");
+//        infoList.setPlaceId1(1);
+//        infoList.setPlaceId2(2);
+//        infoList.setPlaceId3(3);
+//        infoList.setPlaceName1("TEST1");
+//        infoList.setPlaceName2("TEST2");
+//        infoList.setPlaceName3("TEST3");
+//        infoList.setPlaceArea1("TTTTTTTTTTTTTTTTTT");
+//        infoList.setPlaceArea2("LLLLLLLLLLLLLLLLLL");
+//        infoList.setPlaceArea3("MMMMMMMMMMMMMMMMMM");
+//        infoList.setPlaceType1("Cafe1");
+//        infoList.setPlaceType2("Cafe2");
+//        infoList.setPlaceType3("Cafe3");
 
         return map;
     }
