@@ -8,6 +8,6 @@ import java.util.ArrayList;
 @Getter
 @Setter
 public class ScheduleList {
-    private String userid;
+    private int userid;
     private ArrayList<ScheduleDto> list;
 }

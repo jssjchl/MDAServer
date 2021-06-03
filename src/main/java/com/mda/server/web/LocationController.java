@@ -138,22 +138,32 @@ public class LocationController{
         double midLong = 0; //중간위치 경도
         String stnNm = ""; //최종 중간위치 역 이름
         
-        double latitude1 = Double.parseDouble(request.getParameter("latitude1"));
-        double latitude2 = Double.parseDouble(request.getParameter("latitude2"));
-        double latitude3 = Double.parseDouble(request.getParameter("latitude3"));
-        double longitude1 = Double.parseDouble(request.getParameter("longitude1"));
-        double longitude2 = Double.parseDouble(request.getParameter("longitude2"));
-        double longitude3 = Double.parseDouble(request.getParameter("longitude3"));
-        int userId1 = Integer.parseInt(request.getParameter("userId1"));
-        int userId2 = Integer.parseInt(request.getParameter("userId2"));
-        int userId3 = Integer.parseInt(request.getParameter("userId3"));
-        String userName1 = request.getParameter("userName1");
-        String userName2 = request.getParameter("userName2");
-        String userName3 = request.getParameter("userName3");
+//        double latitude1 = Double.parseDouble(request.getParameter("latitude1"));
+//        double latitude2 = Double.parseDouble(request.getParameter("latitude2"));
+//        double latitude3 = Double.parseDouble(request.getParameter("latitude3"));
+//        double longitude1 = Double.parseDouble(request.getParameter("longitude1"));
+//        double longitude2 = Double.parseDouble(request.getParameter("longitude2"));
+//        double longitude3 = Double.parseDouble(request.getParameter("longitude3"));
+//        int userId1 = Integer.parseInt(request.getParameter("userId1"));
+//        int userId2 = Integer.parseInt(request.getParameter("userId2"));
+//        int userId3 = Integer.parseInt(request.getParameter("userId3"));
+//        String userName1 = request.getParameter("userName1");
+//        String userName2 = request.getParameter("userName2");
+//        String userName3 = request.getParameter("userName3");
+
+        double latitude1 = 37.66657228807503;
+        double longitude1 = 126.76327377041474;
+        double latitude2 = 37.648984;
+        double longitude2 =  126.774089;
+        double latitude3 = 37.671873;
+        double longitude3 = 126.785645;
+
 
         //1. 유저들 간의 중간 위도경도 구하기
-        midLat = (latitude1+latitude2+latitude3) /3;
-        midLong = (longitude1+longitude2+longitude3)/3;
+//        midLat = (latitude1+latitude2+latitude3) /3;
+//        midLong = (longitude1+longitude2+longitude3)/3;
+        midLat = 37.659627;
+        midLong = 126.773459;
 
         //2. API사용해서 반경내의 역중 가장 가까운역으로 중간위치 재셋팅
         String apiKey = "9if76bfpjJjxcws6twPhkPfKHbQecu3JLLgD23UpjpQ";// ODsay 인증키
@@ -220,22 +230,38 @@ public class LocationController{
         map.setUserId1(userEnterList.get(0).getUserId());
         map.setUserId2(userEnterList.get(1).getUserId());
         map.setUserId3(userEnterList.get(2).getUserId());
-        map.setUserName1(request.getParameter("userName1"));
-        map.setUserName2(request.getParameter("userName2"));
-        map.setUserName3(request.getParameter("userName3"));
+        map.setUserName1("Alice");
+        map.setUserName2("Bob");
+        map.setUserName3("Charlie");
+//        map.setUserName1(request.getParameter("userName1"));
+//        map.setUserName2(request.getParameter("userName2"));
+//        map.setUserName3(request.getParameter("userName3"));
 
-        infoList.setPlaceId1(placeList.get(0).getPlaceId());
-        infoList.setPlaceId2(placeList.get(1).getPlaceId());
-        infoList.setPlaceId3(placeList.get(2).getPlaceId());
-        infoList.setPlaceName1(placeList.get(0).getPlaceName());
-        infoList.setPlaceName2(placeList.get(1).getPlaceName());
-        infoList.setPlaceName3(placeList.get(2).getPlaceName());
-        infoList.setPlaceArea1(placeList.get(0).getPlaceArea());
-        infoList.setPlaceArea2(placeList.get(1).getPlaceArea());
-        infoList.setPlaceArea3(placeList.get(2).getPlaceArea());
-        infoList.setPlaceType1(placeList.get(0).getPlaceType());
-        infoList.setPlaceType2(placeList.get(1).getPlaceType());
-        infoList.setPlaceType3(placeList.get(2).getPlaceType());
+//        infoList.setPlaceId1(placeList.get(0).getPlaceId());
+//        infoList.setPlaceId2(placeList.get(1).getPlaceId());
+//        infoList.setPlaceId3(placeList.get(2).getPlaceId());
+//        infoList.setPlaceName1(placeList.get(0).getPlaceName());
+//        infoList.setPlaceName2(placeList.get(1).getPlaceName());
+//        infoList.setPlaceName3(placeList.get(2).getPlaceName());
+//        infoList.setPlaceArea1(placeList.get(0).getPlaceArea());
+//        infoList.setPlaceArea2(placeList.get(1).getPlaceArea());
+//        infoList.setPlaceArea3(placeList.get(2).getPlaceArea());
+//        infoList.setPlaceType1(placeList.get(0).getPlaceType());
+//        infoList.setPlaceType2(placeList.get(1).getPlaceType());
+//        infoList.setPlaceType3(placeList.get(2).getPlaceType());
+
+        infoList.setPlaceId1(1);
+        infoList.setPlaceId2(2);
+        infoList.setPlaceId3(3);
+        infoList.setPlaceName1("TEST1");
+        infoList.setPlaceName2("TEST2");
+        infoList.setPlaceName3("TEST3");
+        infoList.setPlaceArea1("TTTTTTTTTTTTTTTTTT");
+        infoList.setPlaceArea2("LLLLLLLLLLLLLLLLLL");
+        infoList.setPlaceArea3("MMMMMMMMMMMMMMMMMM");
+        infoList.setPlaceType1("Cafe1");
+        infoList.setPlaceType2("Cafe2");
+        infoList.setPlaceType3("Cafe3");
 
         return map;
     }
