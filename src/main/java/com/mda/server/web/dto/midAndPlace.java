@@ -12,9 +12,9 @@ public class midAndPlace {
     double longitude1;
     double longitude2;
     double longitude3;
-    String userId1;
-    String userId2;
-    String userId3;
+    int userId1;
+    int userId2;
+    int userId3;
     String userName1;
     String userName2;
     String userName3;

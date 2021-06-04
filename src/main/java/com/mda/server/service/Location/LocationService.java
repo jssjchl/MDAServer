@@ -31,11 +31,11 @@ public class LocationService extends QuerydslRepositorySupport{
         QPlace place = QPlace.place;
         QEvalDetail evalDt = QEvalDetail.evalDetail;
         List<Place> placeList = new ArrayList<>();
-        String[]tempSchTypeArray = locset.getSchType().split("#");
-        Integer[]schTypeArray = new Integer[tempSchTypeArray.length];
-        for (int i=0; i<tempSchTypeArray.length; i++){
-            schTypeArray[i] = Integer.parseInt(tempSchTypeArray[i]);
-        }
+//        String[]tempSchTypeArray = locset.getSchType().split(" #");
+//        Integer[]schTypeArray = new Integer[tempSchTypeArray.length];
+//        for (int i=0; i<tempSchTypeArray.length; i++){
+//            schTypeArray[i] = Integer.parseInt(tempSchTypeArray[i]);
+//        }
 
 
 

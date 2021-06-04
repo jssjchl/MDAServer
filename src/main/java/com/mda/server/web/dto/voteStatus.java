@@ -14,20 +14,20 @@ import java.util.ArrayList;
 @NoArgsConstructor
 public class voteStatus {
 
-    private String pVotedUser;
+    private String pVotedUserName;
     private String placePname;
-    private int pId;
+    private String pId;
 
     @Builder
-    public voteStatus(String pVotedUser, String placePname, int pId) {
-        this.pVotedUser = pVotedUser;
+    public voteStatus(String pVotedUserName, String placePname, String pId) {
+        this.pVotedUserName = pVotedUserName;
         this.placePname = placePname;
         this.pId = pId;
     }
 
     public voteStatus toEntity(){
         return voteStatus.builder()
-                .pVotedUser(pVotedUser)
+                .pVotedUserName(pVotedUserName)
                 .placePname(placePname)
                 .pId(pId)
                 .build();

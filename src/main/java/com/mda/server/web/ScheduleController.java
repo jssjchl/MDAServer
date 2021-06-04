@@ -17,12 +17,6 @@ public class ScheduleController {
     @Autowired
     ScheduleService scheduleService;
 
-    @GetMapping(value="/rdsTest")
-    public  List<Schedule> name(){
-        return scheduleService.getScheduleList();
-    }
-
-
     /**
      * @Class Name : ScheduleController.java
      * @title : schDetail

@@ -1,6 +1,8 @@
 package com.mda.server.web;
 
+import com.mda.server.domain.user.User;
 import com.mda.server.service.user.UserService;
+import com.mda.server.web.dto.UserResponseDto;
 import com.mda.server.web.dto.voteStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,18 +38,25 @@ public class UserController {
 
     @PostMapping("/userVote")
     public voteStatus userVote(HttpServletRequest request){
-        voteStatus voteStatus = new voteStatus();
-        voteStatus.setPVotedUser(request.getParameter("voteUserName"));
-        voteStatus.setPlacePname(request.getParameter("votePlaceId"));
-        voteStatus.setPId(Integer.parseInt(request.getParameter("voteUserId")));
+        voteStatus vs = new voteStatus(request.getParameter("pVotedUserName"),request.getParameter("placePname"), request.getParameter("pId"));
+//        int uid = Integer.parseInt(request.getParameter("voteUserName"));
+//        UserResponseDto user = new UserResponseDto();
+//        user = userService.findById(uid);
+//        String name = "";
+//        name = user.getUserName();
 
-        userVoteCnt ++;
-        if (userVoteCnt > 3){
-            voteStatusList.clear();
-            userVoteCnt = 1;
-        }
-        voteStatusList.add(voteStatus);
-        return voteStatus;
+//        vs.setPVotedUserName(request.getParameter("pVotedUserName"));
+//        vs.setPlacePname(request.getParameter("placePname"));
+//        vs.setPId(request.getParameter("pId"));
+        System.out.println(vs.getPVotedUserName() + "/" + vs.getPlacePname() + "/" + vs.getPId());
+
+//        userVoteCnt ++;
+//        if (userVoteCnt > 3){
+//            voteStatusList.clear();
+//            userVoteCnt = 1;
+//        }
+        voteStatusList.add(vs);
+        return vs;
     }
 
 
@@ -68,6 +77,10 @@ public class UserController {
 
     @GetMapping("/voteUserList")
     public ArrayList<voteStatus> userVoteList(){
+        for (int i = 0; i < voteStatusList.size(); i++) {
+            System.out.println(voteStatusList.get(i).getPVotedUserName()+"/"+voteStatusList.get(i).getPlacePname());
+        }
+
         return voteStatusList;
     }
 

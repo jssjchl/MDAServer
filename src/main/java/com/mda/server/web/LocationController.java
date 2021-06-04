@@ -111,6 +111,11 @@ public class LocationController{
         return locSet;
     }
 
+    @GetMapping("/locationInitSet")
+    public LocInitSet loc(){
+        return locSet;
+    }
+
 
     /**
      * @Class Name : LocationController.java
@@ -227,24 +232,30 @@ public class LocationController{
         //4. midAndplace, infolist 객체셋팅후 midAndplace return
         map.setMidLat(midLat);
         map.setMidLong(midLong);
-//        map.setLatitude1(userEnterList.get(0).getUserLatitude());
-//        map.setLatitude2(userEnterList.get(1).getUserLatitude());
-//        map.setLatitude3(userEnterList.get(2).getUserLatitude());
-//        map.setLongitude1(userEnterList.get(0).getUserLongitude());
-//        map.setLongitude2(userEnterList.get(1).getUserLongitude());
-//        map.setLongitude3(userEnterList.get(2).getUserLongitude());
-//        map.setUserId1(userEnterList.get(0).getUserId());
-//        map.setUserId2(userEnterList.get(1).getUserId());
-//        map.setUserId3(userEnterList.get(2).getUserId());
-        map.setLatitude1(latitude1);map.setLatitude2(latitude2);map.setLatitude3(latitude3);
-        map.setLongitude1(longitude1);map.setLongitude2(longitude2);map.setLongitude3(longitude3);
-        map.setUserId1("0");map.setUserId2("1");map.setUserId3("2");
-        map.setUserName1("Alice");
-        map.setUserName2("Bob");
-        map.setUserName3("Charlie");
+        map.setLatitude1(userEnterList.get(0).getUserLatitude());
+        map.setLatitude2(userEnterList.get(1).getUserLatitude());
+        map.setLatitude3(userEnterList.get(2).getUserLatitude());
+        map.setLongitude1(userEnterList.get(0).getUserLongitude());
+        map.setLongitude2(userEnterList.get(1).getUserLongitude());
+        map.setLongitude3(userEnterList.get(2).getUserLongitude());
+        map.setUserId1(Integer.parseInt(userEnterList.get(0).getUserId()));
+        map.setUserId2(Integer.parseInt(userEnterList.get(1).getUserId()));
+        map.setUserId3(Integer.parseInt(userEnterList.get(2).getUserId()));
+        map.setUserName1("koo");
+        map.setUserName2("sim");
+        map.setUserName3("you");
+
 //        map.setUserName1(request.getParameter("userName1"));
 //        map.setUserName2(request.getParameter("userName2"));
 //        map.setUserName3(request.getParameter("userName3"));
+        //가라
+//        map.setLatitude1(latitude1);map.setLatitude2(latitude2);map.setLatitude3(latitude3);
+//        map.setLongitude1(longitude1);map.setLongitude2(longitude2);map.setLongitude3(longitude3);
+//        map.setUserId1("0");map.setUserId2("1");map.setUserId3("2");
+//        map.setUserName1("Alice");
+//        map.setUserName2("Bob");
+//        map.setUserName3("Charlie");
+
 
         infoList.setPlaceId1(placeList.get(0).getPlaceId());
         infoList.setPlaceId2(placeList.get(1).getPlaceId());
