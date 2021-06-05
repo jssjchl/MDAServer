@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class schDT {
-    private String placeId;
+    private int placeId;
     private String schTime;
     private String schDate;
 
