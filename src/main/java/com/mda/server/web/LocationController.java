@@ -1,6 +1,10 @@
 package com.mda.server.web;
 import com.mda.server.domain.schedule.Schedule;
+import com.mda.server.domain.user.User;
 import com.mda.server.service.Location.LocationService;
+import com.mda.server.service.place.PlaceService;
+import com.mda.server.service.schedule.ScheduleService;
+import com.mda.server.service.user.UserService;
 import com.mda.server.web.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.mda.server.domain.place.Place;
@@ -23,10 +27,14 @@ import java.util.List;
 public class LocationController{
     private @Autowired LocationService locationService;
 
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private PlaceService placeService;
+
     LocInitSet locSet = new LocInitSet();
     infoList infoList = new infoList();
-    int userEnterCnt = 0;
-    UserEnter u1 = new UserEnter();
     ArrayList<UserEnter> userEnterList = new ArrayList<>();
 
 
@@ -328,26 +336,41 @@ public class LocationController{
     public schDT saveSchDT(HttpServletRequest request) {
         Schedule sd = new Schedule();
         schDT cs = new schDT();
+        String name = "";
         int schId = 0;
 
+        System.out.println(request.getParameter("placeId")+" / "
+                +request.getParameter("schDate")+" / "
+                +request.getParameter("schTime"));
+        //스케쥴이 인원수만큼 들어가게 되는데, 공통으로 들어갈 수 있는 것들은 한꺼번에 저장해주자
+        sd.setSchedulePlaceId(request.getParameter("placeId")); //parameter값 셋팅
+        sd.setSchedulePlaceName(placeService.findById(Integer.parseInt(request.getParameter("placeId"))).getPlaceName()); // placeId로 가져오기
+        sd.setScheduleName(locSet.getSchName()); //locSet에서 가져오기
+        sd.setScheduleDate(request.getParameter("schDate")); //parameter값 셋팅
+        sd.setScheduleTime(request.getParameter("schTime")); //parameter값 참조
+        //scheduleUserName이면 주최자를 말하는건가??
+        sd.setScheduleUserName("kim"); //userId로 가져오기 이것도 for문으로 해야됨
+        sd.setSchedulePeopleNum(locSet.getSchPeople()); //locSet값 참조
+        sd.setSchedulePlaceArea("서울역"); //placeId로 가져오기
 
-            for(int i=0; i<userEnterList.size(); i++){ //userEnterList에 있는 길이만큼 돌려서 각각 userId로 인서트
-                sd.setSchedulePlaceName("tempPlace"); // placeId로 가져오기
-                sd.setScheduleDate(request.getParameter("schDate")); //parameter값 셋팅
-                sd.setScheduleName(locSet.getSchName()); //locSet에서 가져오기
-                sd.setSchedulePlaceId(request.getParameter("placeId")); //parameter값 셋팅
-                sd.setScheduleUserId(userEnterList.get(i).getUserId()); //userEnterList에 있는 애들 각각 저장
-                sd.setScheduleUserName("kim"); //userId로 가져오기 이것도 for문으로 해야됨
-                sd.setScheduleTime(request.getParameter("schTime")); //parameter값 참조
-                sd.setScheduleWithUserId("1#2"); //어떻게할지생각해보자
-                sd.setScheduleWithUserName("kim#koo"); //임시값
-                sd.setSchedulePeopleNum(locSet.getSchPeople()); //locSet값 참조
-                sd.setSchedulePlaceArea("서울역"); //placeId로 가져오기
-                schId = locationService.saveSchedule(sd); //저장하고 id값 반환
-            }
-            cs.setPlaceId(Integer.parseInt(request.getParameter("placeId")));
-            cs.setSchDate(request.getParameter("schDate"));
-            cs.setSchTime(request.getParameter("schTime"));
+        //따로 유동적으로 들어가야하는 것들
+        for(int i=0; i<userEnterList.size(); i++){ //userEnterList에 있는 길이만큼 돌려서 각각 userId로 인서트
+
+            sd.setScheduleUserId(userEnterList.get(i).getUserId()); //userEnterList에 있는 애들 각각 저장
+            UserResponseDto user = new UserResponseDto();
+            user = userService.findById(Integer.parseInt(userEnterList.get(i).getUserId()));
+            name += (user.getUserName()+", ");
+            sd.setScheduleWithUserName(name);
+            sd.setScheduleWithUserId("1#2"); //어떻게할지생각해보자
+
+
+            schId = locationService.saveSchedule(sd); //저장하고 id값 반환
+        }
+        cs.setPlaceId(Integer.toString(schId));
+        cs.setSchDate(request.getParameter("schDate"));
+        cs.setSchTime(request.getParameter("schTime"));
+
+
         return cs;
     }
 

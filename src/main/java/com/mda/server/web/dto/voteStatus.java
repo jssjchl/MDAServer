@@ -16,10 +16,10 @@ public class voteStatus {
 
     private String pVotedUserName;
     private String placePname;
-    private String pId;
+    private int pId;
 
     @Builder
-    public voteStatus(String pVotedUserName, String placePname, String pId) {
+    public voteStatus(String pVotedUserName, String placePname, int pId) {
         this.pVotedUserName = pVotedUserName;
         this.placePname = placePname;
         this.pId = pId;

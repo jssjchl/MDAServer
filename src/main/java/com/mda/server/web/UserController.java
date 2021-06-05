@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -38,16 +39,26 @@ public class UserController {
 
     @PostMapping("/userVote")
     public voteStatus userVote(HttpServletRequest request){
-        voteStatus vs = new voteStatus(request.getParameter("pVotedUserName"),request.getParameter("placePname"), request.getParameter("pId"));
+        voteStatus vs = new voteStatus();
 //        int uid = Integer.parseInt(request.getParameter("voteUserName"));
 //        UserResponseDto user = new UserResponseDto();
 //        user = userService.findById(uid);
 //        String name = "";
 //        name = user.getUserName();
 
-//        vs.setPVotedUserName(request.getParameter("pVotedUserName"));
-//        vs.setPlacePname(request.getParameter("placePname"));
-//        vs.setPId(request.getParameter("pId"));
+        vs.setPVotedUserName(request.getParameter("pVotedUserName"));
+        vs.setPlacePname(request.getParameter("placePname"));
+        vs.setPId(Integer.parseInt(request.getParameter("pId")));
+
+        for(int i=0; i<voteStatusList.size(); i++){
+            if(voteStatusList.get(i).getPlacePname().equals(vs.getPlacePname())){
+                String name = voteStatusList.get(i).getPVotedUserName()+", "+vs.getPVotedUserName();
+                voteStatusList.get(i).setPVotedUserName(name);
+                return vs;
+            }
+        }
+
+
         System.out.println(vs.getPVotedUserName() + "/" + vs.getPlacePname() + "/" + vs.getPId());
 
 //        userVoteCnt ++;
@@ -76,7 +87,7 @@ public class UserController {
      */
 
     @GetMapping("/voteUserList")
-    public ArrayList<voteStatus> userVoteList(){
+    public List<voteStatus> userVoteList(){
         for (int i = 0; i < voteStatusList.size(); i++) {
             System.out.println(voteStatusList.get(i).getPVotedUserName()+"/"+voteStatusList.get(i).getPlacePname());
         }

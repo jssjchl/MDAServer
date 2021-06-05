@@ -98,6 +98,7 @@ public class ScheduleController {
             schArr.add(sDto);
             schArr.add(sDto);
         }
+
         s.setUserid(Integer.parseInt(userId));
         s.setList(schArr);
 
