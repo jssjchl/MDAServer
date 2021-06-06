@@ -54,6 +54,7 @@ public class UserController {
             if(voteStatusList.get(i).getPlacePname().equals(vs.getPlacePname())){
                 String name = voteStatusList.get(i).getPVotedUserName()+", "+vs.getPVotedUserName();
                 voteStatusList.get(i).setPVotedUserName(name);
+                userVoteCnt++;
                 return vs;
             }
         }
@@ -61,11 +62,11 @@ public class UserController {
 
         System.out.println(vs.getPVotedUserName() + "/" + vs.getPlacePname() + "/" + vs.getPId());
 
-//        userVoteCnt ++;
-//        if (userVoteCnt > 3){
-//            voteStatusList.clear();
-//            userVoteCnt = 1;
-//        }
+        userVoteCnt ++;
+        if (userVoteCnt > 3){
+            voteStatusList = new ArrayList<>();
+            userVoteCnt = 1;
+        }
         voteStatusList.add(vs);
         return vs;
     }

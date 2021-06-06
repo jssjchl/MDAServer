@@ -27,4 +27,10 @@ public class EvalSubjectDto {
                 .eval_Sub_Category(evalSubCategory)
                 .build();
     }
+
+    public EvalSubjectDto(EvalSubject entity){
+        this.evalSubId = entity.getEvalSubId();
+        this.evalSubType = entity.getEval_Sub_Type();
+        this.evalSubCategory = entity.getEval_Sub_Category();
+    }
 }

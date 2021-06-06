@@ -1,7 +1,10 @@
 package com.mda.server.web;
+import com.mda.server.domain.evalSubject.EvalSubectRepository;
+import com.mda.server.domain.evalSubject.EvalSubject;
 import com.mda.server.domain.schedule.Schedule;
 import com.mda.server.domain.user.User;
 import com.mda.server.service.Location.LocationService;
+import com.mda.server.service.evalSubject.EvalSubjectService;
 import com.mda.server.service.place.PlaceService;
 import com.mda.server.service.schedule.ScheduleService;
 import com.mda.server.service.user.UserService;
@@ -12,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
@@ -20,6 +24,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -32,6 +37,9 @@ public class LocationController{
 
     @Autowired
     private PlaceService placeService;
+
+    @Autowired
+    private EvalSubjectService evalSubjectService;
 
     LocInitSet locSet = new LocInitSet();
     infoList infoList = new infoList();
@@ -62,12 +70,12 @@ public class LocationController{
         ue.setUserLatitude(Double.parseDouble(request.getParameter("userLatitude")));
         ue.setUserLongitude(Double.parseDouble(request.getParameter("userLongitude")));
 
-        userEnterCnt ++;
-        if(userEnterCnt > 3){
-            userEnterList.clear();
-            userEnterCnt = 1;
-        }
-        userEnterList.add(ue);
+//        userEnterCnt ++;
+//        if(userEnterCnt > 3){
+//            userEnterList.clear();
+//            userEnterCnt = 1;
+//        }
+//        userEnterList.add(ue);
         return ue;
     }
 
@@ -275,9 +283,12 @@ public class LocationController{
         infoList.setPlaceArea1(placeList.get(0).getPlaceArea());
         infoList.setPlaceArea2(placeList.get(1).getPlaceArea());
         infoList.setPlaceArea3(placeList.get(2).getPlaceArea());
-        infoList.setPlaceType1(placeList.get(0).getPlaceType());
-        infoList.setPlaceType2(placeList.get(1).getPlaceType());
-        infoList.setPlaceType3(placeList.get(2).getPlaceType());
+        EvalSubjectDto eval = evalSubjectService.findById(Integer.parseInt(placeList.get(0).getPlaceType()));
+        infoList.setPlaceType1(eval.getEvalSubType());
+        eval = evalSubjectService.findById(Integer.parseInt(placeList.get(1).getPlaceType()));
+        infoList.setPlaceType2(eval.getEvalSubType());
+        eval = evalSubjectService.findById(Integer.parseInt(placeList.get(2).getPlaceType()));
+        infoList.setPlaceType3(eval.getEvalSubType());
 
 //        infoList.setPlaceId1(1);
 //        infoList.setPlaceId2(2);

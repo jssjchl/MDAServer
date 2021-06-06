@@ -19,6 +19,11 @@ public class EvalSubjectService {
 
     public List<EvalSubject> getEvalSubjectList(){ return (List<EvalSubject>) evalSubectRepository.findAll();}
 
+    public EvalSubjectDto findById(int id){
+        EvalSubject entity = evalSubectRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("이게뭐냐"));
+        return new EvalSubjectDto(entity);
+    }
+
     @Transactional
     public EvalSubject save(EvalSubjectDto evalSubject){
         return evalSubectRepository.save(evalSubject.toEntity());
