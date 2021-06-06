@@ -80,7 +80,7 @@ public class ScheduleController {
         ScheduleList s = new ScheduleList();
         ArrayList<ScheduleDto> schArr = new ArrayList<>();
         List<Schedule> tempSchArr = new ArrayList<>();
-        tempSchArr = scheduleService.getSchedules(userId);
+        tempSchArr = scheduleService.findByUserId(userId);
         for (int i = 0; i < tempSchArr.size(); i++) {
             ScheduleDto sDto = new ScheduleDto();
             sDto.setScheduleId(tempSchArr.get(i).getScheduleId());
@@ -95,7 +95,6 @@ public class ScheduleController {
             sDto.setSchedulePlaceName(tempSchArr.get(i).getSchedulePlaceName());
             sDto.setSchedulePeopleNum(tempSchArr.get(i).getSchedulePeopleNum());
             sDto.setSchedulePlaceArea(tempSchArr.get(i).getSchedulePlaceArea());
-            schArr.add(sDto);
             schArr.add(sDto);
         }
 
@@ -126,4 +125,6 @@ public class ScheduleController {
         return scheduleService.schDT(schId);
     }
 
+
 }
+

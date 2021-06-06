@@ -35,6 +35,13 @@ public class ScheduleService extends QuerydslRepositorySupport {
     }
 
 
+    public List<Schedule>  findByUserId(String id) {
+        List<Schedule> schList = new ArrayList<>();
+        schList = scheduleRepository.findByScheduleUserId(id);
+        return schList;
+    }
+
+
     public ScheduleDto schDetail(Integer id) {
         Schedule entity = scheduleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("오류"));
         return new ScheduleDto(entity);
@@ -50,8 +57,8 @@ public class ScheduleService extends QuerydslRepositorySupport {
     public List<Schedule> getSchedules(String userId){
         QSchedule schedule = QSchedule.schedule;
         List<Schedule> schList = new ArrayList<>();
-        //schList.addAll(from(schedule).where(schedule.scheduleUserId.eq(userId)).fetch()); //이거..조건을 넣으면 조회가안된다 알아보기
-        schList.addAll(from(schedule).fetch());
+        schList.addAll(from(schedule).where(schedule.scheduleUserId.eq(userId)).fetch()); //이거..조건을 넣으면 조회가안된다 알아보기
+        //schList.addAll(from(schedule).fetch());
         return schList;
     }
 
