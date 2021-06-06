@@ -34,7 +34,7 @@ public class EvalDetailDto {
                 .evalDetailId(evalDetailId)
                 .evalDetailGender(evalDetailGender)
                 .evalDetailAge(evalDetailAge)
-                .evalDetailRating(evalDetailRating)
+                .evalDetailRatings(evalDetailRating)
                 .placeId(placeId)
                 .evalSubId(evalSubId)
                 .build();

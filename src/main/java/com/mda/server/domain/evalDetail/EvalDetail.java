@@ -23,8 +23,8 @@ public class EvalDetail {
     @Column(name="EVAL_DETAIL_AGE",nullable = false)
     private String evalDetailAge;
 
-    @Column(name="EVAL_DETAIL_RATING",nullable = false)
-    private String evalDetailRating;
+    @Column(name="EVAL_DETAIL_RATINGS",nullable = false)
+    private String evalDetailRatings;
 
     @Column(name="PLACE_ID",nullable = false)
     private Integer placeId;
@@ -35,11 +35,11 @@ public class EvalDetail {
 
 
     @Builder
-    public EvalDetail(Integer evalDetailId, String evalDetailGender, String evalDetailAge, String evalDetailRating, Integer placeId, Integer evalSubId){
+    public EvalDetail(Integer evalDetailId, String evalDetailGender, String evalDetailAge, String evalDetailRatings, Integer placeId, Integer evalSubId){
         this.evalDetailId=evalDetailId;
         this.evalDetailGender=evalDetailGender;
         this.evalDetailAge=evalDetailAge;
-        this.evalDetailRating=evalDetailRating;
+        this.evalDetailRatings=evalDetailRatings;
         this.placeId=placeId;
         this.evalSubId=evalSubId;
     }

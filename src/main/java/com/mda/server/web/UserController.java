@@ -24,6 +24,30 @@ public class UserController {
 
     /**
      * @Class Name : UserController.java
+     * @title : userLogin
+     * @param : userName : Http
+     * @returnType : int
+     * @since 2021.  06
+     * @dscription : user의 이름값을 받아 user의 Id를 리턴한다
+     *
+     * << 개정이력(Modification Information) >>
+     *  수정일           수정자        수정내용
+     * ---------------------------------------------------
+     * 2021. 06.                    최초생성
+     * 2021. 06. 06                 테스트완료
+     */
+
+    @GetMapping(value = "/userLogin")
+    public int getuserId(HttpServletRequest request){
+        User user = new User();
+        user = userService.finbyUserName(request.getParameter("userName"));
+        int userId = user.getUserId();
+        return userId;
+    }
+
+
+    /**
+     * @Class Name : UserController.java
      * @title : userVote
      * @param : voteUserName, votePlaceId, voteUserId : Http
      * @returnType : voteStatus

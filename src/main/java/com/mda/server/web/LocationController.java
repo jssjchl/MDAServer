@@ -289,20 +289,6 @@ public class LocationController{
         infoList.setPlaceType2(eval.getEvalSubType());
         eval = evalSubjectService.findById(Integer.parseInt(placeList.get(2).getPlaceType()));
         infoList.setPlaceType3(eval.getEvalSubType());
-
-//        infoList.setPlaceId1(1);
-//        infoList.setPlaceId2(2);
-//        infoList.setPlaceId3(3);
-//        infoList.setPlaceName1("TEST1");
-//        infoList.setPlaceName2("TEST2");
-//        infoList.setPlaceName3("TEST3");
-//        infoList.setPlaceArea1("TTTTTTTTTTTTTTTTTT");
-//        infoList.setPlaceArea2("LLLLLLLLLLLLLLLLLL");
-//        infoList.setPlaceArea3("MMMMMMMMMMMMMMMMMM");
-//        infoList.setPlaceType1("Cafe1");
-//        infoList.setPlaceType2("Cafe2");
-//        infoList.setPlaceType3("Cafe3");
-
         return map;
     }
 
@@ -400,21 +386,17 @@ public class LocationController{
     public schDT saveSchDT(HttpServletRequest request) {
         Schedule sd = new Schedule();
         schDT cs = new schDT();
-        String withUserId = "";
-        String withUserName = "";
-        int schId = 0;
         int pid = Integer.parseInt(request.getParameter("placeId"));
         PlaceDto placeDto = new PlaceDto();
         placeDto = placeService.findById(pid);
+        ArrayList<Schedule> scList = new ArrayList<>();
+
+        UserEnter ue1 = new UserEnter("1",1212, 1212);
+        UserEnter ue2 = new UserEnter("2",1212, 1212);
+        UserEnter ue3 = new UserEnter("3",1212, 1212);
+        userEnterList.add(ue1);userEnterList.add(ue2);userEnterList.add(ue3);
 
         //스케쥴이 인원수만큼 들어가게 되는데, 공통으로 들어갈 수 있는 것들은 한꺼번에 저장해주자
-        sd.setSchedulePlaceId(request.getParameter("placeId")); //parameter값 셋팅
-        sd.setSchedulePlaceName(placeDto.getPlaceName()); // placeId로 가져오기
-        sd.setSchedulePlaceArea(placeDto.getPlaceArea()); //placeId로 가져오기
-        sd.setScheduleName(locSet.getSchName()); //locSet에서 가져오기
-        sd.setScheduleDate(request.getParameter("schDate")); //parameter값 셋팅
-        sd.setScheduleTime(request.getParameter("schTime")); //parameter값 참조
-        sd.setSchedulePeopleNum(locSet.getSchPeople()); //locSet값 참조
 
 
         //따로 유동적으로 들어가야하는 것들
@@ -422,18 +404,25 @@ public class LocationController{
             int uId = Integer.parseInt(userEnterList.get(i).getUserId());
             UserResponseDto userDto = new UserResponseDto();
             userDto = userService.findById(uId); //uId로 조회한 User데이터
+            int schId = 0;
+            String withUserId = "";
+            String withUserName = "";
 
+            sd.setSchedulePlaceId(request.getParameter("placeId")); //parameter값 셋팅
+            sd.setSchedulePlaceName(placeDto.getPlaceName()); // placeId로 가져오기
+            sd.setSchedulePlaceArea(placeDto.getPlaceArea()); //placeId로 가져오기
+            sd.setScheduleName(locSet.getSchName()); //locSet에서 가져오기
+            sd.setScheduleDate(request.getParameter("schDate")); //parameter값 셋팅
+            sd.setScheduleTime(request.getParameter("schTime")); //parameter값 참조
+            sd.setSchedulePeopleNum(locSet.getSchPeople()); //locSet값 참조
             sd.setScheduleUserId(String.valueOf(uId)); //userEnterList에 있는 애들 각각 저장
             sd.setScheduleUserName(userDto.getUserName());
             withUserId += (userDto.getUserId()+"# ");
             withUserName += (userDto.getUserName()+", ");
             sd.setScheduleWithUserName(withUserName); //수정해야할듯
             sd.setScheduleWithUserId(withUserId); //수정해야할듯
-            schId = locationService.saveSchedule(sd); //저장하고 id값 반환
+            scList.add(sd);
         }
-        cs.setPlaceId(schId);
-        cs.setSchDate(request.getParameter("schDate"));
-        cs.setSchTime(request.getParameter("schTime"));
 
 
         return cs;

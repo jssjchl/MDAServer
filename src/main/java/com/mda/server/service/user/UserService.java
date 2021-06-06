@@ -55,6 +55,12 @@ public class UserService extends QuerydslRepositorySupport {
         return new UserEnter();
     }
 
+    public User finbyUserName(String userName){
+        User user = new User();
+        user = userRepository.findByUserName(userName);
+        return user;
+    }
+
     public List<User> getUserInfo(int userId){
         QUser user = QUser.user;
         List<User> userList = new ArrayList<>();

@@ -7,13 +7,18 @@ import com.mda.server.domain.schedule.Schedule;
 import com.mda.server.domain.schedule.ScheduleRepository;
 import com.mda.server.web.dto.LocInitSet;
 import com.mda.server.web.dto.midAndPlace;
+import com.querydsl.core.types.Projections;
+import com.querydsl.jpa.JPQLQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Transactional(value = "transactionManager")
 @Service("locationService2")
@@ -26,31 +31,29 @@ public class LocationService extends QuerydslRepositorySupport{
     }
     private @Autowired ScheduleRepository scheduleRepository;
 
-    public List<Place>getPlaceDetailInfo(LocInitSet locset, String stnNm){
+    public List<Place>getPlaceDetailInfo(LocInitSet locset, String stnNm) throws UnsupportedEncodingException {
 
         QPlace place = QPlace.place;
         QEvalDetail evalDt = QEvalDetail.evalDetail;
         List<Place> placeList = new ArrayList<>();
-//        String[]tempSchTypeArray = locset.getSchType().split(" #");
-//        Integer[]schTypeArray = new Integer[tempSchTypeArray.length];
-//        for (int i=0; i<tempSchTypeArray.length; i++){
-//            schTypeArray[i] = Integer.parseInt(tempSchTypeArray[i]);
-//        }
+        String[]tempSchTypeArray = locset.getSchType().split(" #");
+        Integer[]schTypeArray = new Integer[tempSchTypeArray.length];
+        for (int i=0; i<tempSchTypeArray.length; i++){
+            schTypeArray[i] = Integer.parseInt(tempSchTypeArray[i]);
+        }
 
-
-
-         /*
         placeList.addAll( from(place).join(evalDt).on(place.placeId.eq(evalDt.placeId)).where(place.placeArea.eq(stnNm).and(place.placeCategory.eq(locset.getSchPlaceCate())
-                .and(evalDt.evalDetailGender.eq(locset.getSchGender()).and(evalDt.evalDetailAge.eq(locset.getSchAge()).and(evalDt.evalSubId.in(schTypeArray))))))
+                .and(evalDt.evalDetailGender.eq(locset.getSchGender()).and(evalDt.evalDetailAge.eq(locset.getSchAge()).and(evalDt.evalSubId.in(schTypeArray)).and(evalDt.evalDetailRatings.gt("3"))))))
                 .groupBy(place.placeId)
-                .select(Projections.bean(Place.class, place.placeId, place.placeName, place.placeArea, place.placeType))
                 .fetch());
         return placeList;
-        */
 
-        placeList.addAll( from(place).fetch());
+    }
+
+    public List<Place>getTestPlaceDetail(LocInitSet locset, String stnNm){
+        List<Place> placeList = new ArrayList<>();
+
         return placeList;
-
     }
 
 
