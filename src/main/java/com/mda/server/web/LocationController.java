@@ -70,12 +70,12 @@ public class LocationController{
         ue.setUserLatitude(Double.parseDouble(request.getParameter("userLatitude")));
         ue.setUserLongitude(Double.parseDouble(request.getParameter("userLongitude")));
 
-//        userEnterCnt ++;
-//        if(userEnterCnt > 3){
-//            userEnterList.clear();
-//            userEnterCnt = 1;
-//        }
-//        userEnterList.add(ue);
+        userEnterCnt ++;
+        if(userEnterCnt > 3){
+            userEnterList.clear();
+            userEnterCnt = 1;
+        }
+        userEnterList.add(ue);
         return ue;
     }
 

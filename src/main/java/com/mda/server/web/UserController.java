@@ -75,6 +75,7 @@ public class UserController {
         vs.setPId(Integer.parseInt(request.getParameter("pId")));
 
         for(int i=0; i<voteStatusList.size(); i++){
+            userVoteCnt ++;
             if(voteStatusList.get(i).getPlacePname().equals(vs.getPlacePname())){
                 String name = voteStatusList.get(i).getPVotedUserName()+", "+vs.getPVotedUserName();
                 voteStatusList.get(i).setPVotedUserName(name);
@@ -82,7 +83,7 @@ public class UserController {
             }
         }
 
-        userVoteCnt ++;
+
         if (userVoteCnt > 3){
             voteStatusList.clear();
             userVoteCnt = 1;
@@ -109,11 +110,12 @@ public class UserController {
 
     @GetMapping("/voteUserList")
     public List<voteStatus> userVoteList(){
+        boolean flag = false;
         for (int i = 0; i < voteStatusList.size(); i++) {
             System.out.println(voteStatusList.get(i).getPVotedUserName()+"/"+voteStatusList.get(i).getPlacePname());
         }
 
-        return voteStatusList;
+            return voteStatusList;
     }
 
 
