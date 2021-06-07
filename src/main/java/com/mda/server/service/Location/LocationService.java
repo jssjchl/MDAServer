@@ -3,6 +3,7 @@ package com.mda.server.service.Location;
 import com.mda.server.domain.evalDetail.QEvalDetail;
 import com.mda.server.domain.place.Place;
 import com.mda.server.domain.place.QPlace;
+import com.mda.server.domain.schedule.QSchedule;
 import com.mda.server.domain.schedule.Schedule;
 import com.mda.server.domain.schedule.ScheduleRepository;
 import com.mda.server.web.dto.LocInitSet;
@@ -58,8 +59,10 @@ public class LocationService extends QuerydslRepositorySupport{
 
 
     public int saveSchedule(Schedule sc){
-        Schedule schedule = scheduleRepository.save(sc);
-        int schId = schedule.getScheduleId();
+        Schedule sch = new Schedule();
+        sc.setScheduleId(null);
+        sch = scheduleRepository.save(sc);
+        int schId = sch.getScheduleId();
         return schId;
     }
 

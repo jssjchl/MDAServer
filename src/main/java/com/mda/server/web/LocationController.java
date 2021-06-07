@@ -283,12 +283,34 @@ public class LocationController{
         infoList.setPlaceArea1(placeList.get(0).getPlaceArea());
         infoList.setPlaceArea2(placeList.get(1).getPlaceArea());
         infoList.setPlaceArea3(placeList.get(2).getPlaceArea());
-        EvalSubjectDto eval = evalSubjectService.findById(Integer.parseInt(placeList.get(0).getPlaceType()));
-        infoList.setPlaceType1(eval.getEvalSubType());
-        eval = evalSubjectService.findById(Integer.parseInt(placeList.get(1).getPlaceType()));
-        infoList.setPlaceType2(eval.getEvalSubType());
-        eval = evalSubjectService.findById(Integer.parseInt(placeList.get(2).getPlaceType()));
-        infoList.setPlaceType3(eval.getEvalSubType());
+        String pType1 = placeList.get(0).getPlaceType();
+        String pType2 = placeList.get(1).getPlaceType();
+        String pType3 = placeList.get(2).getPlaceType();
+        String[]pTypeArray1 = pType1.split(",");
+        String[]pTypeArray2 = pType2.split(",");
+        String[]pTypeArray3 = pType3.split(",");
+        String pTypeText1 = "";
+        String pTypeText2 = "";
+        String pTypeText3 = "";
+        EvalSubjectDto eval = new EvalSubjectDto();
+        for(int i=0; i<pTypeArray1.length; i++){
+            eval = evalSubjectService.findById(Integer.parseInt(pTypeArray1[i]));
+            String tempPtype1 = eval.getEvalSubType();
+            pTypeText1 += " #"+ tempPtype1;
+        }
+        for(int i=0; i<pTypeArray2.length; i++){
+            eval = evalSubjectService.findById(Integer.parseInt(pTypeArray2[i]));
+            String tempPtype2 = eval.getEvalSubType();
+            pTypeText2 += " #"+ tempPtype2;
+        }
+        for(int i=0; i<pTypeArray3.length; i++){
+            eval = evalSubjectService.findById(Integer.parseInt(pTypeArray3[i]));
+            String tempPtype3 = eval.getEvalSubType();
+            pTypeText3 += " #"+ tempPtype3;
+        }
+        infoList.setPlaceType1(pTypeText1);
+        infoList.setPlaceType2(pTypeText2);
+        infoList.setPlaceType3(pTypeText3);
         return map;
     }
 
@@ -390,6 +412,7 @@ public class LocationController{
         PlaceDto placeDto = new PlaceDto();
         placeDto = placeService.findById(pid);
         ArrayList<Schedule> scList = new ArrayList<>();
+        int schId = 0;
 
         UserEnter ue1 = new UserEnter("1",1212, 1212);
         UserEnter ue2 = new UserEnter("2",1212, 1212);
@@ -404,7 +427,6 @@ public class LocationController{
             int uId = Integer.parseInt(userEnterList.get(i).getUserId());
             UserResponseDto userDto = new UserResponseDto();
             userDto = userService.findById(uId); //uId로 조회한 User데이터
-            int schId = 0;
             String withUserId = "";
             String withUserName = "";
 
@@ -423,7 +445,9 @@ public class LocationController{
             sd.setScheduleWithUserId(withUserId); //수정해야할듯
             scList.add(sd);
         }
-
+        for(int i=0; i< scList.size(); i++){
+            schId = locationService.saveSchedule(scList.get(i)); //저장하고 id값 반환
+        }
 
         return cs;
     }
