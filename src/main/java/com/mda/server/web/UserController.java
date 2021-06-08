@@ -37,9 +37,10 @@ public class UserController {
      * 2021. 06. 06                 테스트완료
      */
 
-    @GetMapping(value = "/userLogin")
-    public int getuserId(HttpServletRequest request){
+    @PostMapping(value = "/userLogin")
+    public int userLogin(HttpServletRequest request){
         User user = new User();
+        System.out.println(request.getParameter("userName"));
         user = userService.finbyUserName(request.getParameter("userName"));
         int userId = user.getUserId();
         return userId;
