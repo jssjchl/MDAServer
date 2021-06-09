@@ -81,7 +81,7 @@ public class LocationController{
             userEnterList.clear();
             userEnterCnt = 1;
         }
-        userEnterList.add(ue);
+        //userEnterList.add(ue);
         return ue;
     }
 
@@ -464,11 +464,6 @@ public class LocationController{
         ArrayList<Schedule> scList = new ArrayList<>();
         int schId = 0;
 
-        UserEnter ue1 = new UserEnter("1",1212, 1212);
-        UserEnter ue2 = new UserEnter("2",1212, 1212);
-        UserEnter ue3 = new UserEnter("3",1212, 1212);
-        userEnterList.add(ue1);userEnterList.add(ue2);userEnterList.add(ue3);
-
         int uId = Integer.parseInt(userEnterList.get(0).getUserId());
         UserResponseDto userDto = new UserResponseDto();
         userDto = userService.findById(uId); //uId로 조회한 User데이터
@@ -519,7 +514,7 @@ public class LocationController{
 
 
     @RequestMapping(value = "/rating", method= RequestMethod.POST)
-    public void saveRating(HttpServletRequest request) throws UnsupportedEncodingException {
+    public String saveRating(HttpServletRequest request) throws UnsupportedEncodingException {
         int userId = Integer.parseInt(request.getParameter("userId"));
         int schId = Integer.parseInt(request.getParameter("schId"));
         String conditionEval = request.getParameter("conditionEval");
@@ -542,6 +537,8 @@ public class LocationController{
             evalDto.setEvalSubId(Integer.valueOf(schTypeArray[i]));
             evalDetailService.save(evalDto);
         }
+
+        return "SUCCESS!";
 
     }
 

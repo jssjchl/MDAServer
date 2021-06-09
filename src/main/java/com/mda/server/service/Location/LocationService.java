@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -33,10 +34,15 @@ public class LocationService extends QuerydslRepositorySupport{
         QEvalDetail evalDt = QEvalDetail.evalDetail;
         List<Place> placeList = new ArrayList<>();
         String cate = locset.getSchPlaceCate();
+
         String[]tempSchTypeArray = locset.getSchType().split(" #");
-        Integer[]schTypeArray = new Integer[tempSchTypeArray.length];
-        for (int i=0; i<tempSchTypeArray.length; i++){
-            switch (tempSchTypeArray[i]){
+        Integer[]schTypeArray = new Integer[tempSchTypeArray.length-1];
+
+        ArrayList<String> arr = new ArrayList<>(Arrays.asList(tempSchTypeArray));
+        arr.remove(0);
+
+        for (int i=0; i<arr.size(); i++){
+            switch (arr.get(i)){
                 case "Western_Food": schTypeArray[i] = 1;
                     break;
                 case "Korean_Food": schTypeArray[i] = 2;
@@ -98,6 +104,10 @@ public class LocationService extends QuerydslRepositorySupport{
                 case "Pet": schTypeArray[i] = 24;
                     break;
             }
+        }
+
+        for (int i = 0; i < schTypeArray.length; i++) {
+            System.out.println(schTypeArray[i]);
         }
 
         placeList.addAll( from(place).join(evalDt).on(place.placeId.eq(evalDt.placeId)).where(place.placeArea.eq(stnNm).and(place.placeCategory.eq(locset.getSchPlaceCate())
