@@ -32,10 +32,72 @@ public class LocationService extends QuerydslRepositorySupport{
         QPlace place = QPlace.place;
         QEvalDetail evalDt = QEvalDetail.evalDetail;
         List<Place> placeList = new ArrayList<>();
-        String[]tempSchTypeArray = locset.getSchPlaceCate().split(" #");
+        String cate = locset.getSchPlaceCate();
+        String[]tempSchTypeArray = locset.getSchType().split(" #");
         Integer[]schTypeArray = new Integer[tempSchTypeArray.length];
         for (int i=0; i<tempSchTypeArray.length; i++){
-            schTypeArray[i] = Integer.parseInt(tempSchTypeArray[i]);
+            switch (tempSchTypeArray[i]){
+                case "Western_Food": schTypeArray[i] = 1;
+                    break;
+                case "Korean_Food": schTypeArray[i] = 2;
+                    break;
+                case "Japenese_Food": schTypeArray[i] = 3;
+                    break;
+                case "Date":
+                        if(cate.equalsIgnoreCase("restaurant")){
+                            schTypeArray[i] = 4;
+                        }else if(cate.equalsIgnoreCase("cafe")){
+                            schTypeArray[i] = 16;
+                        }else{
+                            schTypeArray[i] = 19;
+                        }
+                    break;
+                case "Good_vibes":
+                        if(cate.equalsIgnoreCase("restaurant")){
+                            schTypeArray[i] = 5;
+                        }else if(cate.equalsIgnoreCase("cafe")){
+                            schTypeArray[i] = 10;
+                        }
+                    break;
+                case "Anniversary":
+                        if(cate.equalsIgnoreCase("restaurant")){
+                            schTypeArray[i] = 6;
+                        }else if(cate.equalsIgnoreCase("activity")){
+                            schTypeArray[i] = 23;
+                        }
+                    break;
+                case "Franchise":
+                        if(cate.equalsIgnoreCase("restaurant")){
+                            schTypeArray[i] = 7;
+                        }else if(cate.equalsIgnoreCase("cafe")){
+                            schTypeArray[i] = 15;
+                        }
+                    break;
+                case "Family_meal": schTypeArray[i] = 8;
+                    break;
+                case "Pic_of_day": schTypeArray[i] = 9;
+                    break;
+                case "Brunch": schTypeArray[i] = 11;
+                    break;
+                case "Studying": schTypeArray[i] = 12;
+                    break;
+                case "Dessert": schTypeArray[i] = 13;
+                    break;
+                case "MeetingRoom": schTypeArray[i] = 14;
+                    break;
+                case "Active": schTypeArray[i] = 17;
+                    break;
+                case "Shopping": schTypeArray[i] = 18;
+                    break;
+                case "Friend": schTypeArray[i] = 20;
+                    break;
+                case "healing": schTypeArray[i] = 21;
+                    break;
+                case "Kids": schTypeArray[i] = 22;
+                    break;
+                case "Pet": schTypeArray[i] = 24;
+                    break;
+            }
         }
 
         placeList.addAll( from(place).join(evalDt).on(place.placeId.eq(evalDt.placeId)).where(place.placeArea.eq(stnNm).and(place.placeCategory.eq(locset.getSchPlaceCate())
