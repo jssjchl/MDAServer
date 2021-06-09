@@ -4,6 +4,7 @@ import com.mda.server.domain.evalSubject.EvalSubject;
 import com.mda.server.domain.schedule.Schedule;
 import com.mda.server.domain.user.User;
 import com.mda.server.service.Location.LocationService;
+import com.mda.server.service.evalDetail.EvalDetailService;
 import com.mda.server.service.evalSubject.EvalSubjectService;
 import com.mda.server.service.place.PlaceService;
 import com.mda.server.service.schedule.ScheduleService;
@@ -15,16 +16,15 @@ import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 
 @RestController
@@ -40,6 +40,12 @@ public class LocationController{
 
     @Autowired
     private EvalSubjectService evalSubjectService;
+
+    @Autowired
+    private ScheduleService scheduleService;
+
+    @Autowired
+    private EvalDetailService evalDetailService;
 
     LocInitSet locSet = new LocInitSet();
     infoList infoList = new infoList();
@@ -173,12 +179,26 @@ public class LocationController{
 //        String userName2 = request.getParameter("userName2");
 //        String userName3 = request.getParameter("userName3");
 
-        double latitude1 = 37.66657228807503;
-        double longitude1 = 126.76327377041474;
-        double latitude2 = 37.648984;
-        double longitude2 =  126.774089;
-        double latitude3 = 37.671873;
-        double longitude3 = 126.785645;
+        //약속1 (중간지점 : 을지로3가)
+        /*
+        double latitude1 = 37.567631;
+        double longitude1 = 126.989063;
+        double latitude2 = 37.565301;
+        double longitude2 =  126.990908;
+        double latitude3 = 37.567172;
+        double longitude3 = 126.992604;
+        */
+
+        //약속2 (중간지점 : 신정)
+        double latitude1 = 37.540745;
+        double longitude1 = 126.861012;
+        double latitude2 = 37.519684;
+        double longitude2 =  126.830837;
+        double latitude3 = 37.523370;
+        double longitude3 = 126.866538;
+
+
+
 
         //가라코드...
         UserEnter ue1 = new UserEnter("1",latitude1, longitude1);
@@ -188,16 +208,16 @@ public class LocationController{
 
 
         //1. 유저들 간의 중간 위도경도 구하기
-//        midLat = (latitude1+latitude2+latitude3) /3;
-//        midLong = (longitude1+longitude2+longitude3)/3;
-        midLat = 37.659627;
-        midLong = 126.773459;
+        midLat = (latitude1+latitude2+latitude3) /3;
+        midLong = (longitude1+longitude2+longitude3)/3;
+        //midLat = 37.659627;
+        //midLong = 126.773459;
 
         //2. API사용해서 반경내의 역중 가장 가까운역으로 중간위치 재셋팅
         String apiKey = "9if76bfpjJjxcws6twPhkPfKHbQecu3JLLgD23UpjpQ";// ODsay 인증키
         String rst = "";// 파싱해온 데이터
         try {
-            URL url = new URL("https://api.odsay.com/v1/api/pointSearch?lang=0&x=126.987179&y=37.568217&radius=500&stationClass=2&apiKey="+apiKey);
+            URL url = new URL("https://api.odsay.com/v1/api/pointSearch?lang=0&x="+midLong+"&y="+midLat+"&radius=1000&stationClass=2&apiKey="+apiKey);
             BufferedReader bf;
             bf = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
             rst = bf.readLine();
@@ -405,7 +425,7 @@ public class LocationController{
 
 
     @RequestMapping(value = "/schDT", method= RequestMethod.POST)
-    public schDT saveSchDT(HttpServletRequest request) {
+    public int saveSchDT(HttpServletRequest request) {
         Schedule sd = new Schedule();
         schDT cs = new schDT();
         int pid = Integer.parseInt(request.getParameter("placeId"));
@@ -419,10 +439,24 @@ public class LocationController{
         UserEnter ue3 = new UserEnter("3",1212, 1212);
         userEnterList.add(ue1);userEnterList.add(ue2);userEnterList.add(ue3);
 
-        //스케쥴이 인원수만큼 들어가게 되는데, 공통으로 들어갈 수 있는 것들은 한꺼번에 저장해주자
+        int uId = Integer.parseInt(userEnterList.get(0).getUserId());
+        UserResponseDto userDto = new UserResponseDto();
+        userDto = userService.findById(uId); //uId로 조회한 User데이터
+
+        sd.setSchedulePlaceId(request.getParameter("placeId")); //parameter값 셋팅
+        sd.setSchedulePlaceName(placeDto.getPlaceName()); // placeId로 가져오기
+        sd.setSchedulePlaceArea(placeDto.getPlaceArea()); //placeId로 가져오기
+        sd.setScheduleName(locSet.getSchName()); //locSet에서 가져오기
+        sd.setScheduleDate(request.getParameter("schDate")); //parameter값 셋팅
+        sd.setScheduleTime(request.getParameter("schTime")); //parameter값 참조
+        sd.setSchedulePeopleNum(locSet.getSchPeople()); //locSet값 참조
+        sd.setScheduleUserId(String.valueOf(uId)); //1번
+        sd.setScheduleUserName(userDto.getUserName());
+        sd.setScheduleWithUserName("1# 2# 3");
+        sd.setScheduleWithUserId("kim# sim# you");
 
 
-        //따로 유동적으로 들어가야하는 것들
+/*        //따로 유동적으로 들어가야하는 것들
         for(int i=0; i<userEnterList.size(); i++){ //userEnterList에 있는 길이만큼 돌려서 각각 userId로 인서트
             int uId = Integer.parseInt(userEnterList.get(i).getUserId());
             UserResponseDto userDto = new UserResponseDto();
@@ -444,12 +478,41 @@ public class LocationController{
             sd.setScheduleWithUserName(withUserName); //수정해야할듯
             sd.setScheduleWithUserId(withUserId); //수정해야할듯
             scList.add(sd);
-        }
-        for(int i=0; i< scList.size(); i++){
-            schId = locationService.saveSchedule(scList.get(i)); //저장하고 id값 반환
+        }*/
+
+            schId = locationService.saveSchedule(sd); //저장하고 id값 반환
+
+
+        return schId;
+    }
+
+
+
+    @RequestMapping(value = "/rating", method= RequestMethod.POST)
+    public void saveRating(HttpServletRequest request) throws UnsupportedEncodingException {
+        int userId = Integer.parseInt(request.getParameter("userId"));
+        int schId = Integer.parseInt(request.getParameter("schId"));
+        String conditionEval = request.getParameter("conditionEval");
+
+        ScheduleDto schDto = new ScheduleDto();
+        schDto = scheduleService.schDetail(schId);
+        int placeId = Integer.parseInt(schDto.getSchedulePlaceId());
+
+        PlaceDto placeDto = new PlaceDto();
+        placeDto = placeService.findById(placeId);
+        String[]schTypeArray = placeDto.getPlaceType().split(",");
+
+        EvalDetailDto evalDto = new EvalDetailDto();
+        evalDto.setEvalDetailAge(locSet.getSchAge());
+        evalDto.setEvalDetailGender(locSet.getSchGender());
+        evalDto.setEvalDetailRating(conditionEval);
+        evalDto.setPlaceId(placeId);
+
+        for(int i=0; i<schTypeArray.length; i++){
+            evalDto.setEvalSubId(Integer.valueOf(schTypeArray[i]));
+            evalDetailService.save(evalDto);
         }
 
-        return cs;
     }
 
 

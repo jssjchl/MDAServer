@@ -3,23 +3,18 @@ package com.mda.server.service.Location;
 import com.mda.server.domain.evalDetail.QEvalDetail;
 import com.mda.server.domain.place.Place;
 import com.mda.server.domain.place.QPlace;
-import com.mda.server.domain.schedule.QSchedule;
 import com.mda.server.domain.schedule.Schedule;
 import com.mda.server.domain.schedule.ScheduleRepository;
 import com.mda.server.web.dto.LocInitSet;
 import com.mda.server.web.dto.midAndPlace;
-import com.querydsl.core.types.Projections;
-import com.querydsl.jpa.JPQLQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
-
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 @Transactional(value = "transactionManager")
 @Service("locationService2")
@@ -61,7 +56,7 @@ public class LocationService extends QuerydslRepositorySupport{
     public int saveSchedule(Schedule sc){
         Schedule sch = new Schedule();
         sc.setScheduleId(null);
-        sch = scheduleRepository.save(sc);
+        sch = this.scheduleRepository.save(sc);
         int schId = sch.getScheduleId();
         return schId;
     }

@@ -24,12 +24,19 @@ public class ScheduleDto {
     private String scheduleWithUserName;
 
     public ScheduleDto(Schedule entity) {
+        this.scheduleId = entity.getScheduleId();
         this.scheduleDate = entity.getScheduleDate();
         this.schedulePlaceName = entity.getSchedulePlaceName();
         this.scheduleName = entity.getScheduleName();
         this.scheduleTime = entity.getScheduleTime();
         this.scheduleWithUserName = entity.getScheduleWithUserName();
-        this.schedulePlaceArea=entity.getSchedulePlaceArea();
+        this.schedulePlaceArea = entity.getSchedulePlaceArea();
+        this.schedulePlaceId = entity.getSchedulePlaceId();
+        this.schedulePeopleNum = entity.getSchedulePeopleNum();
+        this.scheduleWithUserId = entity.getScheduleWithUserId();
+        this.scheduleUserName = entity.getScheduleUserName();
+        this.scheduleUserId = entity.getScheduleUserId();
+
     }
 
     @Builder

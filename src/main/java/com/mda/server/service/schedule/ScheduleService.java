@@ -1,5 +1,6 @@
 package com.mda.server.service.schedule;
 
+import com.mda.server.domain.evalDetail.EvalDetail;
 import com.mda.server.domain.schedule.QSchedule;
 import com.mda.server.domain.schedule.Schedule;
 import com.mda.server.domain.schedule.ScheduleRepository;
@@ -64,6 +65,12 @@ public class ScheduleService extends QuerydslRepositorySupport {
 
     @Transactional
     public Schedule saveLocationSetting(ScheduleDto schedule) {
+        return scheduleRepository.save(schedule.toEntity());
+    }
+
+
+    @Transactional
+    public Schedule save(ScheduleDto schedule){
         return scheduleRepository.save(schedule.toEntity());
     }
 

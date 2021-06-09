@@ -65,11 +65,6 @@ public class UserController {
     @PostMapping("/userVote")
     public voteStatus userVote(HttpServletRequest request){
         voteStatus vs = new voteStatus();
-//        int uid = Integer.parseInt(request.getParameter("voteUserName"));
-//        UserResponseDto user = new UserResponseDto();
-//        user = userService.findById(uid);
-//        String name = "";
-//        name = user.getUserName();
 
         vs.setPVotedUserName(request.getParameter("pVotedUserName"));
         vs.setPlacePname(request.getParameter("placePname"));
@@ -83,8 +78,6 @@ public class UserController {
                 return vs;
             }
         }
-
-
         if (userVoteCnt > 3){
             voteStatusList.clear();
             userVoteCnt = 1;

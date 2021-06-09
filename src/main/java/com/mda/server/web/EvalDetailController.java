@@ -7,8 +7,12 @@ import com.mda.server.domain.schedule.ScheduleRepository;
 import com.mda.server.domain.user.User;
 import com.mda.server.domain.user.UserRepository;
 import com.mda.server.service.evalDetail.EvalDetailService;
+import com.mda.server.service.place.PlaceService;
+import com.mda.server.service.schedule.ScheduleService;
 import com.mda.server.service.user.UserService;
 import com.mda.server.web.dto.EvalDetailDto;
+import com.mda.server.web.dto.PlaceDto;
+import com.mda.server.web.dto.ScheduleDto;
 import com.mda.server.web.dto.UserResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +38,11 @@ public class EvalDetailController {
     ScheduleRepository scheduleRepository;
     @Autowired
     EvalDetailService evalDetailService;
+    @Autowired
+    ScheduleService scheduleService;
+    @Autowired
+    PlaceService placeService;
+
     ArrayList<EvalDetailDto> evalDetailDtoArrayList = new ArrayList<>();
 
 
@@ -43,43 +52,6 @@ public class EvalDetailController {
 
 
 
-    @RequestMapping(value = "/rating", method= RequestMethod.POST)
-    public int saveRating(HttpServletRequest request) throws UnsupportedEncodingException {
-        int userId = Integer.parseInt(request.getParameter("userId"));
-        int schId = Integer.parseInt(request.getParameter("schId"));
-        String conditionEval = request.getParameter("conditionEval");
-        List<User> userList = new ArrayList<>();
-        userList = userService.getUserInfo(userId);
-        int userId2 = userList.get(0).getUserId();
-        int userAge = userList.get(0).getUserAge();
-        String userGender = userList.get(0).getUserGender();
-
-
-
-
-
-    /*
-        List<User> userList = userService.getUserInfo(userId);
-        System.out.println("userList" + userList.get(0).getUserId());
-        User user = userRepository.findById(2).orElseThrow(() -> new IllegalArgumentException("User오류나욤"));
-        int user2222 = user.getUserId();
-        System.out.println("user2222 : " + user2222);
-        //Schedule sch = scheduleRepository.findById().orElseThrow(() -> new IllegalArgumentException("sch오류나욤"));
-       // userId = user.getUserId();
-        //schId = sch.getScheduleId();
-
-
-
-        EvalDetailDto evalDto = new EvalDetailDto();
-       // evalDto.setEvalDetailGender();
-        //evalDto.setEvalDetailAge();
-        evalDto.setEvalDetailRating(conditionEval);
-        //evalDto.setPlaceId(placeid);
-        //evalDto.setEvalSubId();
-
-     */
-        return 1;
-    }
 
 
 }
