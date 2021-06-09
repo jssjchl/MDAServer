@@ -35,7 +35,7 @@ public class LocationService extends QuerydslRepositorySupport{
         String[]tempSchTypeArray = locset.getSchPlaceCate().split(" #");
         Integer[]schTypeArray = new Integer[tempSchTypeArray.length];
         for (int i=0; i<tempSchTypeArray.length; i++){
-            schTypeArray[i] = InteㅎㅎparseInt(tempSchTypeArray[i]);
+            schTypeArray[i] = Integer.parseInt(tempSchTypeArray[i]);
         }
 
         placeList.addAll( from(place).join(evalDt).on(place.placeId.eq(evalDt.placeId)).where(place.placeArea.eq(stnNm).and(place.placeCategory.eq(locset.getSchPlaceCate())
