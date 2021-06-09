@@ -47,7 +47,7 @@ public class LocationController{
     @Autowired
     private EvalDetailService evalDetailService;
 
-    LocInitSet locSet = new LocInitSet();
+    LocInitSet locSet;
     infoList infoList = new infoList();
     ArrayList<UserEnter> userEnterList = new ArrayList<>();
     int userEnterCnt = 0;
@@ -137,22 +137,35 @@ public class LocationController{
 
      */
 
-    @RequestMapping(value = "/locationInitSet", method= RequestMethod.POST)
-    public LocInitSet locInitSet(@RequestBody LocInitSet loc) {
-        locSet.setSchName(loc.getSchName());
-        locSet.setSchAge(loc.getSchAge());
-        locSet.setSchGender(loc.getSchGender());
-        locSet.setSchPeople(loc.getSchPeople());
-        locSet.setSchType(loc.getSchType());
-        locSet.setSchPlaceCate(loc.getSchPlaceCate());
+//    @RequestMapping(value = "/locationInitSet", method= RequestMethod.POST)
+//    public LocInitSet locInitSet(@RequestBody LocInitSet loc) {
+//        locSet.setSchName(loc.getSchName());
+//        locSet.setSchAge(loc.getSchAge());
+//        locSet.setSchGender(loc.getSchGender());
+//        locSet.setSchPeople(loc.getSchPeople());
+//        locSet.setSchType(loc.getSchType());
+//        locSet.setSchPlaceCate(loc.getSchPlaceCate());
+//
+//        return locSet;
+//    }
 
+    @PostMapping("/locationInitSet")
+    public LocInitSet locInitset(HttpServletRequest request){
+        locSet = new LocInitSet();
+        locSet.setSchType(request.getParameter("schType"));
+        locSet.setSchAge(request.getParameter("schAge"));
+        locSet.setSchPeople(request.getParameter("schPeople"));
+        locSet.setSchPlaceCate(request.getParameter("schPlaceCate"));
+        locSet.setSchName(request.getParameter("schName"));
+        locSet.setSchGender(request.getParameter("schGender"));
+        System.out.println(locSet.toString());
         return locSet;
     }
 
-    @GetMapping("/locationInitSet")
-    public LocInitSet loc(){
-        return locSet;
-    }
+//    @GetMapping("/locationInitSet")
+//    public LocInitSet loc(){
+//        return locSet;
+//    }
 
 
     /**
@@ -278,6 +291,8 @@ public class LocationController{
 
         //3. locInitSet 정보 기반으로 place 찾기
         List<Place> placeList = new ArrayList<Place>();
+        System.out.println("=================THIS IS MidAndPlace=============");
+        System.out.println(locSet.toString());
         placeList = locationService.getPlaceDetailInfo(locSet, stnNm);
         placeList.get(0).getPlaceId();
 

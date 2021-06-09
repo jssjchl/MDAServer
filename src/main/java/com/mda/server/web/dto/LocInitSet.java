@@ -12,4 +12,16 @@ public class LocInitSet {
     String schPeople;
     String schType;
     String schPlaceCate;
+
+    @Override
+    public String toString() {
+        return "LocInitSet{" +
+                "schName='" + schName + '\'' +
+                ", schAge='" + schAge + '\'' +
+                ", schGender='" + schGender + '\'' +
+                ", schPeople='" + schPeople + '\'' +
+                ", schType='" + schType + '\'' +
+                ", schPlaceCate='" + schPlaceCate + '\'' +
+                '}';
+    }
 }

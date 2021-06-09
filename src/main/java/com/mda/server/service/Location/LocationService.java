@@ -32,10 +32,10 @@ public class LocationService extends QuerydslRepositorySupport{
         QPlace place = QPlace.place;
         QEvalDetail evalDt = QEvalDetail.evalDetail;
         List<Place> placeList = new ArrayList<>();
-        String[]tempSchTypeArray = locset.getSchType().split(" #");
+        String[]tempSchTypeArray = locset.getSchPlaceCate().split(" #");
         Integer[]schTypeArray = new Integer[tempSchTypeArray.length];
         for (int i=0; i<tempSchTypeArray.length; i++){
-            schTypeArray[i] = Integer.parseInt(tempSchTypeArray[i]);
+            schTypeArray[i] = InteㅎㅎparseInt(tempSchTypeArray[i]);
         }
 
         placeList.addAll( from(place).join(evalDt).on(place.placeId.eq(evalDt.placeId)).where(place.placeArea.eq(stnNm).and(place.placeCategory.eq(locset.getSchPlaceCate())
