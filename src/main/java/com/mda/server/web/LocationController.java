@@ -122,6 +122,7 @@ public class LocationController{
      * 2021. 06. 01                 테스트완료
      */
 
+    /*
     @RequestMapping(value = "/locationInitSet", method= RequestMethod.POST)
     public LocInitSet locInitSet(HttpServletRequest request) {
         locSet.setSchName(request.getParameter("schName"));
@@ -130,6 +131,20 @@ public class LocationController{
         locSet.setSchPeople(request.getParameter("schPeople"));
         locSet.setSchType(request.getParameter("schType"));
         locSet.setSchPlaceCate(request.getParameter("schPlaceCate"));
+
+        return locSet;
+    }
+
+     */
+
+    @RequestMapping(value = "/locationInitSet", method= RequestMethod.POST)
+    public LocInitSet locInitSet(@RequestBody LocInitSet loc) {
+        locSet.setSchName(loc.getSchName());
+        locSet.setSchAge(loc.getSchAge());
+        locSet.setSchGender(loc.getSchGender());
+        locSet.setSchPeople(loc.getSchPeople());
+        locSet.setSchType(loc.getSchType());
+        locSet.setSchPlaceCate(loc.getSchPlaceCate());
 
         return locSet;
     }
