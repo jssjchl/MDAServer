@@ -208,22 +208,24 @@ public class LocationController{
 //        String userName3 = request.getParameter("userName3");
 
         //약속1 (중간지점 : 을지로3가)
-        /*
+        //30's, M, 3, shopping+friend+healing+kids, A
+
         double latitude1 = 37.567631;
         double longitude1 = 126.989063;
         double latitude2 = 37.565301;
         double longitude2 =  126.990908;
         double latitude3 = 37.567172;
         double longitude3 = 126.992604;
-        */
+
 
         //약속2 (중간지점 : 신정)
-        double latitude1 = 37.540745;
-        double longitude1 = 126.861012;
-        double latitude2 = 37.519684;
-        double longitude2 =  126.830837;
-        double latitude3 = 37.523370;
-        double longitude3 = 126.866538;
+        //20's, F, 3, 1+2+3, C
+//        double latitude1 = 37.540745;
+//        double longitude1 = 126.861012;
+//        double latitude2 = 37.519684;
+//        double longitude2 =  126.830837;
+//        double latitude3 = 37.523370;
+//        double longitude3 = 126.866538;
 
 
 
