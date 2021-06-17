@@ -210,12 +210,12 @@ public class LocationController{
         //약속1 (중간지점 : 을지로3가)
         //30's, M, 3, shopping+friend+healing+kids, A
 
-        double latitude1 = 37.567631;
-        double longitude1 = 126.989063;
-        double latitude2 = 37.565301;
-        double longitude2 =  126.990908;
-        double latitude3 = 37.567172;
-        double longitude3 = 126.992604;
+//        double latitude1 = 37.567631;
+//        double longitude1 = 126.989063;
+//        double latitude2 = 37.565301;
+//        double longitude2 =  126.990908;
+//        double latitude3 = 37.567172;
+//        double longitude3 = 126.992604;
 
 
         //약속2 (중간지점 : 신정)
@@ -226,6 +226,15 @@ public class LocationController{
 //        double longitude2 =  126.830837;
 //        double latitude3 = 37.523370;
 //        double longitude3 = 126.866538;
+
+        //약속3 (중간지점 : 명동)
+        //약속3, 40's, F, 3, Japenese_Food+Anniversary+Franchise, R
+        double latitude1 = 37.563780;
+        double longitude1 = 126.986071;
+        double latitude2 = 37.559562;
+        double longitude2 =  126.984289;
+        double latitude3 = 37.560082;
+        double longitude3 = 126.988298;
 
 
 
