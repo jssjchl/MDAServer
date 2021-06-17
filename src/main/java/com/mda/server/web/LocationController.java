@@ -207,9 +207,41 @@ public class LocationController{
 //        String userName2 = request.getParameter("userName2");
 //        String userName3 = request.getParameter("userName3");
 
+
+
+        String loc = locSet.getSchPlaceCate();
+        double latitude1=0.0, latitude2=0.0, latitude3=0.0;
+        double longitude1=0.0, longitude2=0.0, longitude3=0.0;
+
+        switch(loc){
+            case "cafe":
+                 latitude1 = 37.540745;
+                 longitude1 = 126.861012;
+                 latitude2 = 37.519684;
+                 longitude2 =  126.830837;
+                 latitude3 = 37.523370;
+                 longitude3 = 126.866538;
+                break;
+            case "activity":
+                 latitude1 = 37.567631;
+                 longitude1 = 126.989063;
+                 latitude2 = 37.565301;
+                 longitude2 =  126.990908;
+                 latitude3 = 37.567172;
+                 longitude3 = 126.992604;
+                break;
+            case "restaurant":
+                 latitude1 = 37.563780;
+                 longitude1 = 126.986071;
+                 latitude2 = 37.559562;
+                 longitude2 =  126.984289;
+                 latitude3 = 37.560082;
+                 longitude3 = 126.988298;
+                 break;
+        }
+
         //약속1 (중간지점 : 을지로3가)
         //30's, M, 3, shopping+friend+healing+kids, A
-
 //        double latitude1 = 37.567631;
 //        double longitude1 = 126.989063;
 //        double latitude2 = 37.565301;
@@ -220,12 +252,12 @@ public class LocationController{
 
         //약속2 (중간지점 : 신정)
         //20's, F, 3, 1+2+3, C
-        double latitude1 = 37.540745;
-        double longitude1 = 126.861012;
-        double latitude2 = 37.519684;
-        double longitude2 =  126.830837;
-        double latitude3 = 37.523370;
-        double longitude3 = 126.866538;
+//        double latitude1 = 37.540745;
+//        double longitude1 = 126.861012;
+//        double latitude2 = 37.519684;
+//        double longitude2 =  126.830837;
+//        double latitude3 = 37.523370;
+//        double longitude3 = 126.866538;
 
         //약속3 (중간지점 : 명동)
         //약속3, 40's, F, 3, Japenese_Food+Anniversary+Franchise, R

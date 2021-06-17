@@ -1,6 +1,7 @@
 package com.mda.server.web;
 
 
+import com.mda.server.service.evalSubject.EvalSubjectService;
 import com.mda.server.service.place.PlaceService;
 import com.mda.server.web.dto.*;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,9 @@ public class PlaceController {
 
     @Autowired
     PlaceService placeService;
+
+    @Autowired
+    EvalSubjectService evalSubjectService;
 
     /**
      * @Class Name : PlaceController.java
@@ -33,7 +37,19 @@ public class PlaceController {
 
     @GetMapping(value= "/placeDetail/{placeId}")
     public PlaceDto findById (@PathVariable int placeId){
-        return placeService.findById(placeId);
+        PlaceDto p = new PlaceDto();
+        p = placeService.findById(placeId);
+        String tmp[] = p.getPlaceType().split(",");
+        int t[] = new int[tmp.length];
+        for (int i = 0; i < tmp.length; i++) {
+            t[i] = Integer.parseInt(tmp[i]);
+        }
+        String type="";
+        for (int i = 0; i < t.length; i++) {
+            type += ("#"+evalSubjectService.findById(t[i]).getEvalSubType()+" ");
+        }
+        p.setPlaceType(type);
+        return p;
     }
 
 
